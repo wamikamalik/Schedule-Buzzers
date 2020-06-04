@@ -3,7 +3,7 @@ import { StyleSheet,ImageBackground, Image, Text, View,Button, Picker, Modal, To
 //import {Button} from 'react-native-elements';
 import TimePicker from 'react-native-simple-time-picker';
 import firebaseDb from '../firebaseDb';
-import BlackButton from '../component/BlackButton';
+//import BlackButton from '../component/BlackButton';
  
 
 export default class SwitchExample extends Component {
