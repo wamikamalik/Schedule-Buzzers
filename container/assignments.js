@@ -44,7 +44,8 @@ import GreenButton from '../component/GreenButton';
             .collection('users')
             .doc(user)
             .collection('assignments')
-            .add(
+            .doc(this.state.name)
+            .set(
               {
               Module: this.state.mod,
               Name: this.state.name,
@@ -84,20 +85,37 @@ import GreenButton from '../component/GreenButton';
         }
      }
 
-    //  datepossible = () => {
-    //      //var today = new Date()
-    //      //alert("done") 
-    //      var date = moment(this.state.deadline,"DD-MM-YYYY")
-    //      var aDate = moment(date, "DD-MM-YYYY", true);
-    //     var isValid = aDate.isValid();
-        
-    //     if(isValid) {
-    //         this.setState({valid: true, done:true})
-    //     }
-    //     else {
-    //         this.setState({valid: false, done: true})
-    //     }
-    //  }
+     HandleRemove = () => {
+        const user = firebaseDb.auth().currentUser.uid;
+        if (user) {
+            firebaseDb.firestore()
+            .collection('users')
+            .doc(user)
+            .collection('assignments')
+            .doc(this.state.name)
+            .get()
+            .then((doc)=>{
+                if(!doc.exists) {
+                    alert("No such Assignment!")
+                }
+                else{
+                    firebaseDb.firestore()
+                    .collection('users')
+                    .doc(user)
+                    .collection('assignments')
+                    .doc(this.state.name)
+                    .delete()
+                    .then(() => {
+                        alert("Assignment Removed!!")
+                    })
+                    .catch(function(error) {
+                        console.error("Error removing document: ", error);
+                    });
+                }
+            })
+            
+        }   
+     }
 
      render() {
          return (
@@ -106,6 +124,7 @@ import GreenButton from '../component/GreenButton';
                 <TouchableOpacity style={{marginTop: 20}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
                 </TouchableOpacity>
                 <Text style={styles.text}>Add Assignments</Text>
+                <Text style={styles.texta}>Input only Name to remove an Assignment.</Text>
                 <Text style={styles.texta}>Module</Text><TextInput style={styles.textInput} placeholder='Module Name' onChangeText={this.handleUpdateMod} value={this.state.mod}></TextInput>
                 <Text style={styles.texta}>Name</Text><TextInput style={styles.textInput} placeholder='Assignment name' onChangeText={this.handleUpdatename} value={this.state.name}></TextInput>
                 <Text style={styles.texta}>Deadline</Text>
@@ -134,6 +153,7 @@ import GreenButton from '../component/GreenButton';
                     <Text style={styles.texta}>If calender is inaccessible, Please enter date below</Text><TextInput style={styles.textInput} placeholder="DD-MM-YYYY" onChangeText={this.handleUpdatedeadline} value={this.state.deadline}></TextInput>
 
                 <GreenButton style={styles.button} onPress= {this.UpdateUser}>Add</GreenButton>
+                <GreenButton style={styles.button} onPress= {this.HandleRemove}>Remove</GreenButton>
                 </ImageBackground>
              </SafeAreaView>
          )
