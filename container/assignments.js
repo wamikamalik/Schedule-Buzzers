@@ -1,5 +1,5 @@
 import React from 'react'
-import { SafeAreaView, ImageBackground, Image, TextInput, Text, Button, ActivityIndicator, StyleSheet, Dimensions } from 'react-native'
+import { KeyboardAvoidingView, ImageBackground, Image, TextInput, Text, Button, ActivityIndicator, StyleSheet, Dimensions } from 'react-native'
 import { TouchableOpacity} from 'react-native-gesture-handler';
 import DatePicker from 'react-native-datepicker'
 import moment from 'moment'
@@ -33,25 +33,42 @@ import GreenButton from '../component/GreenButton';
      handleUpdatedeadline = deadline => this.setState({deadline})
 
      UpdateUser = () => {
-        const user = firebaseDb.auth().currentUser.uid;
-        var today = new Date()
-        var date = moment(this.state.deadline,"DD-MM-YYYY")
-        var aDate = moment(date, "DD-MM-YYYY", true);
-       var isValid = aDate.isValid();
-       if(isValid && date >= today) {
-        if (user) {
-            firebaseDb.firestore()
-            .collection('users')
-            .doc(user)
-            .collection('assignments')
-            .doc(this.state.name)
-            .set(
-              {
-              Module: this.state.mod,
-              Name: this.state.name,
-              Deadline: this.state.deadline
-             })
-             .then(() => {
+        if(this.state.name==''||this.state.name==null){
+            alert("Please enter Assignment name.")
+        }
+        else{
+            const user = firebaseDb.auth().currentUser.uid;
+            var today = new Date()
+            var date = moment(this.state.deadline,"DD-MM-YYYY")
+            var aDate = moment(date, "DD-MM-YYYY", true);
+            var isValid = aDate.isValid();
+            if(isValid && date >= today) {
+            if (user) {
+                firebaseDb.firestore()
+                .collection('users')
+                .doc(user)
+                .collection('assignments')
+                .doc(this.state.name)
+                .set(
+                {
+                Module: this.state.mod,
+                Name: this.state.name,
+                Deadline: this.state.deadline
+                })
+                .then(() => {
+                    this.setState({
+                        mod: '',
+                        name: '',
+                        deadline: '',
+                        isValid:false,
+                        done: false
+                        }) 
+                        alert("Assignment Added!!")
+                    })
+                }
+            }
+            else if(date<today){
+                alert("Date has passed already!!")
                 this.setState({
                     mod: '',
                     name: '',
@@ -59,78 +76,66 @@ import GreenButton from '../component/GreenButton';
                     isValid:false,
                     done: false
                     }) 
-                    alert("Assignment Added!!")
-                })
+            }
+            else {
+                alert("Invalid Date!!")
+                this.setState({
+                    mod: '',
+                    name: '',
+                    deadline: '',
+                    isValid:false,
+                    done: false
+                    }) 
             }
         }
-        else if(date<today){
-            alert("Date has passed already!!")
-            this.setState({
-                mod: '',
-                name: '',
-                deadline: '',
-                isValid:false,
-                done: false
-                }) 
-        }
-        else {
-            alert("Invalid Date!!")
-            this.setState({
-                mod: '',
-                name: '',
-                deadline: '',
-                isValid:false,
-                done: false
-                }) 
-        }
-     }
+    }
 
-     HandleRemove = () => {
-        const user = firebaseDb.auth().currentUser.uid;
-        if (user) {
-            firebaseDb.firestore()
-            .collection('users')
-            .doc(user)
-            .collection('assignments')
-            .doc(this.state.name)
-            .get()
-            .then((doc)=>{
-                if(!doc.exists) {
-                    alert("No such Assignment!")
-                }
-                else{
-                    firebaseDb.firestore()
-                    .collection('users')
-                    .doc(user)
-                    .collection('assignments')
-                    .doc(this.state.name)
-                    .delete()
-                    .then(() => {
-                        alert("Assignment Removed!!")
-                    })
-                    .catch(function(error) {
-                        console.error("Error removing document: ", error);
-                    });
-                }
-            })
+        HandleRemove = () => {
+            const user = firebaseDb.auth().currentUser.uid;
+            if (user) {
+                firebaseDb.firestore()
+                .collection('users')
+                .doc(user)
+                .collection('assignments')
+                .doc(this.state.name)
+                .get()
+                .then((doc)=>{
+                    if(!doc.exists) {
+                        alert("No such Assignment!")
+                    }
+                    else{
+                        firebaseDb.firestore()
+                        .collection('users')
+                        .doc(user)
+                        .collection('assignments')
+                        .doc(this.state.name)
+                        .delete()
+                        .then(() => {
+                            alert("Assignment Removed!!")
+                        })
+                        .catch(function(error) {
+                            console.error("Error removing document: ", error);
+                        });
+                    }
+                })
             
         }   
      }
 
      render() {
          return (
-             <SafeAreaView style={styles.container}>
+             <KeyboardAvoidingView style={styles.container}>
                 <ImageBackground style={{flex: 1, resizeMode: "cover"}} source={require('../assets/assignback.png')}>
-                <TouchableOpacity style={{marginTop: 20}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
+                <TouchableOpacity style={{marginTop: 20}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slideinw.png')}/>
                 </TouchableOpacity>
                 <Text style={styles.text}>Add Assignments</Text>
                 <Text style={styles.texta}>Input only Name to remove an Assignment.</Text>
-                <Text style={styles.texta}>Module</Text><TextInput style={styles.textInput} placeholder='Module Name' onChangeText={this.handleUpdateMod} value={this.state.mod}></TextInput>
-                <Text style={styles.texta}>Name</Text><TextInput style={styles.textInput} placeholder='Assignment name' onChangeText={this.handleUpdatename} value={this.state.name}></TextInput>
+                <Text style={styles.texta}>Module</Text><TextInput style={styles.textInput} placeholder='Module Name' placeholderTextColor="white" onChangeText={this.handleUpdateMod} value={this.state.mod}></TextInput>
+                <Text style={styles.texta}>Name</Text><TextInput style={styles.textInput} placeholder='Assignment name' placeholderTextColor="white" onChangeText={this.handleUpdatename} value={this.state.name}></TextInput>
                 <Text style={styles.texta}>Deadline</Text>
                     <DatePicker
                     style={{width: 200, marginTop: 10, alignSelf:'center'}}
-                    date={this.date} //initial date from state
+                    date={this.state.deadline} //initial date from state
                     mode="date" //The enum of date, datetime and time
                     placeholder="Enter Deadline"
                     format="DD-MM-YYYY"
@@ -146,16 +151,20 @@ import GreenButton from '../component/GreenButton';
                         marginTop: 10
                         },
                         dateInput: {
-                        marginLeft: 36
+                        marginLeft: 36,
+                        color: "white"
+                        },
+                        placeholderText: {
+                            color:"white"
                         }
                     }}
                     onDateChange={this.handleUpdatedeadline}/> 
-                    <Text style={styles.texta}>If calender is inaccessible, Please enter date below</Text><TextInput style={styles.textInput} placeholder="DD-MM-YYYY" onChangeText={this.handleUpdatedeadline} value={this.state.deadline}></TextInput>
+                    <Text style={styles.texta}>If calender is inaccessible, Please enter date below</Text><TextInput style={styles.textInput} placeholder="DD-MM-YYYY" placeholderTextColor="white" onChangeText={this.handleUpdatedeadline} value={this.state.deadline}></TextInput>
 
                 <GreenButton style={styles.button} onPress= {this.UpdateUser}>Add</GreenButton>
                 <GreenButton style={styles.button} onPress= {this.HandleRemove}>Remove</GreenButton>
                 </ImageBackground>
-             </SafeAreaView>
+             </KeyboardAvoidingView>
          )
      }
  }
@@ -177,9 +186,9 @@ import GreenButton from '../component/GreenButton';
         fontWeight:'bold',
         fontSize: 28,
         alignSelf:'center',
-        marginTop: 50,
-        textDecorationLine: "underline"
-       
+        marginTop: 30,
+        textDecorationLine: "underline",
+        color: "white"
     },
     textInput: {
         //borderRadius:5,
@@ -187,19 +196,19 @@ import GreenButton from '../component/GreenButton';
         fontSize: 20,
         marginTop: 10,
         marginLeft: 5,
-        // width: 400,
-        // height: 50,
+        width: 400,
+        height: 50,
         fontWeight: "bold",
         alignSelf:'center',
         alignItems: 'center',
-        //color: 'white'
+        color: 'white'
       },
       texta: {
         fontSize: 20,
         marginTop: 20,
         //marginLeft:150,
         //fontWeight:'bold',
-        //color: "white",
+        color: "white",
         alignSelf: 'center'
       },
       button: {

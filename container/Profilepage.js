@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
     button: {
         marginTop: 25,
         borderRadius:20,
-        width:150,
+        width:200,
         height:45,
         alignSelf:'center',
       },
