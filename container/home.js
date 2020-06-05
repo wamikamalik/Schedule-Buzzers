@@ -1,7 +1,7 @@
 import React from 'react'
-import { SafeAreaView, ImageBackground, Image, TextInput, Text, Button, ActivityIndicator, StyleSheet, Dimensions } from 'react-native'
+import { SafeAreaView, ImageBackground, Image, TextInput, Text, ActivityIndicator, StyleSheet, Dimensions } from 'react-native'
 import { TouchableOpacity} from 'react-native-gesture-handler';
-
+import WhiteButton from '../component/WhiteButton';
 
  import firebaseDb from '../firebaseDb';
 
@@ -39,6 +39,9 @@ class home extends React.Component {
               </TouchableOpacity>
               <Text style={styles.text}>Hello,{this.state.name}!!</Text>
               <Image style={styles.profile} source={this.state.photo}></Image>
+              <WhiteButton style={styles.button} onPress={()=>this.props.navigation.navigate("Add Schedule")}>Add Schedule</WhiteButton>
+              <WhiteButton style={styles.button} onPress={()=>this.props.navigation.navigate("Add Assignments")}>Add Assignments</WhiteButton>
+              <WhiteButton style={styles.button} onPress={()=>this.props.navigation.openDrawer()}>More Options</WhiteButton>
               </ImageBackground>
           </SafeAreaView>
         )
@@ -72,7 +75,14 @@ class home extends React.Component {
         borderRadius: 90,
         alignSelf:'center',
         marginTop: 20
-    }
+    },
+    button: {
+        marginTop: 25,
+        borderRadius:20,
+        width:200,
+        height:45,
+        alignSelf:'center',
+      },
 })
 
   export default home
