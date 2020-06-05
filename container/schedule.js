@@ -98,16 +98,34 @@ onremoving= () =>{
      }
 
 checkTime=() =>{
-  if (this.state.selectedHoursf > this.state.selectedHourst) {
-    alert("This time is not possible");
+if ((this.state.selectedHoursf<10) && (this.state.selectedHourst<10)){
+  if (this.state.selectedHoursf < this.state.selectedHourst) {
+    alert("Saved to your schedule!");
    }
-    else if (this.state.selectedMinutesf>this.state.selectedMinutest && this.state.selectedHoursf==this.state.selectedHourst){
-    alert("This time is not possible");}
+     else if ((this.state.selectedMinutesf<this.state.selectedMinutest) && (this.state.selectedHoursf==this.state.selectedHourst)){
+     alert("Saved to your schedule!");}
     else
+    {
+      alert("This time is not possible"); }
+    }
+    if ((this.state.selectedHoursf<10) && (this.state.selectedHourst>=10))
     {
       alert("Saved to your schedule!");
     }
-
+    if ((this.state.selectedHoursf>=10) && (this.state.selectedHourst<10))
+    {
+      alert("This time is not possible!");
+    }
+    if ((this.state.selectedHoursf>=10) && (this.state.selectedHourst>=10)){
+      if (this.state.selectedHoursf < this.state.selectedHourst) {
+        alert("Saved to your schedule!");
+       }
+         else if ((this.state.selectedMinutesf<this.state.selectedMinutest) && (this.state.selectedHoursf==this.state.selectedHourst)){
+         alert("Saved to your schedule!");}
+        else
+        {
+          alert("This time is not possible"); }
+        }
 }
 
   handleAdd = () => {
