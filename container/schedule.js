@@ -77,6 +77,16 @@ onremoving= () =>{
             .then((doc)=>{
                 if(!doc.exists) {
                     alert("No such schedule found!")
+                   this.setState({
+      Day: '',
+      Module: '',
+      Class: '',
+      selectedHoursf:0,
+      selectedHourst:0,
+      selectedMinutesf:0,
+      selectedMinutest:0,
+      Location:''
+      }) 
                 }
                 else{
                     firebaseDb.firestore()
@@ -89,6 +99,16 @@ onremoving= () =>{
                     .delete()
                     .then(() => {
                       alert("Removed from your schedule! ");
+                       this.setState({
+      Day: '',
+      Module: '',
+      Class: '',
+      selectedHoursf:0,
+      selectedHourst:0,
+      selectedMinutesf:0,
+      selectedMinutest:0,
+      Location:''
+      }) 
                     })
                     
                 }
