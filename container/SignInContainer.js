@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Image, TextInput, Text, ActivityIndicator, StyleSheet } from 'react-native'
 import WhiteButton from '../component/WhiteButton';
 import firebaseDb from '../firebaseDb';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 class SignInContainer extends React.Component {
   state = {
@@ -54,7 +55,11 @@ class SignInContainer extends React.Component {
         <WhiteButton style={styles.button} onPress={this.handleSignIn}>
           Sign In
         </WhiteButton>
-        <Text style={styles.textA}>By proceeding you agree to the Terms of Service and Privacy Policy</Text>
+        <Text style={styles.textA}>By proceeding you agree to the <TouchableOpacity onPress={()=>this.props.navigation.navigate('Terms')}><Text style={styles.texta}>Terms of Service and Privacy Policy</Text>
+        </TouchableOpacity></Text>
+        <Text style={styles.textC}>Don't have an account?
+        <TouchableOpacity onPress={()=>this.props.navigation.navigate('SignUp')}><Text> Sign up!</Text></TouchableOpacity>
+        </Text>
       </View>
     )
   }
@@ -91,7 +96,20 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: "center",
     fontSize: 15
-  }
+  },
+  texta: {
+    marginTop: 10,
+    textAlign: "center",
+    fontSize: 15,
+    textDecorationLine:"underline"
+  }, 
+  textC: {
+    marginTop : 10,
+    color: 'white',
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 20
+  } 
 })
 
 export default SignInContainer

@@ -18,6 +18,7 @@ import {
  import assignments from './assignments'
  import schedule from './schedule'
 import about from './about'
+import TermsCond from './TermsCond'
 
 const DrawerNavigator = createDrawerNavigator();
 
@@ -46,7 +47,8 @@ class Main extends React.Component {
                     <DrawerNavigator.Screen name="Add Assignments" options={{drawerIcon: config => <Image style={styles.image1} source={require('../assets/assign.png')}/>}} component={assignments}/>
                     <DrawerNavigator.Screen name="Profile" options={{drawerIcon: config => <Image style={styles.image1} source={require('../assets/profile.png')}/>}} component={Profilepage}/>
                     <DrawerNavigator.Screen name="Account Details" options={{drawerIcon: config => <Image style={styles.image1} source={require('../assets/accnt.png')}/>}} component={accntDetails}/>
-                     <DrawerNavigator.Screen name="About the app" options={{drawerIcon: config => <Image style={styles.image1} source={require('../assets/abouticon.png')}/>}} component={about}/>                                                                                                                     
+                    <DrawerNavigator.Screen name="About the app" options={{drawerIcon: config => <Image style={styles.image1} source={require('../assets/abouticon.png')}/>}} component={about}/> 
+                    <DrawerNavigator.Screen name="Terms And Conditions" options={{drawerIcon: config => <Image style={styles.image1} source={require('../assets/tc.png')}/>}} component={TermsCond}/>                                                                                                                    
                     <DrawerNavigator.Screen name="Sign Out" options={{drawerIcon: config => <Image style={styles.image1} source={require('../assets/logout.png')}/>}} component={App}/>
                 </DrawerNavigator.Navigator>
             </NavigationContainer>

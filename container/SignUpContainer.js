@@ -3,6 +3,7 @@ import { View, KeyboardAvoidingView, Image, TextInput, Text, StyleSheet } from '
 import firebaseDb from '../firebaseDb'
 import WhiteButton from '../component/WhiteButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import {CheckBox} from 'react-native-elements'
 
 class SignUpContainer extends React.Component {
   state = {
@@ -11,7 +12,8 @@ class SignUpContainer extends React.Component {
     password: '',
     password1:'',
     signUpSuccess: false,
-    done: false
+    done: false,
+    checked: false
   }
 
   handleUpdateName = name => this.setState({name})
@@ -83,9 +85,10 @@ class SignUpContainer extends React.Component {
         onChangeText={this.handleUpdatePassword} value={password}/>
         <TextInput secureTextEntry style={styles.textInput} placeholder="Repeat Password" 
         onChangeText={this.handleUpdatePassword1} value={password1}/>
-        <Text style={styles.textA}>By proceeding you agree to the Terms of Service and Privacy Policy</Text>
+        <CheckBox containerStyle={{backgroundColor: '#2ec4b6',borderColor:'#2ec4b6'}} title ={<View><Text style={styles.textA}>I agree to the <TouchableOpacity onPress={()=>this.props.navigation.navigate('Terms')}><Text style={styles.texta}>Terms of Service and Privacy Policy</Text>
+        </TouchableOpacity></Text></View>} checked={this.state.checked} onPress={() => this.setState({checked: !this.state.checked})}/>
         <WhiteButton style={styles.button} onPress={() => {
-          if (name.length && email.length && password.length && password == password1) {
+          if (name.length && email.length && password.length && password == password1 && this.state.checked) {
             this.handleCreateUser()
             //this.handleUser()
           }
@@ -142,9 +145,15 @@ const styles = StyleSheet.create({
     marginTop: 40
   },
   textA: {
-    marginTop:30,
-    textAlign: "center",
+    //marginTop:25,
+    //textAlign: "center",
     fontSize: 15
+  },
+  texta:{
+    //marginTop:25,
+    //textAlign: "center",
+    fontSize: 15,
+    textDecorationLine:'underline'
   },
   textB: {
     fontSize: 20,

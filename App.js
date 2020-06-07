@@ -7,6 +7,7 @@ import WhiteButton from "./component/WhiteButton";
 import SignUpContainer from "./container/SignUpContainer"
 import SignInContainer from "./container/SignInContainer"
 import Main from "./container/Main"
+import TermsCond from "./component/TermsCond"
 
 // function Separator() {
 //   return <View style={styles.separator} />;
@@ -39,6 +40,7 @@ function App() {
         <Stack.Screen name="SignUp" component={SignUpContainer}/>
         <Stack.Screen name="SignIn" component={SignInContainer}/>
         <Stack.Screen name="Main"  options={{headerLeft:null}} component={Main}/>
+        <Stack.Screen name="Terms" component={TermsCond}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
