@@ -55,11 +55,11 @@ class SignInContainer extends React.Component {
         <WhiteButton style={styles.button} onPress={this.handleSignIn}>
           Sign In
         </WhiteButton>
-        <Text style={styles.textA}>By proceeding you agree to the <TouchableOpacity onPress={()=>this.props.navigation.navigate('Terms')}><Text style={styles.texta}>Terms of Service and Privacy Policy</Text>
-        </TouchableOpacity></Text>
-        <Text style={styles.textC}>Don't have an account?
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate('SignUp')}><Text> Sign up!</Text></TouchableOpacity>
-        </Text>
+        <Text style={styles.textA}>By proceeding you agree to the </Text><TouchableOpacity onPress={()=>this.props.navigation.navigate('Terms')}><Text style={styles.texta}>Terms of Service and Privacy Policy</Text>
+        </TouchableOpacity>
+        <Text style={styles.textC}>Don't have an account?</Text>
+        <TouchableOpacity onPress={()=>this.props.navigation.navigate('SignUp')}><Text style={styles.textC}> Sign up!</Text></TouchableOpacity>
+        
       </View>
     )
   }

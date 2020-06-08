@@ -85,10 +85,13 @@ class SignUpContainer extends React.Component {
         onChangeText={this.handleUpdatePassword} value={password}/>
         <TextInput secureTextEntry style={styles.textInput} placeholder="Repeat Password" 
         onChangeText={this.handleUpdatePassword1} value={password1}/>
-        <CheckBox containerStyle={{backgroundColor: '#2ec4b6',borderColor:'#2ec4b6'}} title ={<View><Text style={styles.textA}>I agree to the <TouchableOpacity onPress={()=>this.props.navigation.navigate('Terms')}><Text style={styles.texta}>Terms of Service and Privacy Policy</Text>
-        </TouchableOpacity></Text></View>} checked={this.state.checked} onPress={() => this.setState({checked: !this.state.checked})}/>
+        <CheckBox containerStyle={{backgroundColor: '#2ec4b6',borderColor:'#2ec4b6'}} 
+        title ={<View>
+          <Text style={styles.textA}>I agree to the </Text>
+          <TouchableOpacity onPress={()=>this.props.navigation.navigate('Terms')}><Text style={styles.texta}>Terms of Service and Privacy Policy</Text></TouchableOpacity>
+          </View>} checked={this.state.checked} onPress={() => this.setState({checked: !this.state.checked})}/>
         <WhiteButton style={styles.button} onPress={() => {
-          if (name.length && email.length && password.length && password == password1 && this.state.checked) {
+          if (name.length && email.length && password.length && password == password1 && this.state.checked == true) {
             this.handleCreateUser()
             //this.handleUser()
           }
@@ -109,9 +112,8 @@ class SignUpContainer extends React.Component {
           signUpSuccess == true && <Text style={styles.text}>Sign Up Successful!</Text> 
           || signUpSuccess == false && done && <Text style={styles.textB}>Sign Up Unsuccessful!</Text>
         }
-        <Text style={styles.textC}>Already have an account?
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate('SignIn')}><Text> Sign in</Text></TouchableOpacity>
-        </Text>
+        <Text style={styles.textC}>Already have an account?</Text>
+        <TouchableOpacity onPress={()=>this.props.navigation.navigate('SignIn')}><Text style={styles.textC}> Sign in</Text></TouchableOpacity>
     </View>
     )
   }
@@ -146,12 +148,12 @@ const styles = StyleSheet.create({
   },
   textA: {
     //marginTop:25,
-    //textAlign: "center",
+    textAlign: "center",
     fontSize: 15
   },
   texta:{
     //marginTop:25,
-    //textAlign: "center",
+    textAlign: "center",
     fontSize: 15,
     textDecorationLine:'underline'
   },

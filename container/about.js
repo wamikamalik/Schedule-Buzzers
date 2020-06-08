@@ -47,21 +47,12 @@ Shreya and Wamika
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignItems:"center",
+       // flexDirection: 'column',
         backgroundColor: '#2ec4b6',
-      paddingHorizontal: 100,
     
       },
-
-      scrollview: {
-
-        marginHorizontal: 20
-      },
       image: {
-        color: "black",
+        //color: "black",
         justifyContent: 'flex-start',
         alignItems:'flex-start',
         alignSelf: 'flex-start',
