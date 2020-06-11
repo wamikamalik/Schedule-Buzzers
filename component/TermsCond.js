@@ -7,7 +7,7 @@ render (){
 return (
 
 <SafeAreaView style={styles.container}>
-<ImageBackground style={{flex: 1, resizeMode: "cover"}} source={require('../assets/tcback.png')}>
+<ImageBackground style={{flex: 1, resizeMode: "cover"}} source={require('../assets/back1.png')}>
 <ScrollView style={styles.scrollview}>
 
     <TouchableOpacity style={{marginTop: 20}} onPress={()=>this.props.navigation.goBack()}><Image style={styles.image} source={require('../assets/bac.png')}/>
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         //flexDirection: 'column',
-        backgroundColor: '#2ec4b6',
+        backgroundColor: '#02b7cc',
       },
 
       image: {

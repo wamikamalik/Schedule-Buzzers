@@ -85,7 +85,7 @@ class SignUpContainer extends React.Component {
         onChangeText={this.handleUpdatePassword} value={password}/>
         <TextInput secureTextEntry style={styles.textInput} placeholder="Repeat Password" 
         onChangeText={this.handleUpdatePassword1} value={password1}/>
-        <CheckBox containerStyle={{backgroundColor: '#2ec4b6',borderColor:'#2ec4b6'}} 
+        <CheckBox containerStyle={{backgroundColor: '#02b7cc',borderColor:'#02b7cc'}} 
         title ={<View>
           <Text style={styles.textA}>I agree to the </Text>
           <TouchableOpacity onPress={()=>this.props.navigation.navigate('Terms')}><Text style={styles.texta}>Terms of Service and Privacy Policy</Text></TouchableOpacity>
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#2ec4b6'
+    backgroundColor: '#02b7cc'
   },
   textInput: {
     borderRadius:5,

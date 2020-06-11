@@ -7,6 +7,7 @@ render (){
 return (
 
 <SafeAreaView style={styles.container}>
+<ImageBackground style={{flex: 1, resizeMode: "cover"}} source={require('../assets/back1.png')}>
 <ScrollView style={styles.scrollview}>
 <TouchableOpacity style={{marginTop: 20}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
                 </TouchableOpacity>
@@ -39,6 +40,7 @@ Shreya and Wamika
 (NUS)
 </Text>
 </ScrollView>
+</ImageBackground>
 </SafeAreaView>
 )
 }
@@ -48,7 +50,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
        // flexDirection: 'column',
-        backgroundColor: '#2ec4b6',
+        backgroundColor: '#02b7cc',
     
       },
       image: {
@@ -72,8 +74,9 @@ const styles = StyleSheet.create({
       texta:{
         fontSize: 20,
         marginTop: 20,
+        marginLeft: 5,
         alignSelf: "center",
-        color: "white"
+        //color: "white"
       }
 
 

@@ -259,7 +259,7 @@ this.checkTime();
             <ImageBackground style={{flex: 1, resizeMode: "cover" ,flexDirection: "column",
     justifyContent: 'center',
    alignItems:"center",
-  paddingHorizontal: 100}} source={require('../assets/scheduleback.jpg')}>
+  paddingHorizontal: 100}} source={require('../assets/back1.png')}>
             <TouchableOpacity style={{ position: "absolute", top: 5, left: 5}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
                 </TouchableOpacity>
                <Text style={styles.textb}>Add to schedule</Text>

@@ -235,13 +235,13 @@ import GreenButton from '../component/GreenButton';
          return (
              <KeyboardAvoidingView style={styles.container}>
                  <ScrollView>
-                <ImageBackground style={{flex: 1, resizeMode: "cover"}} source={require('../assets/assignback.png')}>
+                <ImageBackground style={{flex: 1, resizeMode: "contain"}} source={require('../assets/back1.png')}>
                 <TouchableOpacity style={{marginTop: 20}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slideinw.png')}/>
                 </TouchableOpacity>
                 <Text style={styles.text}>Add Assignments</Text>
                 <Text style={styles.texta}>Input only Name to remove an Assignment. To update input name and press on search.</Text>
-                <Text style={styles.texta}>Module</Text><TextInput style={styles.textInput} placeholder='Module Name' placeholderTextColor="white" onChangeText={this.handleUpdateMod} value={this.state.mod}></TextInput>
-                <Text style={styles.texta}>Name</Text><TextInput style={styles.textInput} placeholder='Assignment name' placeholderTextColor="white" onChangeText={this.handleUpdatename} value={this.state.name}></TextInput>
+                <Text style={styles.texta}>Module</Text><TextInput style={styles.textInput} placeholder='Module Name' placeholderTextColor="black" onChangeText={this.handleUpdateMod} value={this.state.mod}></TextInput>
+                <Text style={styles.texta}>Name</Text><TextInput style={styles.textInput} placeholder='Assignment name' placeholderTextColor="black" onChangeText={this.handleUpdatename} value={this.state.name}></TextInput>
                 <GreenButton style={styles.button} onPress= {this.HandleSearch}>Search</GreenButton>
                 <Text style={styles.texta}>Deadline</Text>
                     <DatePicker
@@ -263,15 +263,12 @@ import GreenButton from '../component/GreenButton';
                         },
                         dateInput: {
                         marginLeft: 36,
-                        color: "white"
+                        color: "black"
                         },
-                        placeholderText: {
-                            color:"white"
-                        }
                     }}
                     onDateChange={this.handleUpdatedeadline}/> 
-                    <Text style={styles.texta}>If calender is inaccessible, Please enter date below</Text><TextInput style={styles.textInput} placeholder="DD-MM-YYYY" placeholderTextColor="white" onChangeText={this.handleUpdatedeadline} value={this.state.deadline}></TextInput>
-                    <Text style={styles.texta}>Notes</Text><TextInput style={styles.textInputa} placeholder='Additional notes' placeholderTextColor="white" onChangeText={this.handleUpdatenotes} value={this.state.notes}></TextInput>
+                    <Text style={styles.texta}>If calender is inaccessible, Please enter date below</Text><TextInput style={styles.textInput} placeholder="DD-MM-YYYY" placeholderTextColor="black" onChangeText={this.handleUpdatedeadline} value={this.state.deadline}></TextInput>
+                    <Text style={styles.texta}>Notes</Text><TextInput style={styles.textInputa} placeholder='Additional notes' placeholderTextColor="black" onChangeText={this.handleUpdatenotes} value={this.state.notes} multiline></TextInput>
 
                 <GreenButton style={styles.button} onPress= {this.UpdateUser}>Add/Update</GreenButton>
                 {/* <GreenButton style={styles.button} onPress= {this.HandleUpdate}>Update</GreenButton> */}
@@ -302,7 +299,7 @@ import GreenButton from '../component/GreenButton';
         alignSelf:'center',
         marginTop: 10,
         textDecorationLine: "underline",
-        color: "white"
+        //color: "white"
     },
     textInput: {
         //borderRadius:5,
@@ -315,7 +312,7 @@ import GreenButton from '../component/GreenButton';
         fontWeight: "bold",
         alignSelf:'center',
         alignItems: 'center',
-        color: 'white'
+        //color: 'white'
       },
       textInputa: {
         //borderRadius:5,
@@ -324,19 +321,19 @@ import GreenButton from '../component/GreenButton';
         marginTop: 10,
         marginLeft: 5,
         width: 400,
-        height: 200,
+        height: 100,
         fontWeight: "bold",
         alignSelf:'center',
         //alignItems: 'center',
         paddingTop:5,
-        color: 'white'
+       // color: 'white'
       },
       texta: {
         fontSize: 20,
         marginTop: 20,
         //marginLeft:150,
         //fontWeight:'bold',
-        color: "white",
+        //color: "white",
         alignSelf: 'center'
       },
       button: {

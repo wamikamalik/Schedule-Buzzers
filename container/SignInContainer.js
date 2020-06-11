@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#2ec4b6'
+    backgroundColor: '#02b7cc'
   },
   textInput: {
     borderRadius: 5,

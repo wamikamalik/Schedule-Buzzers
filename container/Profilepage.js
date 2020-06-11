@@ -93,7 +93,7 @@ class Profilepage extends React.Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-              <ImageBackground style={{flex: 1, resizeMode: "cover"}} source={require('../assets/profileback.png')}>
+              <ImageBackground style={{flex: 1, resizeMode: "cover"}} source={require('../assets/back1.png')}>
                 <TouchableOpacity style={{marginTop: 20}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slideinw.png')}/>
                 </TouchableOpacity>
                 {/* <WhiteButton style={styles.button} onPress={this.HandleUser}>Get Details</WhiteButton> */}
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
       flexDirection: 'column',
       //justifyContent: 'center',
       //alignItems: 'center',
-      backgroundColor: '#2ec4b6'
+      backgroundColor: '#02b7cc'
     },
 
     textInput: {
@@ -151,14 +151,14 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         alignSelf:'center',
         alignItems: 'center',
-        color: 'white'
+        //color: 'white'
       },
       text: {
         fontSize: 20,
         marginTop: 10,
         marginLeft:50,
         //fontWeight:'bold',
-        color: "white",
+       // color: "white",
       },
       image: {
         justifyContent: 'flex-start',

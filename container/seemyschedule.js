@@ -55,7 +55,7 @@ export default class ExampleThree extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#2ec4b6' ,alignItems:"center",justifyContent: "center"},
+  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#02b7cc' ,alignItems:"center",justifyContent: "center"},
   header: { height: 50, backgroundColor: '#537791' },
   text: { textAlign: 'center', fontWeight: '100' },
   dataWrapper: { marginTop: -1 },

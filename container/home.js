@@ -34,7 +34,7 @@ class home extends React.Component {
     render() {
         return (
             <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
-            <ImageBackground style={{flex: 1, resizeMode: "cover"}} source={require('../assets/back.png')}>
+            <ImageBackground style={{flex: 1,height: "100%", width:"100%", resizeMode:"contain"}} source={require('../assets/back.png')}>
               <TouchableOpacity style={{marginTop: 20}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
               </TouchableOpacity>
               <Text style={styles.text}>Hello,{this.state.name}!!</Text>
