@@ -19,9 +19,16 @@ export default class ExampleThree extends Component {
 
  componentDidMount() {
   var user = firebaseDb.auth().currentUser;
+  var days = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
   let i = 8
+  let j=8
+  let k= 8
+  let l=8
+  let m=8
   //let j = 0
   //const num = []
+  //let j=0;
+  
    firebaseDb.firestore()
    .collection('users')
    .doc(user.uid)
@@ -66,18 +73,216 @@ export default class ExampleThree extends Component {
      //alert(modules)
      this.setState({modules: modules})
    })
-      
- }
 
+   firebaseDb.firestore()
+   .collection('users')
+   .doc(user.uid)
+   .collection('classes')
+   .doc('Days')
+   .collection('Tuesday')
+   .orderBy('selectedHourst','asc')
+   .get()
+   .then(snapshot => {
+     const modules1=[]
+     snapshot.forEach(doc => {
+      {  //j++;
+        if(parseInt(doc.data().selectedHoursf)==j) {
+          modules1.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
+          j=j+1;
+          while(j<parseInt(doc.data().selectedHourst)) {
+            modules1.push(" ")
+            j=j+1;
+          }
+        }
+        else {
+          while(j!=parseInt(doc.data().selectedHoursf) && j<21) {
+          modules1.push(" ")
+          j=j+1;
+          //alert(doc.data().selectedHoursf+','+String(i))
+        }
+        if(parseInt(doc.data().selectedHoursf)==j) {
+          modules1.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
+          j=j+1;
+          while(j<parseInt(doc.data().selectedHourst)) {
+            modules1.push(" ")
+            j=j+1;
+          }
+        }
+      }
+      }
+      //  const data= doc.data()
+      //  modules.push(data)
+      //modules.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
+     })
+     //num.push(j)
+     //alert(modules)
+     this.setState({modules1: modules1})
+   })
+   firebaseDb.firestore()
+   .collection('users')
+   .doc(user.uid)
+   .collection('classes')
+   .doc('Days')
+   .collection('Wednesday')
+   .orderBy('selectedHourst','asc')
+   .get()
+   .then(snapshot => {
+     const modules2=[]
+     snapshot.forEach(doc => {
+      {  //j++;
+        if(parseInt(doc.data().selectedHoursf)==k) {
+          modules2.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
+          k=k+1;
+          while(k<parseInt(doc.data().selectedHourst)) {
+            modules2.push(" ")
+          k=k+1;
+          }
+        }
+        else {
+          while(k!=parseInt(doc.data().selectedHoursf) && k<21) {
+          modules2.push(" ")
+          k=k+1;
+          //alert(doc.data().selectedHoursf+','+String(i))
+        }
+        if(parseInt(doc.data().selectedHoursf)==k) {
+          modules2.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
+          k=k+1;
+          while(k<parseInt(doc.data().selectedHourst)) {
+            modules2.push(" ")
+            k=k+1;
+
+          }
+        }
+      }
+      }
+      //  const data= doc.data()
+      //  modules.push(data)
+      //modules.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
+     })
+     //num.push(j)
+     //alert(modules)
+     this.setState({modules2: modules2})
+   })
+
+   firebaseDb.firestore()
+   .collection('users')
+   .doc(user.uid)
+   .collection('classes')
+   .doc('Days')
+   .collection('Thursday')
+   .orderBy('selectedHourst','asc')
+   .get()
+   .then(snapshot => {
+     const modules3=[]
+     snapshot.forEach(doc => {
+      {  //j++;
+        if(parseInt(doc.data().selectedHoursf)==l) {
+          modules3.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
+          l=l+1;
+          while(l<parseInt(doc.data().selectedHourst)) {
+            modules3.push(" ")
+            l=l+1;
+          }
+        }
+        else {
+          while(l!=parseInt(doc.data().selectedHoursf) && l<21) {
+          modules3.push(" ")
+          l=l+1;
+          //alert(doc.data().selectedHoursf+','+String(i))
+        }
+        if(parseInt(doc.data().selectedHoursf)==l) {
+          modules3.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
+          l=l+1;
+          while(l<parseInt(doc.data().selectedHourst)) {
+            modules3.push(" ")
+            i=i+1;
+          }
+        }
+      }
+      }
+      //  const data= doc.data()
+      //  modules.push(data)
+      //modules.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
+     })
+     //num.push(j)
+     //alert(modules)
+     this.setState({modules3: modules3})
+   })
+   firebaseDb.firestore()
+   .collection('users')
+   .doc(user.uid)
+   .collection('classes')
+   .doc('Days')
+   .collection('Friday')
+   .orderBy('selectedHourst','asc')
+   .get()
+   .then(snapshot => {
+     const modules4=[]
+     snapshot.forEach(doc => {
+      {  //j++;
+        if(parseInt(doc.data().selectedHoursf)==m) {
+          modules4.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
+          m=m+1;
+          while(m<parseInt(doc.data().selectedHourst)) {
+            modules4.push(" ")
+            m=m+1;
+          }
+        }
+        else {
+          while(m!=parseInt(doc.data().selectedHoursf) && m<21) {
+          modules4.push(" ")
+          m=m+1;
+          //alert(doc.data().selectedHoursf+','+String(i))
+        }
+        if(parseInt(doc.data().selectedHoursf)==m) {
+          modules4.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
+          m=m+1;
+          while(m<parseInt(doc.data().selectedHourst)) {
+            modules4.push(" ")
+            m=m+1;
+          }
+        }
+      }
+      }
+      //  const data= doc.data()
+      //  modules.push(data)
+      //modules.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
+     })
+     //num.push(j)
+     //alert(modules)
+     this.setState({modules4: modules4})
+   })
+ }
+ 
   render() {
 
      const state = this.state;
      let i = 8;
     const monday = [];
+    const tuesday = [];
+    const wednesday = [];
+    const thursday = [];
+    const friday = [];
     const numb = [];
     this.state.modules &&
     this.state.modules.map( module => (
       monday.push(module)
+    ))
+    this.state.modules1 &&
+    this.state.modules1.map( module => (
+      tuesday.push(module)
+    ))
+    this.state.modules2 &&
+    this.state.modules2.map( module => (
+      wednesday.push(module)
+    ))
+    this.state.modules3 &&
+    this.state.modules3.map( module => (
+      thursday.push(module)
+    ))
+    this.state.modules4 &&
+    this.state.modules4.map( module => (
+      friday.push(module)
     ))
     // this.state.num &&
     // this.state.num.map( num => (
@@ -97,9 +302,9 @@ export default class ExampleThree extends Component {
               <Row data={state.tableHead} widthArr={state.widthArr} style={styles.header} textStyle={styles.text}/>
             </Table>
             <ScrollView style={styles.dataWrapper}>
-              {<Table style={{flexDirection: 'row'}} borderStyle={{borderColor: '#C1C0B9', alignItems:'flex-start',borderWidth: 2}}>
-                  <TableWrapper style={{flexDirection: 'row'}}>
-                    <Col
+              {<Table style={{flexDirection: 'row'}} borderStyle={{borderColor: '#C1C0B9', alignItems:'flex-start'}}>
+                  <TableWrapper style={{flexDirection: 'row'} }>
+                    <Col 
                       
                       width={40}
                       data={rowData}
@@ -113,10 +318,45 @@ export default class ExampleThree extends Component {
                       width={100}
                       data={monday}
                       heightArr={state.heightArr}
-                      style={styles.row}
+                      style={styles.row1}
                       textStyle={styles.text}
                     /> 
-                  {/* <Rows data={rowData} widthArr={state.widthArr} style={styles.row} textStyle={styles.text} heightArr={state.heightArr}/> */}
+                  </TableWrapper>
+                  <TableWrapper style={{flexDirection: 'row'}}>
+                    <Col
+                      width={100}
+                      data={tuesday}
+                      heightArr={state.heightArr}
+                      style={styles.row2}
+                      textStyle={styles.text}
+                    /> 
+                  </TableWrapper>
+                  <TableWrapper style={{flexDirection: 'row'}}>
+                    <Col
+                      width={100}
+                      data={wednesday}
+                      heightArr={state.heightArr}
+                      style={styles.row3}
+                      textStyle={styles.text}
+                    /> 
+                  </TableWrapper>
+                  <TableWrapper style={{flexDirection: 'row'}}>
+                    <Col
+                      width={100}
+                      data={thursday}
+                      heightArr={state.heightArr}
+                      style={styles.row4}
+                      textStyle={styles.text}
+                    /> 
+                  </TableWrapper>
+                  <TableWrapper style={{flexDirection: 'row'}}>
+                    <Col
+                      width={100}
+                      data={friday}
+                      heightArr={state.heightArr}
+                      style={styles.row5}
+                      textStyle={styles.text}
+                    /> 
                   </TableWrapper>
               </Table>}
 
@@ -131,9 +371,15 @@ export default class ExampleThree extends Component {
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#2ec4b6' ,alignItems:"center",justifyContent: "center"},
   header: { height: 50, backgroundColor: '#ffc0cb' },
-  text: { textAlign: 'center', fontWeight: '100' }, 
+  text: { textAlign: 'center', fontWeight: '100' , color:'black'}, 
   dataWrapper: { marginTop: -1 },
-  row: { flex:1, backgroundColor: '#f5f5dc',alignItems:'flex-start' },
+  row: { flex:1, backgroundColor: '#f5deb3',alignItems:'flex-start' },
+  row1: { flex:1, backgroundColor: '#7fffd4',alignItems:'flex-start' },
+  row2: { flex:1, backgroundColor: '#ff7f50',alignItems:'flex-start' },
+  row3: { flex:1, backgroundColor: '#e9967a',alignItems:'flex-start' },
+  row4: { flex:1, backgroundColor: '#fffacd',alignItems:'flex-start' },
+  row5: { flex:1, backgroundColor: '#dda0dd',alignItems:'flex-start' },
+ 
   image: {
     justifyContent: 'flex-start',
     alignItems:'flex-start',
@@ -144,7 +390,7 @@ const styles = StyleSheet.create({
  
 },
 texta: {
-  //color: "white",
+  color: "black",
   fontSize: 28,
   fontWeight:"bold",
   alignSelf:'center',
