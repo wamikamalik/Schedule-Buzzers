@@ -440,7 +440,7 @@ export default class ExampleThree extends Component {
                       data={monday}
                       heightArr={HeightMon}
                       style={styles.row1}
-                      textStyle={styles.text}
+                      textStyle={styles.text1}
                     /> 
                   </TableWrapper>
                   <TableWrapper style={{flexDirection: 'row'}}>
@@ -449,7 +449,7 @@ export default class ExampleThree extends Component {
                       data={tuesday}
                       heightArr={HeightTue}
                       style={styles.row2}
-                      textStyle={styles.text}
+                      textStyle={styles.text1}
                     /> 
                   </TableWrapper>
                   <TableWrapper style={{flexDirection: 'row'}}>
@@ -458,7 +458,7 @@ export default class ExampleThree extends Component {
                       data={wednesday}
                       heightArr={HeightWed}
                       style={styles.row3}
-                      textStyle={styles.text}
+                      textStyle={styles.text1}
                     /> 
                   </TableWrapper>
                   <TableWrapper style={{flexDirection: 'row'}}>
@@ -467,7 +467,7 @@ export default class ExampleThree extends Component {
                       data={thursday}
                       heightArr={HeightThu}
                       style={styles.row4}
-                      textStyle={styles.text}
+                      textStyle={styles.text1}
                     /> 
                   </TableWrapper>
                   <TableWrapper style={{flexDirection: 'row'}}>
@@ -476,7 +476,7 @@ export default class ExampleThree extends Component {
                       data={friday}
                       heightArr={HeightFri}
                       style={styles.row5}
-                      textStyle={styles.text}
+                      textStyle={styles.text1}
                     /> 
                   </TableWrapper>
               </Table>}
@@ -492,9 +492,10 @@ export default class ExampleThree extends Component {
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#2ec4b6' ,alignItems:"center",justifyContent: "center"},
   header: { height: 50, backgroundColor: '#ffc0cb' },
-  text: { textAlign: 'center', fontWeight: '100' , color:'black'}, 
+  text: { textAlign: 'center', fontWeight: '100' , color:'black', position:'absolute',top:5}, 
+  text1: { textAlign: 'center', fontWeight: '100' , color:'black'}, 
   dataWrapper: { marginTop: -1 },
-  row: { flex:1, backgroundColor: '#f5deb3',alignItems:'flex-start' },
+  row: { flex:1, backgroundColor: '#f5deb3',alignSelf:'flex-start'},
   row1: { flex:1, backgroundColor: '#7fffd4',alignItems:'flex-start' },
   row2: { flex:1, backgroundColor: '#ff7f50',alignItems:'flex-start' },
   row3: { flex:1, backgroundColor: '#e9967a',alignItems:'flex-start' },
