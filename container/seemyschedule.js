@@ -121,59 +121,74 @@ export default class ExampleThree extends Component {
    .orderBy('selectedHourst','asc')
    .get()
    .then(snapshot => {
-     const modules1=[]
-     let hm = 0,h=0;
-     const height = [];
-     snapshot.forEach(doc => {
-      {  //j++;
-        hm = 0;
-        if(parseInt(doc.data().selectedHoursf)==j) {
-          modules1.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
-          j=j+1;
-          hm++;
-          while(j<parseInt(doc.data().selectedHourst)) {
-            //modules1.push(" ")
-            j=j+1;
-            hm++;
-          }
-          height.push(80*hm);
-          h=h+hm;
-        }
-        else {
-          modules1.push(" ")
-          while(j!=parseInt(doc.data().selectedHoursf) && j<21) {
-          //modules1.push(" ")
-          j=j+1;
-          hm++;
-          //alert(doc.data().selectedHoursf+','+String(i))
-        }
-        height.push(80*hm);
-        h=h+hm;
-        hm = 0;
-        if(parseInt(doc.data().selectedHoursf)==j) {
-          modules1.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
-          j=j+1;
-          hm++;
-          while(j<parseInt(doc.data().selectedHourst)) {
-            //modules1.push(" ")
-            j=j+1;
-            hm++;
-          }
-        }
-        height.push(80*hm);
-        h=h+hm;
-      }
-      }
-      //  const data= doc.data()
-      //  modules.push(data)
-      //modules.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
-     })
-     //num.push(j)
-     //alert(modules)
-     height.push(80*(14-h));
-     modules1.push(" ")
-     this.setState({modules1: modules1, heightArr2:height})
-   })
+    const modules1=[]
+    let hm = 0,h=0;
+    const height = [];
+    let hr = 8;
+    let min = 0;
+    snapshot.forEach(doc => {
+     {  //j++; 
+       hm = 0;
+       if(parseInt(doc.data().selectedHoursf)==j) {
+         if(min!=parseInt(doc.data().selectedMinutesf)) {
+           modules1.push(" ");
+           hm = parseInt(doc.data().selectedHoursf)-hr + (parseInt(doc.data().selectedMinutesf)-min)/60.0
+           height.push(80*hm);
+           h=h+hm;
+         }
+         modules1.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
+         j=j+1;
+         //hm++;
+         hr=parseInt(doc.data().selectedHourst);
+         min = parseInt(doc.data().selectedMinutest);
+         while(j<parseInt(doc.data().selectedHourst)) {
+           //modules.push(" ")
+           //hm ++;
+           j=j+1;
+         }
+         hm = parseInt(doc.data().selectedHourst)-parseInt(doc.data().selectedHoursf) + (parseInt(doc.data().selectedMinutest)-parseInt(doc.data().selectedMinutesf))/60.0
+         height.push(80*hm);
+         h=h+hm;
+       }
+       else {
+         modules1.push(" ");
+         while(j!=parseInt(doc.data().selectedHoursf) && j<21) {
+         //modules.push(" ")
+         //hm++;
+         j=j+1;
+         //alert(doc.data().selectedHoursf+','+String(i))
+       }
+       hm = parseInt(doc.data().selectedHoursf)-hr + (parseInt(doc.data().selectedMinutesf)-min)/60.0
+       height.push(80*hm);
+       h=h+hm;
+       hm = 0;
+       if(parseInt(doc.data().selectedHoursf)==j) {
+         modules1.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
+         j=j+1;
+         //hm++;
+         hr=parseInt(doc.data().selectedHourst);
+         min = parseInt(doc.data().selectedMinutest);
+         while(j<parseInt(doc.data().selectedHourst)) {
+           //modules.push(" ")
+           //hm++;
+           j=j+1;
+         }
+       }
+       hm = parseInt(doc.data().selectedHourst)-parseInt(doc.data().selectedHoursf) + (parseInt(doc.data().selectedMinutest)-parseInt(doc.data().selectedMinutesf))/60.0
+       height.push(80*hm);
+       h=h+hm;
+     }
+     }
+     //  const data= doc.data()
+     //  modules.push(data)
+     //modules.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
+    })
+    //num.push(j)
+    //alert(modules)
+    height.push(80*(14-h));
+    modules1.push(" ")
+    this.setState({modules1: modules1, heightArr2:height})
+  })
    firebaseDb.firestore()
    .collection('users')
    .doc(user.uid)
@@ -186,42 +201,57 @@ export default class ExampleThree extends Component {
     const modules2=[]
     let hm = 0,h=0;
     const height = [];
+    let hr = 8;
+    let min = 0;
     snapshot.forEach(doc => {
-     {  //j++;
-      hm = 0;
+     {  //j++; 
+       hm = 0;
        if(parseInt(doc.data().selectedHoursf)==k) {
+         if(min!=parseInt(doc.data().selectedMinutesf)) {
+           modules2.push(" ");
+           hm = parseInt(doc.data().selectedHoursf)-hr + (parseInt(doc.data().selectedMinutesf)-min)/60.0
+           height.push(80*hm);
+           h=h+hm;
+         }
          modules2.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
          k=k+1;
-         hm++;
+         //hm++;
+         hr=parseInt(doc.data().selectedHourst);
+         min = parseInt(doc.data().selectedMinutest);
          while(k<parseInt(doc.data().selectedHourst)) {
-           //modules1.push(" ")
+           //modules.push(" ")
+           //hm ++;
            k=k+1;
-           hm++;
          }
+         hm = parseInt(doc.data().selectedHourst)-parseInt(doc.data().selectedHoursf) + (parseInt(doc.data().selectedMinutest)-parseInt(doc.data().selectedMinutesf))/60.0
          height.push(80*hm);
          h=h+hm;
        }
        else {
-         modules2.push(" ")
+         modules2.push(" ");
          while(k!=parseInt(doc.data().selectedHoursf) && k<21) {
-         //modules1.push(" ")
+         //modules.push(" ")
+         //hm++;
          k=k+1;
-         hm++;
          //alert(doc.data().selectedHoursf+','+String(i))
        }
+       hm = parseInt(doc.data().selectedHoursf)-hr + (parseInt(doc.data().selectedMinutesf)-min)/60.0
        height.push(80*hm);
        h=h+hm;
        hm = 0;
        if(parseInt(doc.data().selectedHoursf)==k) {
          modules2.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
          k=k+1;
-         hm++;
+         //hm++;
+         hr=parseInt(doc.data().selectedHourst);
+         min = parseInt(doc.data().selectedMinutest);
          while(k<parseInt(doc.data().selectedHourst)) {
-           //modules2.push(" ")
+           //modules.push(" ")
+           //hm++;
            k=k+1;
-           hm++;
          }
        }
+       hm = parseInt(doc.data().selectedHourst)-parseInt(doc.data().selectedHoursf) + (parseInt(doc.data().selectedMinutest)-parseInt(doc.data().selectedMinutesf))/60.0
        height.push(80*hm);
        h=h+hm;
      }
@@ -249,42 +279,57 @@ export default class ExampleThree extends Component {
     const modules3=[]
     let hm = 0,h=0;
     const height = [];
+    let hr = 8;
+    let min = 0;
     snapshot.forEach(doc => {
-     {  //j++;
-      hm=0;
+     {  //j++; 
+       hm = 0;
        if(parseInt(doc.data().selectedHoursf)==l) {
+         if(min!=parseInt(doc.data().selectedMinutesf)) {
+           modules3.push(" ");
+           hm = parseInt(doc.data().selectedHoursf)-hr + (parseInt(doc.data().selectedMinutesf)-min)/60.0
+           height.push(80*hm);
+           h=h+hm;
+         }
          modules3.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
          l=l+1;
-         hm++;
+         //hm++;
+         hr=parseInt(doc.data().selectedHourst);
+         min = parseInt(doc.data().selectedMinutest);
          while(l<parseInt(doc.data().selectedHourst)) {
-           //modules1.push(" ")
+           //modules.push(" ")
+           //hm ++;
            l=l+1;
-           hm++;
          }
+         hm = parseInt(doc.data().selectedHourst)-parseInt(doc.data().selectedHoursf) + (parseInt(doc.data().selectedMinutest)-parseInt(doc.data().selectedMinutesf))/60.0
          height.push(80*hm);
          h=h+hm;
        }
        else {
-         modules3.push(" ")
+         modules3.push(" ");
          while(l!=parseInt(doc.data().selectedHoursf) && l<21) {
-         //modules1.push(" ")
+         //modules.push(" ")
+         //hm++;
          l=l+1;
-         hm++;
          //alert(doc.data().selectedHoursf+','+String(i))
        }
+       hm = parseInt(doc.data().selectedHoursf)-hr + (parseInt(doc.data().selectedMinutesf)-min)/60.0
        height.push(80*hm);
        h=h+hm;
        hm = 0;
        if(parseInt(doc.data().selectedHoursf)==l) {
          modules3.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
          l=l+1;
-         hm++;
+         //hm++;
+         hr=parseInt(doc.data().selectedHourst);
+         min = parseInt(doc.data().selectedMinutest);
          while(l<parseInt(doc.data().selectedHourst)) {
-           //modules3.push(" ")
+           //modules.push(" ")
+           //hm++;
            l=l+1;
-           hm++;
          }
        }
+       hm = parseInt(doc.data().selectedHourst)-parseInt(doc.data().selectedHoursf) + (parseInt(doc.data().selectedMinutest)-parseInt(doc.data().selectedMinutesf))/60.0
        height.push(80*hm);
        h=h+hm;
      }
@@ -312,42 +357,57 @@ export default class ExampleThree extends Component {
     const modules4=[]
     let hm = 0,h=0;
     const height = [];
+    let hr = 8;
+    let min = 0;
     snapshot.forEach(doc => {
-     {  //j++;
-      hm=0;
+     {  //j++; 
+       hm = 0;
        if(parseInt(doc.data().selectedHoursf)==m) {
+         if(min!=parseInt(doc.data().selectedMinutesf)) {
+           modules4.push(" ");
+           hm = parseInt(doc.data().selectedHoursf)-hr + (parseInt(doc.data().selectedMinutesf)-min)/60.0
+           height.push(80*hm);
+           h=h+hm;
+         }
          modules4.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
          m=m+1;
-         hm++;
+         //hm++;
+         hr=parseInt(doc.data().selectedHourst);
+         min = parseInt(doc.data().selectedMinutest);
          while(m<parseInt(doc.data().selectedHourst)) {
-           //modules1.push(" ")
+           //modules.push(" ")
+           //hm ++;
            m=m+1;
-           hm++;
          }
+         hm = parseInt(doc.data().selectedHourst)-parseInt(doc.data().selectedHoursf) + (parseInt(doc.data().selectedMinutest)-parseInt(doc.data().selectedMinutesf))/60.0
          height.push(80*hm);
          h=h+hm;
        }
        else {
-         modules4.push(" ")
+         modules4.push(" ");
          while(m!=parseInt(doc.data().selectedHoursf) && m<21) {
-         //modules1.push(" ")
+         //modules.push(" ")
+         //hm++;
          m=m+1;
-         hm++;
          //alert(doc.data().selectedHoursf+','+String(i))
        }
+       hm = parseInt(doc.data().selectedHoursf)-hr + (parseInt(doc.data().selectedMinutesf)-min)/60.0
        height.push(80*hm);
        h=h+hm;
        hm = 0;
        if(parseInt(doc.data().selectedHoursf)==m) {
          modules4.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
          m=m+1;
-         hm++;
+         //hm++;
+         hr=parseInt(doc.data().selectedHourst);
+         min = parseInt(doc.data().selectedMinutest);
          while(m<parseInt(doc.data().selectedHourst)) {
-           //modules4.push(" ")
+           //modules.push(" ")
+           //hm++;
            m=m+1;
-           hm++;
          }
        }
+       hm = parseInt(doc.data().selectedHourst)-parseInt(doc.data().selectedHoursf) + (parseInt(doc.data().selectedMinutest)-parseInt(doc.data().selectedMinutesf))/60.0
        height.push(80*hm);
        h=h+hm;
      }
