@@ -46,18 +46,29 @@ export default class ExampleThree extends Component {
      const modules=[]
      let hm = 0,h=0;
      const height = [];
+     let hr = 8;
+     let min = 0;
      snapshot.forEach(doc => {
       {  //j++; 
         hm = 0;
         if(parseInt(doc.data().selectedHoursf)==i) {
+          if(min!=parseInt(doc.data().selectedMinutesf)) {
+            modules.push(" ");
+            hm = parseInt(doc.data().selectedHoursf)-hr + (parseInt(doc.data().selectedMinutesf)-min)/60.0
+            height.push(80*hm);
+            h=h+hm;
+          }
           modules.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
           i=i+1;
-          hm++;
+          //hm++;
+          hr=parseInt(doc.data().selectedHourst);
+          min = parseInt(doc.data().selectedMinutest);
           while(i<parseInt(doc.data().selectedHourst)) {
             //modules.push(" ")
-            hm ++;
+            //hm ++;
             i=i+1;
           }
+          hm = parseInt(doc.data().selectedHourst)-parseInt(doc.data().selectedHoursf) + (parseInt(doc.data().selectedMinutest)-parseInt(doc.data().selectedMinutesf))/60.0
           height.push(80*hm);
           h=h+hm;
         }
@@ -65,23 +76,27 @@ export default class ExampleThree extends Component {
           modules.push(" ");
           while(i!=parseInt(doc.data().selectedHoursf) && i<21) {
           //modules.push(" ")
-          hm++;
+          //hm++;
           i=i+1;
           //alert(doc.data().selectedHoursf+','+String(i))
         }
+        hm = parseInt(doc.data().selectedHoursf)-hr + (parseInt(doc.data().selectedMinutesf)-min)/60.0
         height.push(80*hm);
         h=h+hm;
         hm = 0;
         if(parseInt(doc.data().selectedHoursf)==i) {
           modules.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
           i=i+1;
-          hm++;
+          //hm++;
+          hr=parseInt(doc.data().selectedHourst);
+          min = parseInt(doc.data().selectedMinutest);
           while(i<parseInt(doc.data().selectedHourst)) {
             //modules.push(" ")
-            hm++;
+            //hm++;
             i=i+1;
           }
         }
+        hm = parseInt(doc.data().selectedHourst)-parseInt(doc.data().selectedHoursf) + (parseInt(doc.data().selectedMinutest)-parseInt(doc.data().selectedMinutesf))/60.0
         height.push(80*hm);
         h=h+hm;
       }
@@ -431,7 +446,7 @@ export default class ExampleThree extends Component {
                       data={rowData}
                       heightArr={state.heightArr}
                       style={styles.row}
-                      textStyle={styles.text}
+                      textStyle={styles.text1}
                     />
                     </TableWrapper>
                     <TableWrapper style={{flexDirection: 'row'}}>
@@ -440,7 +455,7 @@ export default class ExampleThree extends Component {
                       data={monday}
                       heightArr={HeightMon}
                       style={styles.row1}
-                      textStyle={styles.text1}
+                      textStyle={styles.text}
                     /> 
                   </TableWrapper>
                   <TableWrapper style={{flexDirection: 'row'}}>
@@ -449,7 +464,7 @@ export default class ExampleThree extends Component {
                       data={tuesday}
                       heightArr={HeightTue}
                       style={styles.row2}
-                      textStyle={styles.text1}
+                      textStyle={styles.text}
                     /> 
                   </TableWrapper>
                   <TableWrapper style={{flexDirection: 'row'}}>
@@ -458,7 +473,7 @@ export default class ExampleThree extends Component {
                       data={wednesday}
                       heightArr={HeightWed}
                       style={styles.row3}
-                      textStyle={styles.text1}
+                      textStyle={styles.text}
                     /> 
                   </TableWrapper>
                   <TableWrapper style={{flexDirection: 'row'}}>
@@ -467,7 +482,7 @@ export default class ExampleThree extends Component {
                       data={thursday}
                       heightArr={HeightThu}
                       style={styles.row4}
-                      textStyle={styles.text1}
+                      textStyle={styles.text}
                     /> 
                   </TableWrapper>
                   <TableWrapper style={{flexDirection: 'row'}}>
@@ -476,7 +491,7 @@ export default class ExampleThree extends Component {
                       data={friday}
                       heightArr={HeightFri}
                       style={styles.row5}
-                      textStyle={styles.text1}
+                      textStyle={styles.text}
                     /> 
                   </TableWrapper>
               </Table>}
@@ -492,10 +507,10 @@ export default class ExampleThree extends Component {
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#2ec4b6' ,alignItems:"center",justifyContent: "center"},
   header: { height: 50, backgroundColor: '#ffc0cb' },
-  text: { textAlign: 'center', fontWeight: '100' , color:'black', position:'absolute',top:5}, 
-  text1: { textAlign: 'center', fontWeight: '100' , color:'black'}, 
+  text: { textAlign: 'center', fontWeight: '100' , color:'black'},
+  text1: { textAlign: 'center', fontWeight: '100' , color:'black',position:'absolute',top:3}, 
   dataWrapper: { marginTop: -1 },
-  row: { flex:1, backgroundColor: '#f5deb3',alignSelf:'flex-start'},
+  row: { flex:1, backgroundColor: '#f5deb3',alignItems:'flex-start' },
   row1: { flex:1, backgroundColor: '#7fffd4',alignItems:'flex-start' },
   row2: { flex:1, backgroundColor: '#ff7f50',alignItems:'flex-start' },
   row3: { flex:1, backgroundColor: '#e9967a',alignItems:'flex-start' },
