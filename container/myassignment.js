@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, TouchableOpacity , Image, Text} from 'react-native';
+import { StyleSheet, View, ScrollView, TouchableOpacity , Image, Text, ImageBackground} from 'react-native';
 import { Table, TableWrapper, Row, Cell,Col, Rows,Cols } from 'react-native-table-component';
 import firebaseDb from '../firebaseDb';
 
@@ -23,7 +23,7 @@ export default class ExampleThree extends Component {
    .collection('users')
    .doc(user.uid)
    .collection('assignments')
-  .orderBy('Deadline','asc')
+   .orderBy('Deadline','asc')
    .get()
    .then(snapshot => {
      const modules=[]
@@ -31,14 +31,14 @@ export default class ExampleThree extends Component {
      snapshot.forEach(doc => {
       
           modules.push(doc.data())
-      
+      alert('something found')
     })
      
      modules.push(" ")
      this.setState({modules: modules})
    })
  }
- 
+
   render() {
 
      const state = this.state;
@@ -61,6 +61,8 @@ export default class ExampleThree extends Component {
   
     return (
       <View style={styles.container}>
+         <ImageBackground style={{flex: 1, resizeMode: "contain" ,   justifyContent: 'center',
+   alignItems:"center",}} source={require('../assets/back1.png')}>
          <TouchableOpacity style={{ position: "absolute", top: 5, left: 5}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
                 </TouchableOpacity>
        <Text style={styles.texta}>MY ASSIGNMENTS</Text>
@@ -74,20 +76,18 @@ export default class ExampleThree extends Component {
                   <TableWrapper style={{flexDirection: 'row'}}>
                     <Col 
                       
-                      width={40}
+                      width={100}
                       data={rowData}
                       heightArr={state.heightArr}
-                      widthArr={state.widthArr}
                       style={styles.row}
                       textStyle={styles.text1}
                     />
                     </TableWrapper>
                     <TableWrapper style={{flexDirection: 'row'}}>
                     <Col
-                      width={100}
+                      width={200}
                       data={assignment}
                       heightArr={state.heightArr}
-                      widthArr={state.widthArr}
                       style={styles.row1}
                       textStyle={styles.text}
                     /> 
@@ -97,16 +97,21 @@ export default class ExampleThree extends Component {
             </ScrollView>
           </View>
         </ScrollView>
+        </ImageBackground>
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#2ec4b6' ,alignItems:"center",justifyContent: "center"},
+  container:{
+    flex: 1,
+  
+  },
+
   header: { height: 50, backgroundColor: '#ffc0cb' },
   text: { textAlign: 'center', fontWeight: '100' , color:'black'},
-  text1: { textAlign: 'center', fontWeight: '100' , color:'black',position:'absolute',top:3}, 
+  text1: { textAlign: 'center', fontWeight: '100' , color:'black'}, 
   dataWrapper: { marginTop: -1 },
   row: { flex:1, backgroundColor: '#f5deb3',alignItems:'flex-start' },
   row1: { flex:1, backgroundColor: '#7fffd4',alignItems:'flex-start' },
