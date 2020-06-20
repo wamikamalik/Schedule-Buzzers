@@ -23,7 +23,7 @@ export default class ExampleThree extends Component {
    .collection('users')
    .doc(user.uid)
    .collection('assignments')
-   .orderBy('Deadline','asc')
+   .orderBy('Deadline','desc')
    .get()
    .then(snapshot => {
      const modules=[]
@@ -49,7 +49,7 @@ export default class ExampleThree extends Component {
 
     this.state.modules &&
     this.state.modules.map( module => (
-      assignment.push(module.Name+'\n'+module.Module)
+      assignment.push(module.Name+'\n'+module.Module+'\n'+)
      
     ))
     this.state.modules &&
