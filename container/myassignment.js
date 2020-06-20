@@ -31,10 +31,10 @@ export default class ExampleThree extends Component {
      snapshot.forEach(doc => {
       
           modules.push(doc.data())
-      alert('something found')
+     // alert('something found')
     })
      
-     modules.push(" ")
+   //  modules.push(" ")
      this.setState({modules: modules})
    })
  }
