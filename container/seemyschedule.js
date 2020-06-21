@@ -500,7 +500,7 @@ export default class ExampleThree extends Component {
               <Row data={state.tableHead} widthArr={state.widthArr} style={styles.header} textStyle={styles.text}/>
             </Table>
             <ScrollView style={styles.dataWrapper}>
-              {<Table style={{flexDirection: 'row'}} borderStyle={{borderWidth: 2, borderColor: 'black', alignItems:'flex-start'}}>
+              {<Table style={{flexDirection: 'row'}} borderStyle={{borderWidth: 2, borderColor: '#C1C0B9', alignItems:'flex-start'}}>
                   <TableWrapper style={{flexDirection: 'row'}}>
                     <Col 
                       
