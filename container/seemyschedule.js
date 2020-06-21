@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, TouchableOpacity , Image, Text} from 'react-native';
+import { StyleSheet, View, ScrollView, TouchableOpacity , Image, Text,ImageBackground} from 'react-native';
 import { Table, TableWrapper, Row, Cell,Col, Rows,Cols } from 'react-native-table-component';
 import firebaseDb from '../firebaseDb';
 
@@ -489,6 +489,8 @@ export default class ExampleThree extends Component {
   
     return (
       <View style={styles.container}>
+      <ImageBackground style={{flex: 1, resizeMode: "contain" ,   justifyContent: 'center',
+   alignItems:"center",}} source={require('../assets/back1.png')}>
          <TouchableOpacity style={{ position: "absolute", top: 5, left: 5}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
                 </TouchableOpacity>
        <Text style={styles.texta}>MY SCHEDULE</Text>
@@ -559,13 +561,14 @@ export default class ExampleThree extends Component {
             </ScrollView>
           </View>
         </ScrollView>
+        </ImageBackground>
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#2ec4b6' ,alignItems:"center",justifyContent: "center"},
+  container: { flex: 1, backgroundColor: '#2ec4b6'},
   header: { height: 50, backgroundColor: '#ffc0cb' },
   text: { textAlign: 'center', fontWeight: '100' , color:'black'},
   text1: { textAlign: 'center', fontWeight: '100' , color:'black',position:'absolute',top:3}, 

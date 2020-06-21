@@ -20,6 +20,7 @@ import {
 import about from './about'
 import TermsCond from './TermsCond'
 import seemyschedule from './seemyschedule'
+import myassignment from './myassignment'
 
 const DrawerNavigator = createDrawerNavigator();
 

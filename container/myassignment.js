@@ -49,13 +49,14 @@ export default class ExampleThree extends Component {
 
     this.state.modules &&
     this.state.modules.map( module => (
-      assignment.push(module.Name+'\n'+module.Module+'\n'+)
+      assignment.push(module.Name+'\n'+module.Module+'\n')
      
     ))
     this.state.modules &&
-    this.state.modules.map( module => (
-      rowData.push(module.Deadline)
-    ))
+    this.state.modules.map( module => {
+      if(!rowData.includes(module.Deadline))
+        rowData.push(module.Deadline)
+    })
    
    
   
