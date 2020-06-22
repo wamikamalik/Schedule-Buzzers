@@ -4,7 +4,7 @@ import { Table, TableWrapper, Row, Cell,Col, Rows,Cols } from 'react-native-tabl
 import firebaseDb from '../firebaseDb';
 
 
-export default class ExampleThree extends Component {
+export default class seemyschedule extends Component {
 
    constructor(props) {
     super(props);
@@ -22,7 +22,7 @@ export default class ExampleThree extends Component {
     }
   }
 
- componentDidMount() {
+ getDetails = () => {
   var user = firebaseDb.auth().currentUser;
   var days = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
   let i = 8
@@ -423,6 +423,18 @@ export default class ExampleThree extends Component {
     this.setState({modules4: modules4, heightArr5:height})
   })
  }
+
+ componentDidMount() {
+   this.getDetails();
+ }
+
+//  componentDidUpdate(prevProps,prevState) {
+
+//   if(prevState!==this.state){
+//    this.getDetails()
+//   }
+//  }
+
  
   render() {
 

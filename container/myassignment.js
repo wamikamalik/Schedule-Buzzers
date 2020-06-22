@@ -39,28 +39,28 @@ export default class ExampleThree extends Component {
    })
  }
 
-//  componentDidUpdate() {
-//   var user = firebaseDb.auth().currentUser;
+ componentDidUpdate() {
+  var user = firebaseDb.auth().currentUser;
   
-//    firebaseDb.firestore()
-//    .collection('users')
-//    .doc(user.uid)
-//    .collection('assignments')
-//    .orderBy('Deadline','asc')
-//    .get()
-//    .then(snapshot => {
-//      const modules=[]
+   firebaseDb.firestore()
+   .collection('users')
+   .doc(user.uid)
+   .collection('assignments')
+   .orderBy('Deadline','asc')
+   .get()
+   .then(snapshot => {
+     const modules=[]
     
-//      snapshot.forEach(doc => {
+     snapshot.forEach(doc => {
       
-//           modules.push(doc.data())
-//      // alert('something found')
-//     })
+          modules.push(doc.data())
+     // alert('something found')
+    })
      
-//    //  modules.push(" ")
-//      this.setState({modules: modules})
-//    })
-//  }
+   //  modules.push(" ")
+     this.setState({modules: modules})
+   })
+ }
 
   render() {
 
