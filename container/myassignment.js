@@ -12,7 +12,7 @@ export default class ExampleThree extends Component {
       modules:null,
       heightArr:[80,80,80,80,80,80,80,80,80,80,80,80,80,80],
       widthArr: [100,200],
-     tableHead :  ['Deadline', "Assignment"]
+     tableHead :  ['Deadline (MM-DD-YYYY)', "Assignment"]
     }
   }
 
@@ -23,7 +23,7 @@ export default class ExampleThree extends Component {
    .collection('users')
    .doc(user.uid)
    .collection('assignments')
-   .orderBy('Deadline','desc')
+   .orderBy('Deadline','asc')
    .get()
    .then(snapshot => {
      const modules=[]
@@ -39,6 +39,29 @@ export default class ExampleThree extends Component {
    })
  }
 
+//  componentDidUpdate() {
+//   var user = firebaseDb.auth().currentUser;
+  
+//    firebaseDb.firestore()
+//    .collection('users')
+//    .doc(user.uid)
+//    .collection('assignments')
+//    .orderBy('Deadline','asc')
+//    .get()
+//    .then(snapshot => {
+//      const modules=[]
+    
+//      snapshot.forEach(doc => {
+      
+//           modules.push(doc.data())
+//      // alert('something found')
+//     })
+     
+//    //  modules.push(" ")
+//      this.setState({modules: modules})
+//    })
+//  }
+
   render() {
 
      const state = this.state;
@@ -46,35 +69,35 @@ export default class ExampleThree extends Component {
     const assignment = [];
     const rowData = [];
     const height = [];
+    let date;
     let h = 0;
     let i = 0;
 
     this.state.modules &&
     this.state.modules.map( module => {
-      if(!rowData.includes(module.Deadline))
-        rowData.push(module.Deadline)
+      date = (module.Deadline.toDate().getMonth()+1)+'-'+module.Deadline.toDate().getDate()+'-'+module.Deadline.toDate().getFullYear()
+      if(!rowData.includes(date))
+        rowData.push(date)
     })
 
     this.state.modules &&
     this.state.modules.map( module => {
-      if(rowData[i]==module.Deadline) {
+      date = (module.Deadline.toDate().getMonth()+1)+'-'+module.Deadline.toDate().getDate()+'-'+module.Deadline.toDate().getFullYear()
+      if(rowData[i]==date) {
       h++;
       }
       else{
         height.push(80*h);
         h = 0;
         i++;
-        if(rowData[i]==module.Deadline) {
+        if(rowData[i]==date) {
           h++;
-        }
-        if(i==rowData.length-1) {
-          height.push(80*h);
         }
       }
       assignment.push(module.Name+'\n'+module.Module+'\n')
      
     })
-   
+    height.push(80*h)
    
   
     return (
