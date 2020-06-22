@@ -45,17 +45,34 @@ export default class ExampleThree extends Component {
 
     const assignment = [];
     const rowData = [];
+    const height = [];
+    let h = 0;
+    let i = 0;
 
-
-    this.state.modules &&
-    this.state.modules.map( module => (
-      assignment.push(module.Name+'\n'+module.Module+'\n')
-     
-    ))
     this.state.modules &&
     this.state.modules.map( module => {
       if(!rowData.includes(module.Deadline))
         rowData.push(module.Deadline)
+    })
+
+    this.state.modules &&
+    this.state.modules.map( module => {
+      if(rowData[i]==module.Deadline) {
+      h++;
+      }
+      else{
+        height.push(80*h);
+        h = 0;
+        i++;
+        if(rowData[i]==module.Deadline) {
+          h++;
+        }
+        if(i==rowData.length-1) {
+          height.push(80*h);
+        }
+      }
+      assignment.push(module.Name+'\n'+module.Module+'\n')
+     
     })
    
    
@@ -79,7 +96,7 @@ export default class ExampleThree extends Component {
                       
                       width={100}
                       data={rowData}
-                      heightArr={state.heightArr}
+                      heightArr={height}
                       style={styles.row}
                       textStyle={styles.text1}
                     />
