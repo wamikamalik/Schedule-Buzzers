@@ -6,6 +6,7 @@ To be done:
 2) add update button in schedule and assignment display page.
 3) check for same timing and assignment name to see if it already exists.
 4) food places, convert excel to database in firebase
+5) notifications
 
 
 Proposed Level of Achievement: Gemini
