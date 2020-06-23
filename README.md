@@ -1,6 +1,12 @@
 # Schedule-Buzzers
 an app to keep you scheduled
 
+To be done:
+1) tabs for schedule and assignments display page: to allow diplay in the form of table and sectionlist
+2) add update button in schedule and assignment display page.
+3) check for same timing and assignment name to see if it already exists.
+4) food places, convert excel to database in firebase
+
 
 Proposed Level of Achievement: Gemini
 
