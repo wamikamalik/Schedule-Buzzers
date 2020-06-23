@@ -39,9 +39,9 @@ export default class ExampleThree extends Component {
    })
  }
 
- componentDidUpdate() {
+ componentDidUpdate(prevProps, prevState) {
   var user = firebaseDb.auth().currentUser;
-  
+  if(prevState!=this.state) {
    firebaseDb.firestore()
    .collection('users')
    .doc(user.uid)
@@ -60,6 +60,8 @@ export default class ExampleThree extends Component {
    //  modules.push(" ")
      this.setState({modules: modules})
    })
+   prevState=this.state
+  }
  }
 
   render() {

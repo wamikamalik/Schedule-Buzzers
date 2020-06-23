@@ -428,12 +428,13 @@ export default class seemyschedule extends Component {
    this.getDetails();
  }
 
-//  componentDidUpdate(prevProps,prevState) {
+ componentDidUpdate(prevProps,prevState) {
 
-//   if(prevState!==this.state){
-//    this.getDetails()
-//   }
-//  }
+  if(prevState!=this.state){
+   this.getDetails()
+   prevState = this.state
+  }
+ }
 
  
   render() {
