@@ -16,7 +16,7 @@ export default class ExampleThree extends Component {
     }
   }
 
- componentDidMount() {
+ getDetails = () => {
   var user = firebaseDb.auth().currentUser;
   
    firebaseDb.firestore()
@@ -39,30 +39,18 @@ export default class ExampleThree extends Component {
    })
  }
 
- componentDidUpdate(prevProps, prevState) {
-  var user = firebaseDb.auth().currentUser;
-  if(prevState!=this.state) {
-   firebaseDb.firestore()
-   .collection('users')
-   .doc(user.uid)
-   .collection('assignments')
-   .orderBy('Deadline','asc')
-   .get()
-   .then(snapshot => {
-     const modules=[]
-    
-     snapshot.forEach(doc => {
-      
-          modules.push(doc.data())
-     // alert('something found')
-    })
-     
-   //  modules.push(" ")
-     this.setState({modules: modules})
-   })
-   prevState=this.state
-  }
+
+ componentDidMount() {
+  this.getDetails();
+}
+
+componentDidUpdate(prevProps,prevState) {
+
+ if(prevState.modules!=this.state.modules){
+  this.getDetails()
+  //prevState = this.state
  }
+}
 
   render() {
 
