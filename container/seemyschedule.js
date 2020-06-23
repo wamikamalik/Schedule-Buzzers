@@ -435,7 +435,7 @@ export default class seemyschedule extends Component {
  componentDidUpdate(prevProps,prevState) {
 
   if(prevState.modules!=this.state.modules){
-   this.getDetails()
+   this.getDetails();
    //prevState = this.state
   }
  }
