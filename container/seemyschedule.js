@@ -8,11 +8,15 @@ export default class seemyschedule extends Component {
 
    constructor(props) {
     super(props);
-    this.state = {
+    this.state = { 
       tableHead: ['Time','Monday','Tuesday','Wednesday','Thursday','Friday'],
       widthArr: [40, 100,100,100,100,100],
       heightArr:[80,80,80,80,80,80,80,80,80,80,80,80,80,80],
       modules:null,
+      modules1:null,
+      modules2:null,
+      modules3:null,
+      modules4:null,
       heightArr1:[],
       heightArr2:[],
       heightArr3:[],
@@ -109,7 +113,7 @@ export default class seemyschedule extends Component {
      //alert(modules)
      height.push(80*(14-h));
      modules.push(" ")
-     this.setState({modules: modules, heightArr1:height})
+     this.setState((state, props) => ({ modules: modules, heightArr1:height }))
    })
 
    firebaseDb.firestore()
@@ -187,7 +191,7 @@ export default class seemyschedule extends Component {
     //alert(modules)
     height.push(80*(14-h));
     modules1.push(" ")
-    this.setState({modules1: modules1, heightArr2:height})
+    this.setState((state, props) => ({ modules1: modules1, heightArr2:height }))
   })
    firebaseDb.firestore()
    .collection('users')
@@ -264,7 +268,7 @@ export default class seemyschedule extends Component {
     //alert(modules)
     height.push(80*(14-h));
     modules2.push(" ")
-    this.setState({modules2: modules2, heightArr3:height})
+    this.setState((state, props) => ({ modules2: modules2, heightArr3:height }))
   })
 
    firebaseDb.firestore()
@@ -342,7 +346,7 @@ export default class seemyschedule extends Component {
     //alert(modules)
     height.push(80*(14-h));
     modules3.push(" ")
-    this.setState({modules3: modules3, heightArr4:height})
+    this.setState((state, props) => ({ modules3: modules3, heightArr4:height }))
   })
 
    firebaseDb.firestore()
@@ -420,7 +424,7 @@ export default class seemyschedule extends Component {
     //alert(modules)
     height.push(80*(14-h));
     modules4.push(" ")
-    this.setState({modules4: modules4, heightArr5:height})
+    this.setState((state, props) => ({ modules4: modules4, heightArr5:height }))
   })
  }
 
@@ -430,9 +434,9 @@ export default class seemyschedule extends Component {
 
  componentDidUpdate(prevProps,prevState) {
 
-  if(prevState!=this.state){
+  if(prevState.modules!=this.state.modules){
    this.getDetails()
-   prevState = this.state
+   //prevState = this.state
   }
  }
 
