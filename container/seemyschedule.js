@@ -416,6 +416,7 @@ export default class seemyschedule extends Component {
        h=h+hm;
      }
      }
+  // height.push(80*(14-h));
      //  const data= doc.data()
      //  modules.push(data)
      //modules.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
@@ -435,9 +436,10 @@ export default class seemyschedule extends Component {
  componentDidUpdate(prevProps,prevState) {
 
   if(prevState.modules!=this.state.modules){
-   this.getDetails();
+   this.getDetails()
    //prevState = this.state
   }
+ 
  }
 
  
