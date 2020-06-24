@@ -2,9 +2,25 @@ import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, TouchableOpacity , Image, Text, ImageBackground} from 'react-native';
 import { Table, TableWrapper, Row, Cell,Col, Rows,Cols } from 'react-native-table-component';
 import firebaseDb from '../firebaseDb';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import assignments from '../component/assignments';
 
 
-export default class ExampleThree extends Component {
+const Stack = createStackNavigator();
+function assignmentnav() {
+  return (
+    <NavigationContainer independent={true}>
+      <Stack.Navigator  mode='modal' headerMode='none'>
+        <Stack.Screen name = 'assignmenttable' component={myassignment}/>
+        <Stack.Screen name = 'assignment' component={assignments}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+  )
+}
+
+
+class myassignment extends Component {
 
    constructor(props) {
     super(props);
@@ -96,6 +112,8 @@ componentDidUpdate(prevProps,prevState) {
    alignItems:"center",}} source={require('../assets/back1.png')}>
          <TouchableOpacity style={{ position: "absolute", top: 5, left: 5}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
                 </TouchableOpacity>
+                <TouchableOpacity style={{ position: "absolute", top: 5, right: 5}} onPress={() => this.props.navigation.navigate('assignment')}><Image style={styles.image} source={require('../assets/addassignmentlogo.png')}/>
+                </TouchableOpacity>
        <Text style={styles.texta}>MY ASSIGNMENTS</Text>
         <ScrollView horizontal={true}>
           <View>
@@ -167,3 +185,5 @@ texta: {
   
 },
 });
+
+export default assignmentnav;
