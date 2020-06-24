@@ -1,10 +1,24 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, TouchableOpacity , Image, Text,ImageBackground} from 'react-native';
+import { StyleSheet, View, ScrollView,Image, Text,ImageBackground, TouchableOpacity} from 'react-native';
 import { Table, TableWrapper, Row, Cell,Col, Rows,Cols } from 'react-native-table-component';
 import firebaseDb from '../firebaseDb';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import schedule from '../component/schedule';
 
 
-export default class seemyschedule extends Component {
+const Stack = createStackNavigator();
+function schedulenav() {
+  return (
+    <NavigationContainer independent={true}>
+      <Stack.Navigator  mode='modal' headerMode='none'>
+        <Stack.Screen name = 'scheduletable' component={seemyschedule}/>
+        <Stack.Screen name = 'schedule' component={schedule}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+  )
+}
+class seemyschedule extends Component {
 
    constructor(props) {
     super(props);
@@ -16,7 +30,7 @@ export default class seemyschedule extends Component {
       modules1:null,
       modules2:null,
       modules3:null,
-      modules4:null,
+      modules4:null, 
       heightArr1:[],
       heightArr2:[],
       heightArr3:[],
@@ -416,7 +430,6 @@ export default class seemyschedule extends Component {
        h=h+hm;
      }
      }
-  // height.push(80*(14-h));
      //  const data= doc.data()
      //  modules.push(data)
      //modules.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
@@ -436,13 +449,12 @@ export default class seemyschedule extends Component {
  componentDidUpdate(prevProps,prevState) {
 
   if(prevState.modules!=this.state.modules){
-   this.getDetails()
+   this.getDetails();
    //prevState = this.state
   }
- 
  }
 
- 
+
   render() {
 
      const state = this.state;
@@ -512,6 +524,8 @@ export default class seemyschedule extends Component {
    alignItems:"center",}} source={require('../assets/back1.png')}>
          <TouchableOpacity style={{ position: "absolute", top: 5, left: 5}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
                 </TouchableOpacity>
+                <TouchableOpacity style={{ position: "absolute", top: 5, right: 5}} onPress={() => this.props.navigation.navigate('schedule')}><Image style={styles.image} source={require('../assets/addassignmentlogo.png')}/>
+                </TouchableOpacity>
        <Text style={styles.texta}>MY SCHEDULE</Text>
         <ScrollView horizontal={true}>
           <View>
@@ -580,6 +594,7 @@ export default class seemyschedule extends Component {
             </ScrollView>
           </View>
         </ScrollView>
+       
         </ImageBackground>
       </View>
     )
@@ -620,3 +635,5 @@ texta: {
   
 },
 });
+export default schedulenav;
+
