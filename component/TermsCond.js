@@ -10,7 +10,7 @@ return (
 <ImageBackground style={{flex: 1, resizeMode: "cover"}} source={require('../assets/back1.png')}>
 <ScrollView style={styles.scrollview}>
 
-    <TouchableOpacity style={{marginTop: 20}} onPress={()=>this.props.navigation.goBack()}><Image style={styles.image} source={require('../assets/bac.png')}/>
+    <TouchableOpacity style={{marginTop: 20}} onPress={()=>this.props.navigation.goBack()}><Image style={styles.image} source={require('../assets/backicon.png')}/>
     </TouchableOpacity> 
     <Text style={styles.text1}>Terms and Conditions</Text>
     <Text style={styles.textb}>
