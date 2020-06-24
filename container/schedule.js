@@ -51,10 +51,10 @@ export default class SwitchExample extends Component {
           Day: this.state.Day,
           Module: this.state.Module,
           Class: this.state.Class,
-          selectedHoursf: this.state.selectedHoursf,
-          selectedMinutesf: this.state.selectedMinutesf,
-          selectedHourst: this.state.selectedHourst,
-          selectedMinutest: this.state.selectedMinutest,
+          selectedHoursf:parseInt(this.state.selectedHoursf),
+          selectedMinutesf: parseInt(this.state.selectedMinutesf),
+          selectedHourst: parseInt(this.state.selectedHourst),
+          selectedMinutest: parseInt(this.state.selectedMinutest),
           Location: this.state.Location
 
          })
