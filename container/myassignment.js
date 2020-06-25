@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, TouchableOpacity , Image, Text, ImageBackground} from 'react-native';
-import { Table, TableWrapper, Row, Cell,Col, Rows,Cols } from 'react-native-table-component';
+import { StyleSheet, View, ScrollView, TouchableOpacity , Dimensions, Image, Text, ImageBackground, SectionList} from 'react-native';
+// import { Table, TableWrapper, Row, Cell,Col, Rows,Cols } from 'react-native-table-component';
 import firebaseDb from '../firebaseDb';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import assignments from '../component/assignments';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import assigntable from'./assigntable'
 
+const Tab = createMaterialTopTabNavigator();
+
+function MyTabs() {
+  return (
+    <Tab.Navigator independent={true} tabBarOptions={{activeTintColor: '#e91e63', labelStyle: { fontSize: 12 }, style: { backgroundColor: 'powderblue' },}}>
+      <Tab.Screen name="Table View" component={assigntable} />
+      <Tab.Screen name="List View" component={assignmentnav} />
+    </Tab.Navigator>
+  );
+}
 
 const Stack = createStackNavigator();
+
 function assignmentnav() {
   return (
     <NavigationContainer independent={true}>
@@ -19,6 +32,11 @@ function assignmentnav() {
   )
 }
 
+const Item = ({ title }) => (
+  <View style={styles.item}>
+    <Text style={styles.title}>{title}</Text>
+  </View>
+);
 
 class myassignment extends Component {
 
@@ -75,6 +93,7 @@ componentDidUpdate(prevProps,prevState) {
     const assignment = [];
     const rowData = [];
     const height = [];
+    const list = [];
     let date;
     let h = 0;
     let i = 0;
@@ -93,57 +112,52 @@ componentDidUpdate(prevProps,prevState) {
       h++;
       }
       else{
-        height.push(80*h);
+        height.push(h);
         h = 0;
         i++;
         if(rowData[i]==date) {
           h++;
         }
       }
-      assignment.push(module.Name+'\n'+module.Module+'\n')
+      assignment.push(module.Name+'\n'+module.Module+'\n'+"Additional Notes: "+module.Notes)
      
     })
-    height.push(80*h)
-   
+    height.push(h)
+    i = 0;
+    let j = 0;
+    let k = 0;
+    let assign = [];
+
+    height&&height.map(h=>{
+      while(j<h) {
+        assign.push(assignment[k])
+        j++;
+        k++;
+      }
+      list.push({title: rowData[i], data: assign})
+      assign = [];
+      i++;
+      j=0;
+    })
   
     return (
       <View style={styles.container}>
-         <ImageBackground style={{flex: 1, resizeMode: "contain" ,   justifyContent: 'center',
-   alignItems:"center",}} source={require('../assets/back1.png')}>
-         <TouchableOpacity style={{ position: "absolute", top: 5, left: 5}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
-                </TouchableOpacity>
-                <TouchableOpacity style={{ position: "absolute", top: 5, right: 5}} onPress={() => this.props.navigation.navigate('assignment')}><Image style={styles.image} source={require('../assets/addassignmentlogo.png')}/>
-                </TouchableOpacity>
-       <Text style={styles.texta}>MY ASSIGNMENTS</Text>
+        <ImageBackground style={{flex: 1, resizeMode: "contain" ,}} source={require('../assets/back1.png')}>
+        <TouchableOpacity style={{ position: "absolute", top: 5, left: 5}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
+        </TouchableOpacity>
+        <TouchableOpacity style={{ position: "absolute", top: 5, right: 5}} onPress={() => this.props.navigation.navigate('assignment')}><Image style={styles.image} source={require('../assets/addassignmentlogo.png')}/>
+        </TouchableOpacity>
+        <Text style={styles.texta}>MY ASSIGNMENTS</Text>
         <ScrollView horizontal={true}>
-          <View>
-            <Table borderStyle={{borderColor: '#C1C0B9', borderWidth: 2}}>
-              <Row data={state.tableHead} widthArr={state.widthArr} style={styles.header} textStyle={styles.text}/>
-            </Table>
-            <ScrollView style={styles.dataWrapper}>
-              {<Table style={{flexDirection: 'row'}} borderStyle={{borderWidth: 2, borderColor: '#C1C0B9', alignItems:'flex-start'}}>
-                  <TableWrapper style={{flexDirection: 'row'}}>
-                    <Col 
-                      
-                      width={100}
-                      data={rowData}
-                      heightArr={height}
-                      style={styles.row}
-                      textStyle={styles.text1}
-                    />
-                    </TableWrapper>
-                    <TableWrapper style={{flexDirection: 'row'}}>
-                    <Col
-                      width={200}
-                      data={assignment}
-                      heightArr={state.heightArr}
-                      style={styles.row1}
-                      textStyle={styles.text}
-                    /> 
-                  </TableWrapper>
-              </Table>}
-
-            </ScrollView>
+          <View style={{marginLeft:20, marginRight:20}}>
+          <SectionList
+          sections={list}
+          keyExtractor={(item, index) => item + index}
+          renderItem={({ item }) => <Item title={item} />}
+          renderSectionHeader={({ section: { title } }) => (
+            <Text style={styles.header}>{title}</Text>
+          )}
+        /> 
           </View>
         </ScrollView>
         </ImageBackground>
@@ -158,12 +172,6 @@ const styles = StyleSheet.create({
   
   },
 
-  header: { height: 50, backgroundColor: '#ffc0cb' },
-  text: { textAlign: 'center', fontWeight: '100' , color:'black'},
-  text1: { textAlign: 'center', fontWeight: '100' , color:'black'}, 
-  dataWrapper: { marginTop: -1 },
-  row: { flex:1, backgroundColor: '#f5deb3',alignItems:'flex-start' },
-  row1: { flex:1, backgroundColor: '#7fffd4',alignItems:'flex-start' },
   image: {
     justifyContent: 'flex-start',
     alignItems:'flex-start',
@@ -184,6 +192,21 @@ texta: {
   textDecorationLine: "underline"
   
 },
+item: {
+
+  padding: 20,
+  marginVertical: 8,
+
+},
+header: {
+  fontSize: 32,
+  width:Dimensions.get('window').width - 50,
+  backgroundColor: "#b0e0e6",
+  borderRadius: 10
+},
+title: {
+  fontSize: 24
+}
 });
 
-export default assignmentnav;
+export default MyTabs;
