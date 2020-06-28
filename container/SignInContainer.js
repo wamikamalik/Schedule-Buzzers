@@ -1,8 +1,9 @@
 import React from 'react'
-import { View, Image, TextInput, Text, ActivityIndicator, StyleSheet } from 'react-native'
+import { View, Image, TextInput, Text, ActivityIndicator, StyleSheet,Dimensions } from 'react-native'
 import WhiteButton from '../component/WhiteButton';
 import firebaseDb from '../firebaseDb';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Constants from 'expo-constants'
 
 class SignInContainer extends React.Component {
   state = {
@@ -66,7 +67,7 @@ class SignInContainer extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container: { marginTop: Constants.statusBarHeight,
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     fontSize: 20,
     marginBottom: 8,
-    width: 400,
+    width: (Dimensions.get('window').width>400)?400:Dimensions.get('window').width-40,
     height: 50
   },
   button: {

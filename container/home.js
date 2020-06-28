@@ -4,6 +4,7 @@ import { TouchableOpacity} from 'react-native-gesture-handler';
 import WhiteButton from '../component/WhiteButton';
 
  import firebaseDb from '../firebaseDb';
+ import Constants from 'expo-constants'
 
 
 class home extends React.Component {
@@ -49,7 +50,7 @@ class home extends React.Component {
     }
   }
   const styles = StyleSheet.create({
-    container: {
+    container: { marginTop: Constants.statusBarHeight,
         flex: 1,
         // justifyContent: "center",
         // alignItems: "center",

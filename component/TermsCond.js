@@ -1,6 +1,6 @@
 import React from 'react'
 import { SafeAreaView, Image, TextInput,TouchableOpacity, Text, ActivityIndicator, StyleSheet, ImageBackground, ScrollView} from 'react-native'
-
+import Constants from 'expo-constants'
 
 class TermsCond extends React.Component{
 render (){
@@ -58,7 +58,7 @@ return (
 }
 
 const styles = StyleSheet.create({
-    container: {
+    container: { marginTop: Constants.statusBarHeight,
         flex: 1,
         //flexDirection: 'column',
         backgroundColor: '#02b7cc',

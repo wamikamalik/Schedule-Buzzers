@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
-import { Platform,KeyboardAvoidingView,StyleSheet,ImageBackground, Image, Text, View,Button, Picker, Modal, TouchableHighlight,TouchableOpacity, SafeAreaView, TextInput } from 'react-native';
+import { Platform,KeyboardAvoidingView,StyleSheet,ImageBackground, Image, Text, View,Button, Picker, Modal, TouchableHighlight,TouchableOpacity, SafeAreaView, TextInput, Dimensions } from 'react-native';
 //import {Button} from 'react-native-elements';
 import TimePicker from 'react-native-simple-time-picker';
 import firebaseDb from '../firebaseDb';
 //import BlackButton from '../component/BlackButton';
+import Constants from 'expo-constants'
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 export default class SwitchExample extends Component {
@@ -256,11 +258,9 @@ this.checkTime();
       return (
 
          <SafeAreaView style={styles.container}>
-            <ImageBackground style={{flex: 1, resizeMode: "cover" ,flexDirection: "column",
-    justifyContent: 'center',
-   alignItems:"center",
-  paddingHorizontal: 100}} source={require('../assets/back1.png')}>
-            <TouchableOpacity style={{ position: "absolute", top: 5, left: 5}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
+           <ScrollView>
+            <ImageBackground style={{flex: 1, resizeMode: "cover" ,flexDirection: "column",justifyContent: 'center',alignItems:"center",}} source={require('../assets/back1.png')}>
+            <TouchableOpacity style={{ position: "absolute", top: 10, left: 10}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
                 </TouchableOpacity>
                <Text style={styles.textb}>Add to schedule</Text>
               <Text style={styles.text1}>Day of the week</Text>
@@ -330,13 +330,14 @@ this.checkTime();
           />
 
         </ImageBackground>
+        </ScrollView>
           </SafeAreaView>  
 
       ) 
   }  
 }  
 const styles = StyleSheet.create ({  
-  container:{
+  container:{ marginTop: Constants.statusBarHeight,
     flex: 1,
    
   },
@@ -350,9 +351,9 @@ const styles = StyleSheet.create ({
  
 },
   pickerStyle:{
-      left : 50,
+      marginLeft : 50,
       height:50,
-      width: "20%",
+      width: (Dimensions.get('window').width>400)?400: Dimensions.get('window').width- 50,
       color: '#344953',
       //flexDirection: "",
     justifyContent: "center",
@@ -360,7 +361,7 @@ const styles = StyleSheet.create ({
   },
   pickerStyle2:{
       height: 50,
-      width: "20%",
+      width: (Dimensions.get('window').width>400)?400: Dimensions.get('window').width- 50,
       color: '#344953',
       justifyContent: 'center', 
       alignSelf: "center" },
@@ -442,7 +443,7 @@ const styles = StyleSheet.create ({
       
   },
   picker: {
-    width: 100,
+    width: (Dimensions.get('window').width>100)?100: Dimensions.get('window').width- 10,
   },
 
   

@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, KeyboardAvoidingView, Image, TextInput, Text, StyleSheet } from 'react-native'
+import { View, KeyboardAvoidingView, Image, TextInput, Text, StyleSheet,Dimensions } from 'react-native'
 import firebaseDb from '../firebaseDb'
 import WhiteButton from '../component/WhiteButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {CheckBox} from 'react-native-elements'
+import Constants from 'expo-constants'
 
 class SignUpContainer extends React.Component {
   state = {
@@ -120,7 +121,7 @@ class SignUpContainer extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container: { marginTop: Constants.statusBarHeight,
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
@@ -132,7 +133,7 @@ const styles = StyleSheet.create({
     backgroundColor:'white',
     fontSize: 20,
     marginBottom: 8,
-    width: 400,
+    width: (Dimensions.get('window').width>400)?400:Dimensions.get('window').width-40,
     height: 50
   },
   button: {

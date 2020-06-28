@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, SafeAreaView, Image, Text, ImageBackground } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
+import Constants from 'expo-constants'
 import WhiteButton from "./component/WhiteButton";
 import SignUpContainer from "./container/SignUpContainer"
 import SignInContainer from "./container/SignInContainer"
@@ -18,7 +18,8 @@ function HomeScreen({navigation}) {
 <SafeAreaView style={styles.container}>
 <ImageBackground style={{flex: 1, resizeMode: "cover", justifyContent:"center", alignItems:"center"}} source={require('./assets/homeback.png')}>
 <Image style={styles.image} source={require('./assets/ologo.png')}/>
-  <Text style={styles.textb}>Schedule Buzzer</Text>
+  <Text style={styles.textb}>Schedule</Text>
+  <Text style={styles.textb}>Buzzer</Text>
   <Text style={styles.textn}>We have you scheduled !!</Text>
       <WhiteButton style={styles.button} onPress={() =>navigation.navigate('SignUp')}>Sign Up</WhiteButton>
       <WhiteButton style={styles.button} onPress={() =>navigation.navigate('SignIn')}>Sign In</WhiteButton>
@@ -85,7 +86,7 @@ function App() {
 // }
 
 const styles = StyleSheet.create({
-  container: {
+  container: { marginTop: Constants.statusBarHeight,
     flex: 1,
     //justifyContent:"center",
     //alignItems:"center",
@@ -102,15 +103,21 @@ const styles = StyleSheet.create({
     fontSize: 50,
     fontStyle:"italic",
     fontWeight:"bold",
+    alignSelf:"center",
+    justifyContent:'center'
   },
   textn: {
     color: "white",
     fontSize: 30,
-    marginBottom: 70
+    marginBottom: 70,
+    alignSelf:"center",
+    justifyContent:"center"
   },
   image: {
     height: 200,
-    width: 250
+    width: 250,
+    alignSelf:"center",
+    justifyContent:"center"
   }
 });
 

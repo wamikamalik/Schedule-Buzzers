@@ -5,7 +5,7 @@ import firebaseDb from '../firebaseDb';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import schedule from '../component/schedule';
-
+import Constants from 'expo-constants'
 
 const Stack = createStackNavigator();
 function schedulenav() {
@@ -522,9 +522,9 @@ class seemyschedule extends Component {
       <View style={styles.container}>
       <ImageBackground style={{flex: 1, resizeMode: "contain" ,   justifyContent: 'center',
    alignItems:"center",}} source={require('../assets/back1.png')}>
-         <TouchableOpacity style={{ position: "absolute", top: 5, left: 5}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
+         <TouchableOpacity style={{ position: "absolute", top: 10, left: 10}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
                 </TouchableOpacity>
-                <TouchableOpacity style={{ position: "absolute", top: 5, right: 5}} onPress={() => this.props.navigation.navigate('schedule')}><Image style={styles.image} source={require('../assets/addassignmentlogo.png')}/>
+                <TouchableOpacity style={{ position: "absolute", top: 10, right: 10}} onPress={() => this.props.navigation.navigate('schedule')}><Image style={styles.image} source={require('../assets/addassignmentlogo.png')}/>
                 </TouchableOpacity>
        <Text style={styles.texta}>MY SCHEDULE</Text>
         <ScrollView horizontal={true}>
@@ -602,7 +602,7 @@ class seemyschedule extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#2ec4b6'},
+  container: { marginTop: Constants.statusBarHeight, flex: 1, backgroundColor: '#2ec4b6'},
   header: { height: 50, backgroundColor: '#ffc0cb' },
   text: { textAlign: 'center', fontWeight: '100' , color:'black'},
   text1: { textAlign: 'center', fontWeight: '100' , color:'black',position:'absolute',top:3}, 
@@ -629,6 +629,7 @@ texta: {
   fontWeight:"bold",
   alignSelf:'center',
   marginTop:30,
+  marginBottom:30,
   textDecorationLine:"underline",
   justifyContent: 'center',
   textDecorationLine: "underline"

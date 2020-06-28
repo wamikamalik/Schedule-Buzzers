@@ -6,6 +6,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import assignments from '../component/assignments';
 import moment from 'moment'
+import Constants from 'expo-constants'
+
 moment().format();
 
 const Stack = createStackNavigator();
@@ -118,10 +120,10 @@ componentDidUpdate(prevProps,prevState) {
    
   
     return (
-      <View style={styles.container}>
+      <View style={{flex:1}}>
          <ImageBackground style={{flex: 1, resizeMode: "contain" ,   justifyContent: 'center',
    alignItems:"center",}} source={require('../assets/back1.png')}>
-         <TouchableOpacity style={{ position: "absolute", top: 5, left: 5}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
+         <TouchableOpacity style={{ position: "absolute", top: 10, left: 10}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
                 </TouchableOpacity>
                 <TouchableOpacity style={{ position: "absolute", top: 5, right: 5}} onPress={() => this.props.navigation.navigate('assignment')}><Image style={styles.image} source={require('../assets/addassignmentlogo.png')}/>
                 </TouchableOpacity>
@@ -164,7 +166,7 @@ componentDidUpdate(prevProps,prevState) {
 }
 
 const styles = StyleSheet.create({
-  container:{
+  container:{ marginTop: Constants.statusBarHeight,
     flex: 1,
   
   },

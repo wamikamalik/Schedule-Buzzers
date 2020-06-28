@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "exercise_1",
-    "slug": "exercise_1",
+    "name": "ScheduleBuzzer",
+    "slug": "schedulebuzzer",
     "platforms": [
       "ios",
       "android",
@@ -9,9 +9,9 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/ologo.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/ologo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

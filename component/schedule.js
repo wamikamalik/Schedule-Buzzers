@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import { Platform,KeyboardAvoidingView,StyleSheet,ImageBackground, Image, Text, View,Button, Picker, Modal, TouchableHighlight,TouchableOpacity, SafeAreaView, TextInput } from 'react-native';
+import { Platform,KeyboardAvoidingView,StyleSheet,ImageBackground, Image, Text, View,Button, Picker, Modal, TouchableHighlight,TouchableOpacity, SafeAreaView, TextInput, Dimensions } from 'react-native';
 //import {Button} from 'react-native-elements';
 import TimePicker from 'react-native-simple-time-picker';
 import firebaseDb from '../firebaseDb';
+import Constants from 'expo-constants'
 //import BlackButton from '../component/BlackButton';
 
 
@@ -336,7 +337,7 @@ this.checkTime();
   }  
 }  
 const styles = StyleSheet.create ({  
-  container:{
+  container:{ marginTop: Constants.statusBarHeight,
     flex: 1,
    
   },
@@ -352,7 +353,7 @@ const styles = StyleSheet.create ({
   pickerStyle:{
       left : 50,
       height:50,
-      width: "20%",
+      width: (Dimensions.get('window').width>400)?400: Dimensions.get('window').width- 50,
       color: '#344953',
       //flexDirection: "",
     justifyContent: "center",
@@ -360,7 +361,7 @@ const styles = StyleSheet.create ({
   },
   pickerStyle2:{
       height: 50,
-      width: "20%",
+      width: (Dimensions.get('window').width>400)?400: Dimensions.get('window').width- 50,
       color: '#344953',
       justifyContent: 'center', 
       alignSelf: "center" },
@@ -442,7 +443,7 @@ const styles = StyleSheet.create ({
       
   },
   picker: {
-    width: 100,
+    width: (Dimensions.get('window').width>100)?100: Dimensions.get('window').width- 10,
   },
 
   

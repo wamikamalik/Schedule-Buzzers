@@ -9,7 +9,7 @@ const WhiteButton = props => (
 )
 
 const styles = StyleSheet.create({
-  container: {
+  container: { 
     backgroundColor: 'green',
   },
   text: {

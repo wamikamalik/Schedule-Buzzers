@@ -281,7 +281,7 @@ import GreenButton from '../component/GreenButton';
  }
 
  const styles = StyleSheet.create({
-    container: {
+    container: { 
         flex: 1,
        backgroundColor: 'transparent',
     },
@@ -307,7 +307,7 @@ import GreenButton from '../component/GreenButton';
         fontSize: 20,
         marginTop: 10,
         marginLeft: 5,
-        width: 400,
+        width: (Dimensions.get('window').width>400)?400:Dimensions.get('window').width-40,
         height: 50,
         fontWeight: "bold",
         alignSelf:'center',
@@ -320,7 +320,7 @@ import GreenButton from '../component/GreenButton';
         fontSize: 20,
         marginTop: 10,
         marginLeft: 5,
-        width: 400,
+        width: (Dimensions.get('window').width>400)?400:Dimensions.get('window').width-40,
         height: 100,
         fontWeight: "bold",
         alignSelf:'center',

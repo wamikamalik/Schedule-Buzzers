@@ -21,6 +21,7 @@ import about from './about'
 import TermsCond from './TermsCond'
 import seemyschedule from './seemyschedule'
 import myassignment from './myassignment'
+import Constants from 'expo-constants'
 
 const DrawerNavigator = createDrawerNavigator();
 
@@ -61,7 +62,7 @@ class Main extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    container: { marginTop: Constants.statusBarHeight,
         flex: 1,
         // justifyContent: "center",
         // alignItems: "center",

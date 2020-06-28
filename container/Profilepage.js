@@ -1,9 +1,10 @@
 import React from 'react'
 import { SafeAreaView, Image, TextInput, Text, ActivityIndicator, StyleSheet, Button, ImageBackground } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import WhiteButton from '../component/WhiteButton';
 import firebaseDb from '../firebaseDb';
 import * as ImagePicker from 'expo-image-picker';
+import Constants from 'expo-constants'
 
 class Profilepage extends React.Component {
 
@@ -93,6 +94,7 @@ class Profilepage extends React.Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
+              <ScrollView>
               <ImageBackground style={{flex: 1, resizeMode: "cover"}} source={require('../assets/back1.png')}>
                 <TouchableOpacity style={{marginTop: 20}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slideinw.png')}/>
                 </TouchableOpacity>
@@ -112,6 +114,7 @@ class Profilepage extends React.Component {
                 
                 <WhiteButton style={styles.button} onPress={this.UpdateUser}>Update Details</WhiteButton>
                 </ImageBackground>
+                </ScrollView>
             </SafeAreaView>
             
         )
@@ -119,7 +122,7 @@ class Profilepage extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    container: { marginTop: Constants.statusBarHeight,
       flex: 1,
       flexDirection: 'column',
       //justifyContent: 'center',
