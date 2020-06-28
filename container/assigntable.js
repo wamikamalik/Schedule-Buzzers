@@ -5,7 +5,8 @@ import firebaseDb from '../firebaseDb';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import assignments from '../component/assignments';
-
+import moment from 'moment'
+moment().format();
 
 const Stack = createStackNavigator();
 
@@ -29,7 +30,7 @@ class myassignment extends Component {
       modules:null,
       heightArr:[80,80,80,80,80,80,80,80,80,80,80,80,80,80],
       widthArr: [100,200],
-     tableHead :  ['Deadline (MM-DD-YYYY)', "Assignment"]
+     tableHead :  ['Deadline (DD-MM-YYYY)', "Assignment"]
     }
   }
 
@@ -40,7 +41,7 @@ class myassignment extends Component {
    .collection('users')
    .doc(user.uid)
    .collection('assignments')
-   .orderBy('Deadline','asc')
+   //.orderBy('Deadline','asc')
    .get()
    .then(snapshot => {
      const modules=[]
@@ -72,24 +73,33 @@ componentDidUpdate(prevProps,prevState) {
   render() {
 
      const state = this.state;
-
+    const interm = [];
     const assignment = [];
     const rowData = [];
     const height = [];
     let date;
     let h = 0;
     let i = 0;
+    this.state.modules&&this.state.modules.map( module =>{
+      interm.push({data:module.Name+'\n'+module.Module+'\n', date:module.Deadline})
+    })
 
-    this.state.modules &&
-    this.state.modules.map( module => {
-      date = (module.Deadline.toDate().getMonth()+1)+'-'+module.Deadline.toDate().getDate()+'-'+module.Deadline.toDate().getFullYear()
+    const sortedinterm = interm.sort(function(a,b) {
+      a.date = a.date.split('-').reverse().join('');
+      b.date = b.date.split('-').reverse().join('');
+      return a.date > b.date ? 1 : a.date < b.date ? -1 : 0;
+      // return a.localeCompare(b);         // <-- alternative 
+    });
+    sortedinterm &&
+    sortedinterm.map( module => {
+      date = module.date.substr(6,2)+'-'+module.date.substr(4,2)+'-'+module.date.substr(0,4);
       if(!rowData.includes(date))
         rowData.push(date)
     })
 
-    this.state.modules &&
-    this.state.modules.map( module => {
-      date = (module.Deadline.toDate().getMonth()+1)+'-'+module.Deadline.toDate().getDate()+'-'+module.Deadline.toDate().getFullYear()
+    sortedinterm &&
+    sortedinterm.map( module => {
+      date = module.date.substr(6,2)+'-'+module.date.substr(4,2)+'-'+module.date.substr(0,4);
       if(rowData[i]==date) {
       h++;
       }
@@ -101,7 +111,7 @@ componentDidUpdate(prevProps,prevState) {
           h++;
         }
       }
-      assignment.push(module.Name+'\n'+module.Module+'\n')
+      assignment.push(module.data)
      
     })
     height.push(80*h)

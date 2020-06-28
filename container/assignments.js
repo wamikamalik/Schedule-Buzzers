@@ -41,9 +41,10 @@ import GreenButton from '../component/GreenButton';
         }
         else{
             const user = firebaseDb.auth().currentUser.uid;
+            //var myTimeStamp = new Date(this.state.deadline)
             var today = new Date()
-            var date = moment(this.state.deadline,"MM-DD-YYYY")
-            var aDate = moment(date, "MM-DD-YYYY", true);
+            var date = moment(this.state.deadline,"DD-MM-YYYY")
+            var aDate = moment(date, "DD-MM-YYYY", true);
             var isValid = aDate.isValid();
             if(isValid && date >= today) {
             if (user) {
@@ -58,7 +59,7 @@ import GreenButton from '../component/GreenButton';
                         doc.ref.update ({
                             Module: this.state.mod,
                             Name: this.state.name,
-                            Deadline: new Date(this.state.deadline),
+                            Deadline: this.state.deadline,
                             Notes: this.state.notes 
                     })
                     this.setState({
@@ -81,7 +82,7 @@ import GreenButton from '../component/GreenButton';
                             {
                             Module: this.state.mod,
                             Name: this.state.name,
-                            Deadline: new Date(this.state.deadline),
+                            Deadline: this.state.deadline,
                             Notes: this.state.notes
                             })
                             .then(() => {
@@ -177,7 +178,7 @@ import GreenButton from '../component/GreenButton';
                             if(doc.exists) {
                                 this.setState ({
                                     mod: doc.data().Module,
-                                    deadline: (doc.data().Deadline.toDate().getMonth()+1)+'-'+doc.data().Deadline.toDate().getDate()+'-'+doc.data().Deadline.toDate().getFullYear(),
+                                    deadline: doc.data().Deadline,
                                     notes: doc.data().Notes
                                 })
                             }
@@ -249,7 +250,7 @@ import GreenButton from '../component/GreenButton';
                     date={this.state.deadline} //initial date from state
                     mode="date" //The enum of date, datetime and time
                     placeholder="Enter Deadline"
-                    format="MM-DD-YYYY"
+                    format="DD-MM-YYYY"
                     minDate="01-01-2000"
                     maxDate="01-01-2030"
                     confirmBtnText="Confirm"
