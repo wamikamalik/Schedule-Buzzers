@@ -16,6 +16,7 @@
     "expo": "^37.0.12",
     "expo-image-picker": "~8.1.0",
     "firebase": "7.9.0",
+    "firebase-admin": "^8.13.0",
     "moment": "^2.26.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
