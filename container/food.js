@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity , Dimensions, Image, Text, ImageBackground, FlatList, Button, Picker,} from 'react-native';
+import {Alert, View, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity , Dimensions, Image, Text, ImageBackground, FlatList, Button, Picker,MyListItem} from 'react-native';
 import firebaseDb from '../firebaseDb';
 import Constants from 'expo-constants'
 import WhiteButton from '../component/WhiteButton'
@@ -12,6 +12,7 @@ class food extends Component {
         Location: null,
         places: null,
         names: null,
+       detail:null,
     };
 
    // handleUpdateLocation = Location=> this.setState({Location})
@@ -38,13 +39,43 @@ class food extends Component {
           })
   
     }
-  
+
+
+ 
+    FlatListItemSeparator = () => {
+      return (
+        //Item Separator
+        <View
+          style={{ height: 0.5, width: '100%', backgroundColor: '#C8C8C8' }}
+        />
+      );
+    };
+    GetItem(item){
+     
+      firebaseDb.firestore()
+      .collection('foodplaces')
+      .doc('locations')
+      .collection(this.state.Location)
+      .doc(item)
+      .get()
+      .then(doc => {
+        
+this.setState({ detail:"Location: "+doc.data().Location+'\n'+ " Contact: "+ doc.data().Contact})
+    
+    alert('stuff') })
+    }
     render() {
 
         const placenames=[];
+        const placedetails=[];
         this.state.names&&this.state.names.map( place =>{
             placenames.push({key: place})
         })
+        this.state.places&&this.state.places.map( placedet =>{
+          placedetails.push({key: placedet})
+      })
+
+
         return (
   
            <SafeAreaView style={styles.container}>
@@ -72,17 +103,19 @@ class food extends Component {
               onPress={this.getDetails}
             >Search</WhiteButton>
            
-            <View style={{flex: 2, flexDirection:'row'}}>
+            <View style={{flex: 2, flexDirection:"center"}}>
             <ScrollView horizontal={true}>
-            <View style={{marginLeft:20, marginRight:20}}>
-                <FlatList
+                          <View style={{marginLeft:20, marginRight:20, justifyContent:"center"}}>
+                          <FlatList
                 data={placenames}
                 keyExtractor={item => item.key}
-                renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
+                ItemSeparatorComponent={this.FlatListItemSeparator}
+                renderItem={({item}) =>  <TouchableOpacity onPress={()=>this.GetItem(item.key)}><Text style={styles.item}>{item.key}</Text></TouchableOpacity> }
                 />
             </View>
             </ScrollView>
-            <View style={{alignContent: "center", justifyContent:"center", alignItems:"center"}}>
+            <Text style={styles.text1}>{this.state.detail}</Text>
+            <View style={{ justifyContent:"center", alignItems:"center"}}>
                 <Text> Click on an item to view details!</Text>
             </View>
             </View>
@@ -90,7 +123,7 @@ class food extends Component {
           
             </SafeAreaView>  
   
-        ) 
+        )
     }  
   }  
   const styles = StyleSheet.create ({  
