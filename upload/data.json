@@ -1,20 +1,92 @@
 {
-  "The Summit - Halal Certified": {
-    "Location": "BTC Block B",
-    "Seating Capacity": "33,7 stalls",
-    "Operating Hours": "Mon-Fri, 7.00am-8.00pm Sat, 7.00am-4.00pm",
+  "Flavours@Utown": {
+    "Location": "Stephen Riady Centre",
+    "SeatingCapacity": "700,10 stalls",
+    "OperatingHours": "Mon-Sun: 24 hours",
+    "Contact": ""
+  },
+  "Waa Cow": {
+    "Location": "Stephen Riady Centre",
+    "SeatingCapacity": "",
+    "OperatingHours": "Mon-Thu, 11.30am-7.30pm Fri, 11.30am-9.30pm Sat, 12.00pm-3.00pm",
+    "Contact": ""
+  },
+  "Super Snacks": {
+    "Location": "Stephen Riady Centre",
+    "SeatingCapacity": "",
+    "OperatingHours": "Daily, 11.00am-2.00am",
+    "Contact": ""
+  },
+  "2359 Li Ji Coffeehouse": {
+    "Location": "Stephen Riady Centre",
+    "SeatingCapacity": "",
+    "OperatingHours": "Mon-Fri, 11.00am-1.00am Sat/Sun/PH, 11.00am-10.00pm",
     "Contact": ""
   },
   "Octobox": {
-    "Location": "BTC Block B",
-    "Seating Capacity": "",
-    "Operating Hours": "Mon-Fri, 7.00am-8.00pm Sat, 7.00am-4.00pm",
+    "Location": "Stephen Riady Centre",
+    "SeatingCapacity": "",
+    "OperatingHours": "24-Jul",
     "Contact": ""
   },
-  "Reedz Cafe": {
-    "Location": "The Thinking Corner @ BTC Li Ka Shing Building",
-    "Seating Capacity": 20,
-    "Operating Hours": "Mon-Fri, 8.00am-7.00pm",
-    "Contact": "6463 0272"
+  "Fairprice Xpress": {
+    "Location": "Stephen Riady Centre",
+    "SeatingCapacity": "",
+    "OperatingHours": "24-Jul",
+    "Contact": ""
+  },
+  "Fine Food": {
+    "Location": "Town Plaza",
+    "SeatingCapacity": "410,14 stalls",
+    "OperatingHours": "Mon-Sun, 7.00am-10.00pm",
+    "Contact": ""
+  },
+  "The Royals Bistro - Halal Certified": {
+    "Location": "Town Plaza",
+    "SeatingCapacity": 60,
+    "OperatingHours": "Mon-Sat, 11.00am-8.30pm",
+    "Contact": ""
+  },
+  "Sapore Italiano": {
+    "Location": "Town Plaza",
+    "SeatingCapacity": 122,
+    "OperatingHours": "Mon-Sun, 11.00am-10.00pm",
+    "Contact": "6262 0287"
+  },
+  "Hwang's": {
+    "Location": "Town Plaza",
+    "SeatingCapacity": 114,
+    "OperatingHours": "Mon-Sat, 10.00am-10.00pm",
+    "Contact": "9833 0603"
+  },
+  "Subway - Halal Certified": {
+    "Location": "Town Plaza",
+    "SeatingCapacity": 73,
+    "OperatingHours": "Mon-Sat, 10.00am-10.00pm Sun, 10.00am-9.00pm",
+    "Contact": ""
+  },
+  "Udon Food Bar": {
+    "Location": "Town Plaza",
+    "SeatingCapacity": "",
+    "OperatingHours": "Mon-Sat, 11.00am-10.00pm",
+    "Contact": ""
+  },
+  "Cheers": {
+    "Location": "Town Plaza",
+    "SeatingCapacity": "",
+    "OperatingHours": "Mon-Sat, 11.00am-10.00pm",
+    "Contact": ""
+  },
+  "Starbucks": {
+    "Location": "Education Resource Centre",
+    "SeatingCapacity": 330,
+    "OperatingHours": "24-Jul",
+    "Contact": "6659 6081"
+  },
+  "Agora Cafe": {
+    "Location": "Yale-NUS East Core",
+    "SeatingCapacity": "",
+    "OperatingHours": "Mon-Sun, 8.30am-9.00pm",
+    "Contact": ""
   }
 }

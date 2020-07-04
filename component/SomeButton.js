@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const WhiteButton = props => (
+const SomeButton = props => (
   <TouchableOpacity style={[styles.container, props.style]} onPress={props.onPress}>
     <Text style={styles.text}>{props.children}</Text>
   </TouchableOpacity>
@@ -10,7 +10,7 @@ const WhiteButton = props => (
 
 const styles = StyleSheet.create({
   container: { 
-    backgroundColor: 'green',
+    backgroundColor: "#dbf6ff",
   },
   text: {
     fontSize: 20,
@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 5,
     textAlign: 'center',
-    color:'white'
+    color:'Black'
   }
 })
 
-export default WhiteButton
+export default SomeButton

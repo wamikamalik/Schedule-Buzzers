@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, ScrollView, ImageBackground, Image, TextInput, Te
 import { TouchableOpacity} from 'react-native-gesture-handler';
 import DatePicker from 'react-native-datepicker'
 import moment from 'moment'
-import GreenButton from '../component/GreenButton';
+import WhiteButton from '../component/WhiteButton';
  import firebaseDb from '../firebaseDb';
 
  moment().format()
@@ -242,7 +242,7 @@ import GreenButton from '../component/GreenButton';
                 <Text style={styles.texta}>Input only Name to remove an Assignment. To update input name and press on search.</Text>
                 <Text style={styles.texta}>Module</Text><TextInput style={styles.textInput} placeholder='Module Name' placeholderTextColor="black" onChangeText={this.handleUpdateMod} value={this.state.mod}></TextInput>
                 <Text style={styles.texta}>Name</Text><TextInput style={styles.textInput} placeholder='Assignment name' placeholderTextColor="black" onChangeText={this.handleUpdatename} value={this.state.name}></TextInput>
-                <GreenButton style={styles.button} onPress= {this.HandleSearch}>Search</GreenButton>
+                <WhiteButton style={styles.button} onPress= {this.HandleSearch}>Search</WhiteButton>
                 <Text style={styles.texta}>Deadline</Text>
                     <DatePicker
                     style={{width: 200, marginTop: 10, alignSelf:'center'}}
@@ -270,9 +270,9 @@ import GreenButton from '../component/GreenButton';
                     <Text style={styles.texta}>If calender is inaccessible, Please enter date below</Text><TextInput style={styles.textInput} placeholder="DD-MM-YYYY" placeholderTextColor="black" onChangeText={this.handleUpdatedeadline} value={this.state.deadline}></TextInput>
                     <Text style={styles.texta}>Notes</Text><TextInput style={styles.textInputa} placeholder='Additional notes' placeholderTextColor="black" onChangeText={this.handleUpdatenotes} value={this.state.notes} multiline></TextInput>
 
-                <GreenButton style={styles.button} onPress= {this.UpdateUser}>Add/Update</GreenButton>
-                {/* <GreenButton style={styles.button} onPress= {this.HandleUpdate}>Update</GreenButton> */}
-                <GreenButton style={styles.button} onPress= {this.HandleRemove}>Remove</GreenButton>
+                <WhiteButton style={styles.button} onPress= {this.UpdateUser}>Add/Update</WhiteButton>
+                {/* <WhiteButton style={styles.button} onPress= {this.HandleUpdate}>Update</WhiteButton> */}
+                <WhiteButton style={styles.button} onPress= {this.HandleRemove}>Remove</WhiteButton>
                 </ImageBackground>
                 </ScrollView>
              </KeyboardAvoidingView>

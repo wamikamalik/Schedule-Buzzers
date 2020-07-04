@@ -3,6 +3,7 @@ import { View, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity , Dimensio
 import firebaseDb from '../firebaseDb';
 import Constants from 'expo-constants'
 import WhiteButton from '../component/WhiteButton'
+import SomeButton from '../component/SomeButton'
 
 class food extends Component {
 
@@ -42,14 +43,24 @@ class food extends Component {
     render() {
 
         const placenames=[];
-        this.state.names&&this.state.names.map( place =>{
-            placenames.push({key: place})
+        let i = 0;
+        const details=[];
+        let data;
+
+        this.state.places&&this.state.places.map( place => {
+          data = "Contact: "+place.Contact+'\n'+"Location: "+place.Location+'\n'+"Operating hours: "+place.OperatingHours+'\n'+"Seating Capacity: "+place.SeatingCapacity
+          details.push(data)
         })
+        this.state.names&&this.state.names.map( place =>{
+            placenames.push({key: place, data:details[i]})
+            i++;
+        })
+
         return (
   
            <SafeAreaView style={styles.container}>
-             
-              <ImageBackground style={{flex: 1, resizeMode: "contain" }} source={require('../assets/back1.png')}>
+              <ImageBackground style={{flex: 1, resizeMode: "contain", }} source={require('../assets/back1.png')}>
+              <ScrollView>
               <TouchableOpacity style={{ position: "absolute", top: 10, left: 10}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
                   </TouchableOpacity>
                  <Text style={styles.textb}>Find me Food!</Text>
@@ -72,22 +83,23 @@ class food extends Component {
               onPress={this.getDetails}
             >Search</WhiteButton>
            
-            <View style={{flex: 2, flexDirection:'row'}}>
-            <ScrollView horizontal={true}>
-            <View style={{marginLeft:20, marginRight:20}}>
+           {/* <View style={{flex: 1, alignItems:"center", justifyContent:"center"}}> */}
+            
+            <View style={{flex: 1, alignItems:"center", justifyContent:"center", marginTop:15, marginBottom: 10,}}>
                 <FlatList
                 data={placenames}
                 keyExtractor={item => item.key}
-                renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
+                renderItem={({item}) => <SomeButton style={styles.item} onPress={()=>{alert(item.data)}}>{item.key}</SomeButton>}
                 />
             </View>
-            </ScrollView>
-            <View style={{alignContent: "center", justifyContent:"center", alignItems:"center"}}>
+            
+            {/* <View style={{alignContent: "center", justifyContent:"center", alignItems:"center"}}>
                 <Text> Click on an item to view details!</Text>
-            </View>
-            </View>
+            </View> */}
+            {/* </View> */}
+            </ScrollView>
             </ImageBackground>
-          
+            
             </SafeAreaView>  
   
         ) 
@@ -108,10 +120,12 @@ class food extends Component {
    
   },
   item: {
-    padding: 10,
+    //padding: 10,
     fontSize: 18,
     height: 44,
-    color:"black"
+    color:"black",
+    marginTop: 10,
+    borderRadius: 15,
   },
     pickerStyle:{
         marginLeft : 50,
