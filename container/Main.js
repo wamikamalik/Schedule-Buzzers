@@ -41,7 +41,7 @@ const DrawerNavigator = createDrawerNavigator();
 {/* drawerContent={props => <CustomDrawerContent {...props} />}  iin naviga container*/}
 
 class Main extends React.Component {
-
+    
     render() {
         return (
             <NavigationContainer independent={true}> 

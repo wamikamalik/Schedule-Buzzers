@@ -1,9 +1,10 @@
 import React from 'react'
-import { SafeAreaView, Image, TextInput, Text, ActivityIndicator, StyleSheet, ImageBackground,Dimensions} from 'react-native'
+import { SafeAreaView, Image, TextInput, Text, ActivityIndicator, StyleSheet, ImageBackground,Dimensions, borderWidth} from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import WhiteButton from '../component/WhiteButton';
+import BlackButton from '../component/BlackButton';
 import firebaseDb from '../firebaseDb';
 import Constants from 'expo-constants'
+import {Appbar, Title, Subheading} from 'react-native-paper';
 
 class accntDetails extends React.Component {
 
@@ -88,21 +89,26 @@ reauthenticate = (currentPassword) => {
   render() {
       return (
         <SafeAreaView style={styles.container}>
-          <ImageBackground style={{flex: 1, resizeMode: "cover"}} source={require('../assets/back1.png')}>
-            <TouchableOpacity style={{marginTop: 20}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slideinw.png')}/>
-            </TouchableOpacity>
-            <Text style={styles.text}>Enter Current Password:</Text>
+        
+          <Appbar style={styles.bottom}>
+   <Appbar.Action
+     icon={require('../assets/slidein.png')}
+     onPress={() => this.props.navigation.openDrawer()}
+    />
+     <Appbar.Content title="Account Details" />
+    </Appbar>
+            <Subheading>Enter Current Password:</Subheading>
             <TextInput secureTextEntry style={styles.textInput} placeholder='Password' onChangeText={this.handleUpdatePassword} value={this.state.password}/> 
-            <Text style={styles.texta}>Change Email</Text>
-            <Text style={styles.text}>Enter new email:</Text>
+            <Title>Change Email</Title>
+            <Subheading>Enter new email:</Subheading>
             <TextInput style={styles.textInput} placeholder='New Email' onChangeText={this.handleUpdateEmail} value={this.state.newEmail}/> 
-            <WhiteButton style={styles.button} onPress={this.changeEmail}>Update Email</WhiteButton>
+            <BlackButton style={styles.button} onPress={this.changeEmail}>Update Email</BlackButton>
             
-            <Text style={styles.texta}>Change Password</Text>
-            <Text style={styles.text}>Enter new password:</Text>
+            <Title>Change Password</Title>
+            <Subheading>Enter new password:</Subheading>
             <TextInput secureTextEntry style={styles.textInput} placeholder='New Password' onChangeText={this.handleUpdatenewPassword} value={this.state.newPassword}/> 
-            <WhiteButton style={styles.button} onPress={this.changePassword}>Update Password</WhiteButton>
-            </ImageBackground>
+            <BlackButton style={styles.button} onPress={this.changePassword}>Update Password</BlackButton>
+        
         </SafeAreaView>
             
         )
@@ -115,12 +121,12 @@ const styles = StyleSheet.create({
       flexDirection: 'column',
       //justifyContent: 'center',
       //alignItems: 'center',
-      backgroundColor: '#02b7cc'
+      backgroundColor: '#ffebcd'
     },
 
     textInput: {
-        borderRadius:5,
-        //backgroundColor:'white',
+        borderWidth:2,
+        backgroundColor:'white',
         fontSize: 20,
         //marginTop: 10,
         marginLeft: 5,
