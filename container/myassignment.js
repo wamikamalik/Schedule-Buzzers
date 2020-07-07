@@ -162,7 +162,7 @@ componentDidUpdate(prevProps,prevState) {
         </TouchableOpacity>
         <TouchableOpacity style={{ position: "absolute", top: 5, right: 5}} onPress={() => this.props.navigation.navigate('assignment')}><Image style={styles.image} source={require('../assets/addassignmentlogo.png')}/>
         </TouchableOpacity>
-        <Title>MY ASSIGNMENTS</Title>
+        <Title style={styles.text}>MY ASSIGNMENTS</Title>
         <ScrollView horizontal={true}>
           <View style={{marginLeft:20, marginRight:20}}>
           <SectionList
@@ -170,7 +170,7 @@ componentDidUpdate(prevProps,prevState) {
           keyExtractor={(item, index) => item + index}
           renderItem={({ item }) => <Item title={item} />}
           renderSectionHeader={({ section: { title } }) => (
-            <Subheading>{title}</Subheading>
+            <Text style={styles.header}>{title}</Text>
           )}
         /> 
           </View>
@@ -188,6 +188,8 @@ const styles = StyleSheet.create({
    
   
   },
+  text:{  alignSelf:'center',
+  marginTop: 10,},
 
   image: {
     justifyContent: 'flex-start',

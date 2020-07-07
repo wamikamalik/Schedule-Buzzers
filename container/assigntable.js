@@ -7,7 +7,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import assignments from '../component/assignments';
 import moment from 'moment'
 import Constants from 'expo-constants'
-import {Appbar} from 'react-native-paper'
+import {Appbar,Title} from 'react-native-paper'
 moment().format();
 
 const Stack = createStackNavigator();
@@ -128,7 +128,7 @@ componentDidUpdate(prevProps,prevState) {
                 </TouchableOpacity>
                 <TouchableOpacity style={{ position: "absolute", top: 5, right: 5}} onPress={() => this.props.navigation.navigate('assignment')}><Image style={styles.image} source={require('../assets/addassignmentlogo.png')}/>
                 </TouchableOpacity>
-       <Title>MY ASSIGNMENTS</Title> 
+       <Title style={styles.text}>MY ASSIGNMENTS</Title> 
        <View style={styles.container1}>
         <ScrollView horizontal={true}>
           <View>
@@ -186,6 +186,9 @@ const styles = StyleSheet.create({
     marginLeft:15
  
 },
+text:{
+alignSelf:'center',
+marginTop: 10,},
 texta: {
   color: "black",
   fontSize: 28,
