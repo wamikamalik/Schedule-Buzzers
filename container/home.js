@@ -1,10 +1,11 @@
 import React from 'react'
 import { SafeAreaView, ImageBackground, Image, TextInput, Text, ActivityIndicator, StyleSheet, Dimensions } from 'react-native'
 import { TouchableOpacity} from 'react-native-gesture-handler';
-import WhiteButton from '../component/WhiteButton';
+import BlackButton from '../component/BlackButton';
 
  import firebaseDb from '../firebaseDb';
  import Constants from 'expo-constants'
+ import {Appbar, Title, Subheading} from 'react-native-paper';
 
 
 class home extends React.Component {
@@ -35,15 +36,19 @@ class home extends React.Component {
     render() {
         return (
             <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
-            <ImageBackground style={{flex: 1,height: "100%", width:"100%", resizeMode:"contain"}} source={require('../assets/back.png')}>
-              <TouchableOpacity style={{marginTop: 20}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
-              </TouchableOpacity>
-              <Text style={styles.text}>Hello,{this.state.name}!!</Text>
+                <Appbar >
+   <Appbar.Action
+     icon={require('../assets/slidein.png')}
+     onPress={() => this.props.navigation.openDrawer()}
+    />
+     <Appbar.Content title="Home" />
+    </Appbar>
+              <Title style= {styles.text}>Hello,{this.state.name}!!</Title>
               <Image style={styles.profile} source={this.state.photo}></Image>
-              <WhiteButton style={styles.button} onPress={()=>this.props.navigation.navigate("Add Schedule")}>Add Schedule</WhiteButton>
-              <WhiteButton style={styles.button} onPress={()=>this.props.navigation.navigate("Add Assignments")}>Add Assignments</WhiteButton>
-              <WhiteButton style={styles.button} onPress={()=>this.props.navigation.openDrawer()}>More Options</WhiteButton>
-              </ImageBackground>
+              <BlackButton style={styles.button} onPress={()=>this.props.navigation.navigate("See Current Schedule")}>See Current Schedule</BlackButton>
+              <BlackButton style={styles.button} onPress={()=>this.props.navigation.navigate("See Current Assignments")}>See Current Assignments</BlackButton>
+              <BlackButton style={styles.button} onPress={()=>this.props.navigation.openDrawer()}>More Options</BlackButton>
+             
           </SafeAreaView>
         )
         
@@ -54,19 +59,12 @@ class home extends React.Component {
         flex: 1,
         // justifyContent: "center",
         // alignItems: "center",
-       backgroundColor: 'transparent'
+       backgroundColor: '#ffebcd'
     },
-    image: {
-        justifyContent: 'flex-start',
-        alignItems:'flex-start',
-        alignSelf: 'flex-start',
-        height: 40,
-        width:30,
-        marginLeft:15
-    },
+
     text: {
-        fontWeight:'bold',
-        fontSize: 24,
+       // fontWeight:'bold',
+      //  fontSize: 24,
         alignSelf:'center',
        
     },
@@ -80,7 +78,7 @@ class home extends React.Component {
     button: {
         marginTop: 25,
         borderRadius:20,
-        width:200,
+        width:300,
         height:45,
         alignSelf:'center',
       },

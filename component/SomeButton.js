@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 5,
     textAlign: 'center',
-    color:'Black'
+    color:'#000000'
   }
 })
 

@@ -3,8 +3,10 @@ import { KeyboardAvoidingView, ScrollView, ImageBackground, Image, TextInput, Te
 import { TouchableOpacity} from 'react-native-gesture-handler';
 import DatePicker from 'react-native-datepicker'
 import moment from 'moment'
-import WhiteButton from '../component/WhiteButton';
+import BlackButton from '../component/BlackButton';
  import firebaseDb from '../firebaseDb';
+ import Constants from 'expo-constants'
+import {Appbar, Title, Subheading} from 'react-native-paper'
 
  moment().format()
 
@@ -41,6 +43,7 @@ import WhiteButton from '../component/WhiteButton';
         }
         else{
             const user = firebaseDb.auth().currentUser.uid;
+            //var myTimeStamp = new Date(this.state.deadline)
             var today = new Date()
             var date = moment(this.state.deadline,"DD-MM-YYYY")
             var aDate = moment(date, "DD-MM-YYYY", true);
@@ -58,7 +61,7 @@ import WhiteButton from '../component/WhiteButton';
                         doc.ref.update ({
                             Module: this.state.mod,
                             Name: this.state.name,
-                            Deadline: new Date(this.state.deadline),
+                            Deadline: this.state.deadline,
                             Notes: this.state.notes 
                     })
                     this.setState({
@@ -81,7 +84,7 @@ import WhiteButton from '../component/WhiteButton';
                             {
                             Module: this.state.mod,
                             Name: this.state.name,
-                            Deadline: new Date(this.state.deadline),
+                            Deadline: this.state.deadline,
                             Notes: this.state.notes
                             })
                             .then(() => {
@@ -234,15 +237,20 @@ import WhiteButton from '../component/WhiteButton';
      render() {
          return (
              <KeyboardAvoidingView style={styles.container}>
+                 <Appbar.Header >
+   <Appbar.BackAction
+     
+     onPress={() => this.props.navigation.goBack()}
+    />
+     <Appbar.Content title="Add Assignments" />
+    </Appbar.Header>
+
                  <ScrollView>
-                <ImageBackground style={{flex: 1, resizeMode: "contain"}} source={require('../assets/back1.png')}>
-                <TouchableOpacity style={{marginTop: 20}} onPress={()=>this.props.navigation.goBack()}><Image style={styles.image} source={require('../assets/backicon.png')}/>
-    </TouchableOpacity> 
-                <Text style={styles.text}>Add Assignments</Text>
-                <Text style={styles.texta}>Input only Name to remove an Assignment. To update input name and press on search.</Text>
+                
+                <Subheading style={styles.text}>Input only Name to remove an Assignment. To update input name and press on search.</Subheading>
                 <Text style={styles.texta}>Module</Text><TextInput style={styles.textInput} placeholder='Module Name' placeholderTextColor="black" onChangeText={this.handleUpdateMod} value={this.state.mod}></TextInput>
                 <Text style={styles.texta}>Name</Text><TextInput style={styles.textInput} placeholder='Assignment name' placeholderTextColor="black" onChangeText={this.handleUpdatename} value={this.state.name}></TextInput>
-                <WhiteButton style={styles.button} onPress= {this.HandleSearch}>Search</WhiteButton>
+                <BlackButton style={styles.button} onPress= {this.HandleSearch}>Search</BlackButton>
                 <Text style={styles.texta}>Deadline</Text>
                     <DatePicker
                     style={{width: 200, marginTop: 10, alignSelf:'center'}}
@@ -270,10 +278,10 @@ import WhiteButton from '../component/WhiteButton';
                     <Text style={styles.texta}>If calender is inaccessible, Please enter date below</Text><TextInput style={styles.textInput} placeholder="DD-MM-YYYY" placeholderTextColor="black" onChangeText={this.handleUpdatedeadline} value={this.state.deadline}></TextInput>
                     <Text style={styles.texta}>Notes</Text><TextInput style={styles.textInputa} placeholder='Additional notes' placeholderTextColor="black" onChangeText={this.handleUpdatenotes} value={this.state.notes} multiline></TextInput>
 
-                <WhiteButton style={styles.button} onPress= {this.UpdateUser}>Add/Update</WhiteButton>
+                <BlackButton style={styles.button} onPress= {this.UpdateUser}>Add/Update</BlackButton>
                 {/* <WhiteButton style={styles.button} onPress= {this.HandleUpdate}>Update</WhiteButton> */}
-                <WhiteButton style={styles.button} onPress= {this.HandleRemove}>Remove</WhiteButton>
-                </ImageBackground>
+                <BlackButton style={styles.button} onPress= {this.HandleRemove}>Remove</BlackButton>
+              
                 </ScrollView>
              </KeyboardAvoidingView>
          )
@@ -281,24 +289,24 @@ import WhiteButton from '../component/WhiteButton';
  }
 
  const styles = StyleSheet.create({
-    container: { 
+    container: { marginTop: Constants.statusBarHeight,
         flex: 1,
-       backgroundColor: 'transparent',
+       backgroundColor: '#ffebcd',
     },
     image: {
         justifyContent: 'flex-start',
         alignItems:'flex-start',
         alignSelf: 'flex-start',
         height: 40,
-        width:40,
+        width:30,
         marginLeft:15
     },
     text: {
-        fontWeight:'bold',
-        fontSize: 28,
+        //fontWeight:'bold',
+       // fontSize: 28,
         alignSelf:'center',
         marginTop: 10,
-        textDecorationLine: "underline",
+       // textDecorationLine: "underline",
         //color: "white"
     },
     textInput: {
@@ -312,12 +320,14 @@ import WhiteButton from '../component/WhiteButton';
         fontWeight: "bold",
         alignSelf:'center',
         alignItems: 'center',
+        borderWidth: 2, 
         //color: 'white'
       },
       textInputa: {
         //borderRadius:5,
         //backgroundColor:'white',
         fontSize: 20,
+        borderWidth: 2, 
         marginTop: 10,
         marginLeft: 5,
         width: (Dimensions.get('window').width>400)?400:Dimensions.get('window').width-40,

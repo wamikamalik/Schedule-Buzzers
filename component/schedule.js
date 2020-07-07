@@ -3,9 +3,11 @@ import { Platform,KeyboardAvoidingView,StyleSheet,ImageBackground, Image, Text, 
 //import {Button} from 'react-native-elements';
 import TimePicker from 'react-native-simple-time-picker';
 import firebaseDb from '../firebaseDb';
-import Constants from 'expo-constants'
 //import BlackButton from '../component/BlackButton';
-
+import Constants from 'expo-constants'
+import { ScrollView } from 'react-native-gesture-handler';
+import {Appbar, Title, Subheading} from 'react-native-paper'
+import BlackButton from '../component/BlackButton'
 
 export default class SwitchExample extends Component {
 
@@ -52,10 +54,10 @@ export default class SwitchExample extends Component {
           Day: this.state.Day,
           Module: this.state.Module,
           Class: this.state.Class,
-          selectedHoursf: this.state.selectedHoursf,
-          selectedMinutesf: this.state.selectedMinutesf,
-          selectedHourst: this.state.selectedHourst,
-          selectedMinutest: this.state.selectedMinutest,
+          selectedHoursf:parseInt(this.state.selectedHoursf),
+          selectedMinutesf: parseInt(this.state.selectedMinutesf),
+          selectedHourst: parseInt(this.state.selectedHourst),
+          selectedMinutest: parseInt(this.state.selectedMinutest),
           Location: this.state.Location
 
          })
@@ -257,13 +259,13 @@ this.checkTime();
       return (
 
          <SafeAreaView style={styles.container}>
-            <ImageBackground style={{flex: 1, resizeMode: "cover" ,flexDirection: "column",
-    justifyContent: 'center',
-   alignItems:"center",
-  paddingHorizontal: 100}} source={require('../assets/back1.png')}>
-             <TouchableOpacity style={{ position: "absolute", top: 8, left: 8}} onPress={()=>this.props.navigation.goBack()}><Image style={styles.image} source={require('../assets/backicon.png')}/>
-    </TouchableOpacity> 
-               <Text style={styles.textb}>Add to schedule</Text>
+         <Appbar.Header >
+         <Appbar.BackAction onPress={() => {this.props.navigation.goBack()}} />
+     <Appbar.Content title="Add Class" />
+    
+    </Appbar.Header>
+           <ScrollView>
+            
               <Text style={styles.text1}>Day of the week</Text>
               <Picker style={styles.pickerStyle}
         
@@ -307,6 +309,7 @@ this.checkTime();
           {selectedHourst}hr:{selectedMinutest}min
         </Text>
               <TimePicker 
+        
           selectedHourst={selectedHourst}
           //initial Hours value
           selectedMinutest={selectedMinutest}
@@ -317,20 +320,19 @@ this.checkTime();
         />
         <Text style={styles.text2}>Location</Text>
               <TextInput style={styles.textInput} placeholder="Location" onChangeText={this.handleUpdateLocation} value={Location}/>
-            <Button
+            <BlackButton
             style={styles.button1}
-            title="Add"
-      color="black"
-            onPress={this.handleAdd}
-          />
-           <Button
-            style={styles.button1}
-            title="Remove"
-            color="black"
-            onPress={this.handleRemove}
-          />
+          
+            onPress={this.handleAdd}>Add</BlackButton>
+          
+           <BlackButton
+           style={styles.button1}
+           
+            onPress={this.handleRemove}>Remove</BlackButton>
+          
 
-        </ImageBackground>
+      
+        </ScrollView>
           </SafeAreaView>  
 
       ) 
@@ -339,19 +341,20 @@ this.checkTime();
 const styles = StyleSheet.create ({  
   container:{ marginTop: Constants.statusBarHeight,
     flex: 1,
-   
+    backgroundColor: '#ffebcd',
+   // flexDirection: "column",justifyContent: 'center',alignItems:"center"
   },
   image: {
     justifyContent: 'flex-start',
     alignItems:'flex-start',
     alignSelf: 'flex-start',
     height: 40,
-    width:40,
+    width:30,
     marginLeft:15
  
 },
   pickerStyle:{
-      left : 50,
+      marginLeft : 50,
       height:50,
       width: (Dimensions.get('window').width>400)?400: Dimensions.get('window').width- 50,
       color: '#344953',
@@ -411,6 +414,7 @@ const styles = StyleSheet.create ({
   textInput: {
     borderRadius:5,
     borderColor:'black',
+    borderWidth: 2,
     backgroundColor:'white',
     fontSize: 20,
     marginTop:10,

@@ -1,10 +1,10 @@
 import React from 'react'
 import { View, Image, TextInput, Text, ActivityIndicator, StyleSheet,Dimensions } from 'react-native'
-import WhiteButton from '../component/WhiteButton';
+import BlackButton from '../component/BlackButton';
 import firebaseDb from '../firebaseDb';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Constants from 'expo-constants'
-
+import {Appbar, Title, Subheading} from 'react-native-paper';
 class SignInContainer extends React.Component {
   state = {
     name: '',
@@ -49,13 +49,12 @@ class SignInContainer extends React.Component {
 
     return (
       <View style={styles.container}>
-        {/* <TextInput style={styles.textInput} placeholder="Name" onChangeText={this.handleUpdateName} value={name}/>  */}
         <TextInput style={styles.textInput} placeholder="Email" onChangeText={this.handleUpdateEmail} value={email}/>
         <TextInput secureTextEntry style={styles.textInput} placeholder="Password" 
         onChangeText={this.handleUpdatePassword} value={password}/>
-        <WhiteButton style={styles.button} onPress={this.handleSignIn}>
+        <BlackButton style={styles.button} onPress={this.handleSignIn}>
           Sign In
-        </WhiteButton>
+        </BlackButton>
         <Text style={styles.textA}>By proceeding you agree to the </Text><TouchableOpacity onPress={()=>this.props.navigation.navigate('Terms')}><Text style={styles.texta}>Terms of Service and Privacy Policy</Text>
         </TouchableOpacity>
         <Text style={styles.textC}>Don't have an account?</Text>
@@ -72,10 +71,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#02b7cc'
+    backgroundColor: '#ffebcd'
   },
   textInput: {
     borderRadius: 5,
+    borderWidth: 2,
     backgroundColor: "white",
     fontSize: 20,
     marginBottom: 8,
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   }, 
   textC: {
     marginTop : 10,
-    color: 'white',
+    //color: 'white',
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 20

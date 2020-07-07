@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { View, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity , Dimensions, Image, Text, ImageBackground, FlatList, Button, Picker,} from 'react-native';
 import firebaseDb from '../firebaseDb';
 import Constants from 'expo-constants'
-import WhiteButton from '../component/WhiteButton'
+import BlackButton from '../component/BlackButton'
 import SomeButton from '../component/SomeButton'
-
+import {Appbar, Title , Subheading} from 'react-native-paper'
 class food extends Component {
 
 
@@ -59,11 +59,16 @@ class food extends Component {
         return (
   
            <SafeAreaView style={styles.container}>
-              <ImageBackground style={{flex: 1, resizeMode: "contain" }} source={require('../assets/back1.png')}>
+               <Appbar >
+   <Appbar.Action
+     icon={require('../assets/slidein.png')}
+     onPress={() => this.props.navigation.openDrawer()}
+    />
+     <Appbar.Content title="Find Food" />
+    </Appbar>
                 <ScrollView>
-              <TouchableOpacity style={{ position: "absolute", top: 10, left: 10}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
-                  </TouchableOpacity>
-                 <Text style={styles.textb}>Find me Food!</Text>
+              
+                
                 <Text style={styles.text1}>Location</Text>
                 <Picker style={styles.pickerStyle}
           
@@ -78,10 +83,10 @@ class food extends Component {
                       <Picker.Item label="Science,University hall,Medicine" value="Science,University hall,Medicine" />
                       <Picker.Item label="University Town,Yale NUS" value="University Town,Yale NUS" />
                 </Picker>
-             <WhiteButton
+             <BlackButton
               style={styles.button1}
               onPress={this.getDetails}
-            >Search</WhiteButton>
+            >Search</BlackButton>
            
            {/* <View style={{flex: 1, alignItems:"center", justifyContent:"center"}}> */}
             
@@ -98,7 +103,7 @@ class food extends Component {
             </View> */}
             {/* </View> */}
             </ScrollView>
-            </ImageBackground>
+      
             
             </SafeAreaView>  
   
@@ -109,6 +114,7 @@ class food extends Component {
     container:{ marginTop: Constants.statusBarHeight,
       marginBottom: 10,
       flex: 1,
+      backgroundColor: "#ffebcd"
      
     },
     image: {

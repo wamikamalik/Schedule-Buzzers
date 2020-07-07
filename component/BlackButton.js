@@ -11,7 +11,7 @@ const WhiteButton = props => (
 
 const styles = StyleSheet.create({
   container: { 
-    backgroundColor: 'black',
+    backgroundColor: '#000000',
   },
   text: {
     fontSize: 20,

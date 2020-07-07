@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, KeyboardAvoidingView, Image, TextInput, Text, StyleSheet,Dimensions } from 'react-native'
 import firebaseDb from '../firebaseDb'
-import WhiteButton from '../component/WhiteButton';
+import BlackButton from '../component/BlackButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {CheckBox} from 'react-native-elements'
 import Constants from 'expo-constants'
@@ -86,12 +86,12 @@ class SignUpContainer extends React.Component {
         onChangeText={this.handleUpdatePassword} value={password}/>
         <TextInput secureTextEntry style={styles.textInput} placeholder="Repeat Password" 
         onChangeText={this.handleUpdatePassword1} value={password1}/>
-        <CheckBox containerStyle={{backgroundColor: '#02b7cc',borderColor:'#02b7cc'}} 
+        <CheckBox containerStyle={{backgroundColor: '#ffebcd',borderColor:'#ffebcd'}} 
         title ={<View>
           <Text style={styles.textA}>I agree to the </Text>
           <TouchableOpacity onPress={()=>this.props.navigation.navigate('Terms')}><Text style={styles.texta}>Terms of Service and Privacy Policy</Text></TouchableOpacity>
           </View>} checked={this.state.checked} onPress={() => this.setState({checked: !this.state.checked})}/>
-        <WhiteButton style={styles.button} onPress={() => {
+        <BlackButton style={styles.button} onPress={() => {
           if (name.length && email.length && password.length && password == password1 && this.state.checked == true) {
             this.handleCreateUser()
             //this.handleUser()
@@ -108,7 +108,7 @@ class SignUpContainer extends React.Component {
           }
         }}>
           Sign Up
-        </WhiteButton>
+        </BlackButton>
         {
           signUpSuccess == true && <Text style={styles.text}>Sign Up Successful!</Text> 
           || signUpSuccess == false && done && <Text style={styles.textB}>Sign Up Unsuccessful!</Text>
@@ -126,10 +126,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#02b7cc'
+    backgroundColor: '#ffebcd'
   },
   textInput: {
     borderRadius:5,
+    borderWidth: 2,
     backgroundColor:'white',
     fontSize: 20,
     marginBottom: 8,
@@ -165,7 +166,7 @@ const styles = StyleSheet.create({
   },
   textC: {
     marginTop : 10,
-    color: 'white',
+    //color: 'white',
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 20

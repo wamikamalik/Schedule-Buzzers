@@ -6,6 +6,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import schedule from '../component/schedule';
 import Constants from 'expo-constants'
+import {Appbar, Title, Subheading} from 'react-native-paper'
 
 const Stack = createStackNavigator();
 function schedulenav() {
@@ -520,20 +521,25 @@ class seemyschedule extends Component {
   
     return (
       <View style={styles.container}>
-      <ImageBackground style={{flex: 1, resizeMode: "contain" ,   justifyContent: 'center',
-   alignItems:"center",}} source={require('../assets/back1.png')}>
-         <TouchableOpacity style={{ position: "absolute", top: 10, left: 10}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
-                </TouchableOpacity>
-                <TouchableOpacity style={{ position: "absolute", top: 10, right: 10}} onPress={() => this.props.navigation.navigate('schedule')}><Image style={styles.image} source={require('../assets/addassignmentlogo.png')}/>
-                </TouchableOpacity>
-       <Text style={styles.texta}>MY SCHEDULE</Text>
+     <Appbar >
+   <Appbar.Action
+     icon={require('../assets/slidein.png')}
+     onPress={() => this.props.navigation.openDrawer()}
+    />
+     <Appbar.Content title="My Current Schedule" />
+     <Appbar.Action
+     icon={require('../assets/addassignmentlogo.png')}
+     onPress={() => this.props.navigation.navigate('schedule')}
+    />
+    </Appbar>
+   <View style={styles.container1}>
         <ScrollView horizontal={true}>
-          <View>
+          <View >
             <Table borderStyle={{borderColor: '#C1C0B9', borderWidth: 2}}>
               <Row data={state.tableHead} widthArr={state.widthArr} style={styles.header} textStyle={styles.text}/>
             </Table>
             <ScrollView style={styles.dataWrapper}>
-              {<Table style={{flexDirection: 'row'}} borderStyle={{borderWidth: 2, borderColor: '#C1C0B9', alignItems:'flex-start'}}>
+              {<Table style={{flexDirection: 'row'}} borderStyle={{borderWidth: 2, borderColor: '#C1C0B9'}}>
                   <TableWrapper style={{flexDirection: 'row'}}>
                     <Col 
                       
@@ -594,25 +600,26 @@ class seemyschedule extends Component {
             </ScrollView>
           </View>
         </ScrollView>
-       
-        </ImageBackground>
-      </View>
+        </View>
+        </View>
+     
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: { marginTop: Constants.statusBarHeight, flex: 1, backgroundColor: '#2ec4b6'},
+  container: { marginTop: Constants.statusBarHeight, flex: 1, backgroundColor: '#ffebcd', },
+  container1: { marginTop: Constants.statusBarHeight, flex: 1, backgroundColor: '#ffebcd', justifyContent:'center',alignItems:'center'},
   header: { height: 50, backgroundColor: '#ffc0cb' },
   text: { textAlign: 'center', fontWeight: '100' , color:'black'},
   text1: { textAlign: 'center', fontWeight: '100' , color:'black',position:'absolute',top:3}, 
   dataWrapper: { marginTop: -1 },
-  row: { flex:1, backgroundColor: '#f5deb3',alignItems:'flex-start' },
-  row1: { flex:1, backgroundColor: '#7fffd4',alignItems:'flex-start' },
-  row2: { flex:1, backgroundColor: '#ff7f50',alignItems:'flex-start' },
-  row3: { flex:1, backgroundColor: '#e9967a',alignItems:'flex-start' },
-  row4: { flex:1, backgroundColor: '#fffacd',alignItems:'flex-start' },
-  row5: { flex:1, backgroundColor: '#dda0dd',alignItems:'flex-start' },
+  row: { flex:1, backgroundColor: '#f5deb3',alignItems:'flex-start' , alignSelf:'center'},
+  row1: { flex:1, backgroundColor: '#7fffd4',alignItems:'flex-start' , alignSelf:'center' },
+  row2: { flex:1, backgroundColor: '#ff7f50',alignItems:'flex-start' , alignSelf:'center' },
+  row3: { flex:1, backgroundColor: '#e9967a',alignItems:'flex-start'  , alignSelf:'center'},
+  row4: { flex:1, backgroundColor: '#fffacd',alignItems:'flex-start'  , alignSelf:'center'},
+  row5: { flex:1, backgroundColor: '#dda0dd',alignItems:'flex-start'  , alignSelf:'center'},
  
   image: {
     justifyContent: 'flex-start',

@@ -90,7 +90,7 @@ reauthenticate = (currentPassword) => {
       return (
         <SafeAreaView style={styles.container}>
         
-          <Appbar style={styles.bottom}>
+          <Appbar >
    <Appbar.Action
      icon={require('../assets/slidein.png')}
      onPress={() => this.props.navigation.openDrawer()}

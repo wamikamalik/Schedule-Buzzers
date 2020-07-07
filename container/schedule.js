@@ -6,7 +6,8 @@ import firebaseDb from '../firebaseDb';
 //import BlackButton from '../component/BlackButton';
 import Constants from 'expo-constants'
 import { ScrollView } from 'react-native-gesture-handler';
-
+import {Appbar, Title, Subheading} from 'react-native-paper'
+import BlackButton from '../component/BlackButton'
 
 export default class SwitchExample extends Component {
 
@@ -258,11 +259,16 @@ this.checkTime();
       return (
 
          <SafeAreaView style={styles.container}>
+         <Appbar >
+   <Appbar.Action
+     icon={require('../assets/slidein.png')}
+     onPress={() => this.props.navigation.openDrawer()}
+    />
+     <Appbar.Content title="Add Class" />
+    
+    </Appbar>
            <ScrollView>
-            <ImageBackground style={{flex: 1, resizeMode: "cover" ,flexDirection: "column",justifyContent: 'center',alignItems:"center",}} source={require('../assets/back1.png')}>
-            <TouchableOpacity style={{ position: "absolute", top: 10, left: 10}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
-                </TouchableOpacity>
-               <Text style={styles.textb}>Add to schedule</Text>
+            
               <Text style={styles.text1}>Day of the week</Text>
               <Picker style={styles.pickerStyle}
         
@@ -306,6 +312,7 @@ this.checkTime();
           {selectedHourst}hr:{selectedMinutest}min
         </Text>
               <TimePicker 
+        
           selectedHourst={selectedHourst}
           //initial Hours value
           selectedMinutest={selectedMinutest}
@@ -316,20 +323,18 @@ this.checkTime();
         />
         <Text style={styles.text2}>Location</Text>
               <TextInput style={styles.textInput} placeholder="Location" onChangeText={this.handleUpdateLocation} value={Location}/>
-            <Button
+            <BlackButton
             style={styles.button1}
-            title="Add"
-      color="black"
-            onPress={this.handleAdd}
-          />
-           <Button
-            style={styles.button1}
-            title="Remove"
-            color="black"
-            onPress={this.handleRemove}
-          />
+          
+            onPress={this.handleAdd}>Add</BlackButton>
+          
+           <BlackButton
+           style={styles.button1}
+           
+            onPress={this.handleRemove}>Remove</BlackButton>
+          
 
-        </ImageBackground>
+      
         </ScrollView>
           </SafeAreaView>  
 
@@ -339,7 +344,8 @@ this.checkTime();
 const styles = StyleSheet.create ({  
   container:{ marginTop: Constants.statusBarHeight,
     flex: 1,
-   
+    backgroundColor: '#ffebcd',
+   // flexDirection: "column",justifyContent: 'center',alignItems:"center"
   },
   image: {
     justifyContent: 'flex-start',
@@ -411,6 +417,7 @@ const styles = StyleSheet.create ({
   textInput: {
     borderRadius:5,
     borderColor:'black',
+    borderWidth: 2,
     backgroundColor:'white',
     fontSize: 20,
     marginTop:10,

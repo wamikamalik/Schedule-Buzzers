@@ -7,19 +7,21 @@ import {createStackNavigator} from '@react-navigation/stack';
 import assignments from '../component/assignments';
 import moment from 'moment'
 import Constants from 'expo-constants'
-
+import {Appbar} from 'react-native-paper'
 moment().format();
 
 const Stack = createStackNavigator();
 
 function assigntable() {
   return (
+   
     <NavigationContainer independent={true}>
       <Stack.Navigator  mode='modal' headerMode='none'>
         <Stack.Screen name = 'assignmenttable' component={myassignment}/>
         <Stack.Screen name = 'assignment' component={assignments}/>
         </Stack.Navigator>
       </NavigationContainer>
+    
   )
 }
 
@@ -120,14 +122,14 @@ componentDidUpdate(prevProps,prevState) {
    
   
     return (
-      <View style={{flex:1}}>
-         <ImageBackground style={{flex: 1, resizeMode: "contain" ,   justifyContent: 'center',
-   alignItems:"center",}} source={require('../assets/back1.png')}>
+      <View style={styles.container}>
+         
          <TouchableOpacity style={{ position: "absolute", top: 10, left: 10}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
                 </TouchableOpacity>
                 <TouchableOpacity style={{ position: "absolute", top: 5, right: 5}} onPress={() => this.props.navigation.navigate('assignment')}><Image style={styles.image} source={require('../assets/addassignmentlogo.png')}/>
                 </TouchableOpacity>
-       <Text style={styles.texta}>MY ASSIGNMENTS</Text>
+       <Title>MY ASSIGNMENTS</Title> 
+       <View style={styles.container1}>
         <ScrollView horizontal={true}>
           <View>
             <Table borderStyle={{borderColor: 'black', borderWidth: 2}}>
@@ -159,17 +161,15 @@ componentDidUpdate(prevProps,prevState) {
             </ScrollView>
           </View>
         </ScrollView>
-        </ImageBackground>
+   </View>
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container:{ marginTop: Constants.statusBarHeight,
-    flex: 1,
-  
-  },
+  container: { marginTop: Constants.statusBarHeight, flex: 1, backgroundColor: '#ffebcd', },
+  container1: { marginTop: Constants.statusBarHeight, flex: 1, backgroundColor: '#ffebcd', justifyContent:'center',alignItems:'center'},
 
   header: { height: 50, backgroundColor: '#1e90ff' },
   text: { textAlign: 'center', fontWeight: '100' , color:'black'},

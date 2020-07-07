@@ -8,15 +8,19 @@ import assignments from '../component/assignments';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import assigntable from'./assigntable'
 import Constants from 'expo-constants'
+import {Appbar, Title, Subheading} from 'react-native-paper'
 
 const Tab = createMaterialTopTabNavigator();
 
 function MyTabs() {
   return (
-    <Tab.Navigator style={styles.container} independent={true} tabBarOptions={{activeTintColor: '#e91e63', labelStyle: { fontSize: 12 }, style: { backgroundColor: 'powderblue' },}}>
+    
+    <Tab.Navigator style={styles.container} independent={true} tabBarOptions={{activeTintColor: '#ffffff', labelStyle: { fontSize: 12 }, style: { backgroundColor: '#5e03fc' },}}>
       <Tab.Screen name="Table View" component={assigntable} />
       <Tab.Screen name="List View" component={assignmentnav} />
     </Tab.Navigator>
+ 
+
   );
 }
 
@@ -152,13 +156,13 @@ componentDidUpdate(prevProps,prevState) {
     })
   
     return (
-      <View style={{flex:1}}>
-        <ImageBackground style={{flex: 1, resizeMode: "contain" ,}} source={require('../assets/back1.png')}>
+      <View style={styles.container}>
+       
         <TouchableOpacity style={{ position: "absolute", top: 10, left: 10}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
         </TouchableOpacity>
         <TouchableOpacity style={{ position: "absolute", top: 5, right: 5}} onPress={() => this.props.navigation.navigate('assignment')}><Image style={styles.image} source={require('../assets/addassignmentlogo.png')}/>
         </TouchableOpacity>
-        <Text style={styles.texta}>MY ASSIGNMENTS</Text>
+        <Title>MY ASSIGNMENTS</Title>
         <ScrollView horizontal={true}>
           <View style={{marginLeft:20, marginRight:20}}>
           <SectionList
@@ -166,12 +170,12 @@ componentDidUpdate(prevProps,prevState) {
           keyExtractor={(item, index) => item + index}
           renderItem={({ item }) => <Item title={item} />}
           renderSectionHeader={({ section: { title } }) => (
-            <Text style={styles.header}>{title}</Text>
+            <Subheading>{title}</Subheading>
           )}
         /> 
           </View>
         </ScrollView>
-        </ImageBackground>
+       
       </View>
     )
   }
@@ -180,6 +184,8 @@ componentDidUpdate(prevProps,prevState) {
 const styles = StyleSheet.create({
   container:{ marginTop: Constants.statusBarHeight,
     flex: 1,
+    backgroundColor:'#ffebcd',
+   
   
   },
 

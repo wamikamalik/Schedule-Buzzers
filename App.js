@@ -16,7 +16,7 @@ import TermsCond from "./component/TermsCond"
 function HomeScreen({navigation}) {
   return (
 <SafeAreaView style={styles.container}>
-<ImageBackground style={{flex: 1, resizeMode: "cover", justifyContent:"center", alignItems:"center"}} source={require('./assets/homeback.png')}>
+<ImageBackground style={{flex: 1, resizeMode: "cover", justifyContent:"center", alignItems:"center"}} source={require('./assets/homeback2.jpg')}>
 <Image style={styles.image} source={require('./assets/ologo.png')}/>
   <Text style={styles.textb}>Schedule</Text>
   <Text style={styles.textb}>Buzzer</Text>
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     flex: 1,
     //justifyContent:"center",
     //alignItems:"center",
-    backgroundColor: '#02b7cc',
+    backgroundColor: '#3498db',
   },
   button: {
     borderRadius:15,

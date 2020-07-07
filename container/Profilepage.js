@@ -1,10 +1,11 @@
 import React from 'react'
 import { SafeAreaView, Image, TextInput, Text, ActivityIndicator, StyleSheet, Button, ImageBackground } from 'react-native'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
-import WhiteButton from '../component/WhiteButton';
+import BlackButton from '../component/BlackButton';
 import firebaseDb from '../firebaseDb';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants'
+import {Appbar, Title, Subheading} from 'react-native-paper'
 
 class Profilepage extends React.Component {
 
@@ -94,27 +95,31 @@ class Profilepage extends React.Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
+                   <Appbar >
+   <Appbar.Action
+     icon={require('../assets/slidein.png')}
+     onPress={() => this.props.navigation.openDrawer()}
+    />
+     <Appbar.Content title="Profile" />
+    </Appbar>
+             
               <ScrollView>
-              <ImageBackground style={{flex: 1, resizeMode: "cover"}} source={require('../assets/back1.png')}>
-                <TouchableOpacity style={{marginTop: 20}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slideinw.png')}/>
-                </TouchableOpacity>
-                {/* <WhiteButton style={styles.button} onPress={this.HandleUser}>Get Details</WhiteButton> */}
+              
 
                 <Image style={styles.imagea} source={this.state.photo}></Image>
-                <WhiteButton style={styles.buttona} onPress={this.selectImage}>Change</WhiteButton>
+                <BlackButton style={styles.buttona} onPress={this.selectImage}>Change</BlackButton>
 
-                <Text style={styles.text}>Name:</Text><TextInput style={styles.textInput} placeholder={this.state.name} onChangeText={this.handleUpdateName} value={this.state.name}/>
+                <Title>Name:</Title><TextInput style={styles.textInput} placeholder={this.state.name} onChangeText={this.handleUpdateName} value={this.state.name}/>
                 
-                <Text style={styles.text}>phoneNo:</Text><TextInput style={styles.textInput} placeholder={this.state.phoneNo} onChangeText={this.handleUpdatePhone} value={this.state.phoneNo}/>
+                <Title>Phone No:</Title><TextInput style={styles.textInput} placeholder={this.state.phoneNo} onChangeText={this.handleUpdatePhone} value={this.state.phoneNo}/>
                 
-                <Text style={styles.text}>Email:</Text><Text style={styles.email}>{this.state.userEmail}</Text>
+                <Title>Email:</Title><Text style={styles.email}>{this.state.userEmail}</Text>
                 
-                <Text style={styles.text}>To change email or password go to account details</Text>
+                <Title>To change email or password go to account details</Title>
 
                 
-                <WhiteButton style={styles.button} onPress={this.UpdateUser}>Update Details</WhiteButton>
-                </ImageBackground>
-                </ScrollView>
+                <BlackButton style={styles.button} onPress={this.UpdateUser}>Update Details</BlackButton>
+               </ScrollView>
             </SafeAreaView>
             
         )
@@ -127,7 +132,7 @@ const styles = StyleSheet.create({
       flexDirection: 'column',
       //justifyContent: 'center',
       //alignItems: 'center',
-      backgroundColor: '#02b7cc'
+      backgroundColor: '#ffebcd'
     },
 
     textInput: {
@@ -141,6 +146,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         alignSelf:'center',
         alignItems: 'center',
+        borderWidth:2,
         //color: 'white'
       },
       email: {
