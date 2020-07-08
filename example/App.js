@@ -188,9 +188,9 @@ class App extends Component {
             let hr = 0;
             min = (doc.data().selectedMinutesf - 30>=0)?doc.data().selectedMinutesf - 30:60-(doc.data().selectedMinutesf - 30);
             hr =  ((doc.data().selectedMinutesf - 30)>=0)?doc.data().selectedHoursf:doc.data().selectedHoursf-1;
-            time = hr+':'+min
+            time = hr.toString()+':'+min.toString()
             modules.push(doc.data().Module+'\n'+doc.data().Class+'\n'+doc.data().Location)
-            date = moment(this.state.dates[2]+''+time,"DD-MM-YYYY HH:mm:ss").format("DD-MM-YYYY HH:mm:ss")
+            date = moment(this.state.dates[2]+' '+time,"DD-MM-YYYY HH:mm:ss").format("DD-MM-YYYY HH:mm:ss")
            this.setState({notificationTime:date,modules:modules})
            alert(this.state.notificationTime);
            this.setReminder(j);
