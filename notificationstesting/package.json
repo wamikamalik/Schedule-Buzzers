@@ -7,9 +7,14 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-firebase/app": "^8.1.0",
+    "@react-native-firebase/firestore": "^7.4.1",
+    "base-64": "^0.1.0",
+    "firebase": "^7.15.5",
     "moment": "^2.24.0",
     "react": "16.8.3",
     "react-native": "0.59.10",
+    "react-native-alarm-notification": "^1.4.6",
     "react-native-elements": "^1.1.0",
     "react-native-firebase": "^5.5.3",
     "react-native-modal-datetime-picker": "^7.4.2",
