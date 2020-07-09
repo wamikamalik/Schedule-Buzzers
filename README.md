@@ -1,6 +1,10 @@
 # Schedule-Buzzers
 an app to keep you scheduled
 
+to add calender and google sign in:
+sign in: https://firebase.google.com/docs/auth/web/google-signin?utm_campaign=Firebase_featureoverview_education_auth_en_07-26-16&utm_source=Firebase&utm_medium=yt-desc
+google calensar api: https://developers.google.com/calendar/overview
+
 To be done:
 1) tabs for schedule and assignments display page: to allow diplay in the form of table and sectionlist - Done
 2) add update button in schedule and assignment display page. - Done
