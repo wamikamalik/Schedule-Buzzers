@@ -126,7 +126,7 @@ import {Appbar, Title, Subheading} from 'react-native-paper'
 
         HandleRemove = () => {
             const user = firebaseDb.auth().currentUser.uid;
-            if (user) {
+            if ((user)&&(this.state.name!=null)) {
                 firebaseDb.firestore()
                 .collection('users')
                 .doc(user)
@@ -153,12 +153,15 @@ import {Appbar, Title, Subheading} from 'react-native-paper'
                     }
                 })
             
+        }
+        else {
+            alert('Please key in your assignment name! ')
         }   
      }
 
      HandleSearch = () => {
         const user = firebaseDb.auth().currentUser.uid;
-            if (user) {
+            if ((user)&&(this.state.name!=null)) {
                 firebaseDb.firestore()
                 .collection('users')
                 .doc(user)
@@ -191,6 +194,9 @@ import {Appbar, Title, Subheading} from 'react-native-paper'
                     }
                 })
             
+            }
+            else {
+                alert('Please key in the assignment name !')
             } 
     }
 
