@@ -1,5 +1,5 @@
 import React from 'react'
-import { SafeAreaView, Image, TextInput, Text, ActivityIndicator, StyleSheet, Button, ImageBackground } from 'react-native'
+import { SafeAreaView, Image, TextInput, Text, ActivityIndicator, StyleSheet, Button, ImageBackground,Dimensions } from 'react-native'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import BlackButton from '../component/BlackButton';
 import firebaseDb from '../firebaseDb';
@@ -70,28 +70,28 @@ class Profilepage extends React.Component {
         })
     }
 
-    UpdateUser = () => {  
-          firebaseDb.auth().currentUser.updateProfile({
-            displayName: this.state.name,
-            email: this.state.userEmail,
-            phoneNumber: this.state.phoneNo,
-            photoURL: this.state.photo,   
-          });
-          firebaseDb.firestore()
-            .collection('users')
-            .doc(firebaseDb.auth().currentUser.uid)
-            .get()
-            .then((doc) => {
-                if(doc.exists) {
-                doc.ref.update ({
-                name: this.state.name,
-                phoneNumber: this.state.phoneNo,
-                photoURL: this.state.photo,   
-            })
-            alert("Updated!!")
-          }
-          })
-    }
+    // UpdateUser = () => {  
+    //       firebaseDb.auth().currentUser.updateProfile({
+    //         displayName: this.state.name,
+    //         email: this.state.userEmail,
+    //         phoneNumber: this.state.phoneNo,
+    //         photoURL: this.state.photo,   
+    //       });
+    //       firebaseDb.firestore()
+    //         .collection('users')
+    //         .doc(firebaseDb.auth().currentUser.uid)
+    //         .get()
+    //         .then((doc) => {
+    //             if(doc.exists) {
+    //             doc.ref.update ({
+    //             name: this.state.name,
+    //             phoneNumber: this.state.phoneNo,
+    //             photoURL: this.state.photo,   
+    //         })
+    //         alert("Updated!!")
+    //       }
+    //       })
+    // }
     render() {
         return (
             <SafeAreaView style={styles.container}>
@@ -107,18 +107,18 @@ class Profilepage extends React.Component {
               
 
                 <Image style={styles.imagea} source={this.state.photo}></Image>
-                <BlackButton style={styles.buttona} onPress={this.selectImage}>Change</BlackButton>
+                {/* <BlackButton style={styles.buttona} onPress={this.selectImage}>Change</BlackButton> */}
 
-                <Title>Name:</Title><TextInput style={styles.textInput} placeholder={this.state.name} onChangeText={this.handleUpdateName} value={this.state.name}/>
+                <Title>Name:</Title><Text style={styles.textInput}>{this.state.name}</Text>
                 
-                <Title>Phone No:</Title><TextInput style={styles.textInput} placeholder={this.state.phoneNo} onChangeText={this.handleUpdatePhone} value={this.state.phoneNo}/>
+                <Title>Phone No:</Title><Text style={styles.textInput}>{this.state.phoneNo}</Text>
                 
-                <Title>Email:</Title><Text style={styles.email}>{this.state.userEmail}</Text>
+                <Title>Email:</Title><Text style={styles.textInput}>{this.state.userEmail}</Text>
                 
-                <Title>To change email or password go to account details</Title>
+                {/* <Title>To change email or password go to account details</Title> */}
 
                 
-                <BlackButton style={styles.button} onPress={this.UpdateUser}>Update Details</BlackButton>
+                {/* <BlackButton style={styles.button} onPress={this.UpdateUser}>Update Details</BlackButton> */}
                </ScrollView>
             </SafeAreaView>
             
@@ -141,8 +141,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         //marginTop: 10,
         //marginLeft: 5,
-        // width: 400,
-        // height: 50,
+        width: (Dimensions.get('window').width>400)?400:Dimensions.get('window').width-40,
+        height: 50,
         fontWeight: "bold",
         alignSelf:'center',
         alignItems: 'center',
