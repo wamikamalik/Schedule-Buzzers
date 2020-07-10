@@ -10,11 +10,12 @@ To be done:
 1) tabs for schedule and assignments display page: to allow diplay in the form of table and sectionlist - Done
 2) add update button in schedule and assignment display page. - Done
 3) check for same timing and assignment name to see if it already exists. 
-4) food places, convert excel to database in firebase
+4) food places, convert excel to database in firebase - done
 5) notifications
-6) Fix the UI - blue space below profile page and some colour combinations ,  White space below the schedule page to be fixed, Changing the table colour in assignment and schedule page
+6) Fix the UI - blue space below profile page and some colour combinations ,  White space below the schedule page to be fixed, Changing the table colour in assignment and schedule page - done
 7) See all button in the food page
 8) Bus part 
+9) Crashing on certain buttons- done
 
 
 Proposed Level of Achievement: Gemini
