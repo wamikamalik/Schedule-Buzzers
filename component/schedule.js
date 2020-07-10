@@ -40,7 +40,7 @@ export default class SwitchExample extends Component {
   HandleUser = () => {
     const user = firebaseDb.auth().currentUser.uid;
     
-    if (user) {
+    if ((user)&&(this.state.Day!=null)&&(this.state.Class!=null)&&(this.state.Module!=null)&&(this.state.Location!=null)&&((this.state.selectedHoursf)!=0)&&((this.state.selectedHourst)!=0)) {
         firebaseDb.firestore()
         .collection('users')
         .doc(user)
@@ -58,12 +58,27 @@ export default class SwitchExample extends Component {
           selectedMinutesf: parseInt(this.state.selectedMinutesf),
           selectedHourst: parseInt(this.state.selectedHourst),
           selectedMinutest: parseInt(this.state.selectedMinutest),
-          Location: this.state.Location
+          Location:this.state.Location
 
          })
-        
+      alert('Saved to your schedule ! ')
+         this.setState({
+      Day: '',
+      Module: '',
+      Class: '',
+      selectedHoursf:0,
+      selectedHourst:0,
+      selectedMinutesf:0,
+      selectedMinutest:0,
+      Location:''
+      }) 
         
         }
+      else {
+        alert('Please fill all the fields!')
+      }
+
+     
 
   }
 onremoving= () =>{
@@ -123,32 +138,33 @@ onremoving= () =>{
 checkTime=() =>{
 if ((this.state.selectedHoursf<10) && (this.state.selectedHourst<10)){
   if (this.state.selectedHoursf < this.state.selectedHourst) {
-    alert("Saved to your schedule!");
+  //  alert("Saved to your schedule!");
     this.HandleUser();
-    this.setState({
-      Day: '',
-      Module: '',
-      Class: '',
-      selectedHoursf:0,
-      selectedHourst:0,
-      selectedMinutesf:0,
-      selectedMinutest:0,
-      Location:''
-      }) 
+    // this.setState({
+    //   Day: '',
+    //   Module: '',
+    //   Class: '',
+    //   selectedHoursf:0,
+    //   selectedHourst:0,
+    //   selectedMinutesf:0,
+    //   selectedMinutest:0,
+    //   Location:''
+    //   }) 
    }
      else if ((this.state.selectedMinutesf<this.state.selectedMinutest) && (this.state.selectedHoursf==this.state.selectedHourst)){
-     alert("Saved to your schedule!");
+    // alert("Saved to your schedule!");
      this.HandleUser();
-     this.setState({
-      Day: '',
-      Module: '',
-      Class: '',
-      selectedHoursf:0,
-      selectedHourst:0,
-      selectedMinutesf:0,
-      selectedMinutest:0,
-      Location:''
-      }) }
+    //  this.setState({
+    //   Day: '',
+    //   Module: '',
+    //   Class: '',
+    //   selectedHoursf:0,
+    //   selectedHourst:0,
+    //   selectedMinutesf:0,
+    //   selectedMinutest:0,
+    //   Location:''
+    //   }) 
+    }
     else
     {
       alert("This time is not possible"); 
@@ -165,18 +181,18 @@ if ((this.state.selectedHoursf<10) && (this.state.selectedHourst<10)){
     }
     if ((this.state.selectedHoursf<10) && (this.state.selectedHourst>=10))
     {
-      alert("Saved to your schedule!");
+    //  alert("Saved to your schedule!");
       this.HandleUser();
-      this.setState({
-        Day: '',
-        Module: '',
-        Class: '',
-        selectedHoursf:0,
-        selectedHourst:0,
-        selectedMinutesf:0,
-        selectedMinutest:0,
-        Location:''
-        }) 
+      // this.setState({
+      //   Day: '',
+      //   Module: '',
+      //   Class: '',
+      //   selectedHoursf:0,
+      //   selectedHourst:0,
+      //   selectedMinutesf:0,
+      //   selectedMinutest:0,
+      //   Location:''
+      //   }) 
     }
     if ((this.state.selectedHoursf>=10) && (this.state.selectedHourst<10))
     {
@@ -194,32 +210,32 @@ if ((this.state.selectedHoursf<10) && (this.state.selectedHourst<10)){
     }
     if ((this.state.selectedHoursf>=10) && (this.state.selectedHourst>=10)){
       if (this.state.selectedHoursf < this.state.selectedHourst) {
-        alert("Saved to your schedule!");
+       // alert("Saved to your schedule!");
         this.HandleUser();
-        this.setState({
-          Day: '',
-          Module: '',
-          Class: '',
-          selectedHoursf:0,
-          selectedHourst:0,
-          selectedMinutesf:0,
-          selectedMinutest:0,
-          Location:''
-          }) 
+        // this.setState({
+        //   Day: '',
+        //   Module: '',
+        //   Class: '',
+        //   selectedHoursf:0,
+        //   selectedHourst:0,
+        //   selectedMinutesf:0,
+        //   selectedMinutest:0,
+        //   Location:''
+        //   }) 
        }
          else if ((this.state.selectedMinutesf<this.state.selectedMinutest) && (this.state.selectedHoursf==this.state.selectedHourst)){
-         alert("Saved to your schedule!");
+        // alert("Saved to your schedule!");
          this.HandleUser();
-         this.setState({
-          Day: '',
-          Module: '',
-          Class: '',
-          selectedHoursf:0,
-          selectedHourst:0,
-          selectedMinutesf:0,
-          selectedMinutest:0,
-          Location:''
-          }) 
+        //  this.setState({
+        //   Day: '',
+        //   Module: '',
+        //   Class: '',
+        //   selectedHoursf:0,
+        //   selectedHourst:0,
+        //   selectedMinutesf:0,
+        //   selectedMinutest:0,
+        //   Location:''
+        //   }) 
         }
         else
         {
