@@ -17,7 +17,7 @@
     "expo-updates": "~0.2.0",
     "firebase": "7.9.0",
     "firebase-admin": "^8.13.0",
-    "moment": "^2.26.0",
+    "moment": "^2.27.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "^0.63.0",

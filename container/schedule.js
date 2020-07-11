@@ -6,8 +6,21 @@ import firebaseDb from '../firebaseDb';
 //import BlackButton from '../component/BlackButton';
 import Constants from 'expo-constants'
 import { ScrollView } from 'react-native-gesture-handler';
-import {Appbar, Title, Subheading} from 'react-native-paper'
+import {Appbar, Title, Subheading, Dialog, Portal, Paragraph} from 'react-native-paper'
 import BlackButton from '../component/BlackButton'
+import { auth } from 'firebase';
+import moment from 'moment';
+
+moment().format();
+
+const addpressed = false;
+const fs = require('fs');
+const {google} = require('googleapis');
+const SCOPES = ['https://www.googleapis.com/auth/calendar'];
+// The file token.json stores the user's access and refresh tokens, and is
+// created automatically when the authorization flow completes for the first
+// time.
+const TOKEN_PATH = 'token.json';
 
 export default class SwitchExample extends Component {
 
@@ -25,6 +38,8 @@ export default class SwitchExample extends Component {
       Location: null,
       Add: false,
       Remove: false,
+      code: null,
+      visible: false
       
   };
   handleUpdateDay = Day => this.setState({Day})
@@ -35,7 +50,135 @@ export default class SwitchExample extends Component {
   handleUpdateselectedHourst = selectedHourst => this.setState({selectedHourst})
   handleUpdateselectedMinutest = selectedMinutest => this.setState({selectedMinutest})
   handleUpdateLocation = Location=> this.setState({Location})
+  handleUpdatecode = code => this.setState({code})
 
+  googleCalendar = () => {
+    fs.readFile('credentials.json', (err, content) => {
+      if (err) return alert('Error loading client secret file:', err);
+      // Authorize a client with credentials, then call the Google Calendar API.
+      if(addpressed) {
+        this.authorize(JSON.parse(content), this.AddEvent);
+        addpressed = false;
+      }
+    });
+  }
+
+  authorize = (credentials, callback) => {
+    const {client_secret, client_id, redirect_uris} = credentials.installed;
+    const oAuth2Client = new google.auth.OAuth2(
+        client_id, client_secret, redirect_uris[0]);
+  
+    // Check if we have previously stored a token.
+    fs.readFile(TOKEN_PATH, (err, token) => {
+      if (err) {
+        this.setState({visible: true})
+        return getAccessToken(oAuth2Client, callback);
+      }
+      oAuth2Client.setCredentials(JSON.parse(token));
+      callback(oAuth2Client);
+    });
+  }
+
+  hideDialog() {
+    this.setState({visible: false})
+  }
+  getAccessToken = (oAuth2Client, callback) => {
+      const authUrl = oAuth2Client.generateAuthUrl({
+        access_type: 'offline',
+        scope: SCOPES,
+      });
+      // console.log('Authorize this app by visiting this url:', authUrl);
+      // const rl = readline.createInterface({
+      //   input: process.stdin,
+      //   output: process.stdout,
+      // });
+      // rl.question('Enter the code from that page here: ', (code) => {
+      //   rl.close();
+      if(this.state.code) {
+        oAuth2Client.getToken(this.state.code, (err, token) => {
+          if (err) return alert('Error retrieving access token', err);
+          oAuth2Client.setCredentials(token);
+          // Store the token to disk for later program executions
+          fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
+            if (err) return alert(err);
+            alert('Token stored to', TOKEN_PATH);
+          });
+          callback(oAuth2Client);
+        });
+      }
+    //  });
+      return (
+        <View>
+        <Portal>
+        <Dialog visible={this.state.visible} onDismiss={this.hideDialog}>
+          <Dialog.Title>Authorization needed!</Dialog.Title>
+          <Dialog.Content>
+            <Paragraph>Authorize this app by visiting this url:{authUrl}
+            <Text>Enter the code from that page here:</Text>
+            </Paragraph>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <TextInput placeholder="code" onChangeText={this.handleUpdatecode} value={this.state.code}></TextInput>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
+      </View>
+      )
+    }
+
+
+  AddEvent = (auth) => {
+    if(this.state.Day == "Monday") {
+    const startdate = moment(toString(new Date())+'T'+this.state.selectedHoursf.toString()+':'+this.state.selectedMinutesf.toString(),'YYYY/DD/MMTHH:mm',true).format('YYYY-MM-DDTHH:mm:ss');
+    const enddate = moment(toString(new Date())+'T'+this.state.selectedHourst.toString()+':'+this.state.selectedMinutest.toString(),'YYYY/DD/MMTHH:mm',true).format('YYYY-MM-DDTHH:mm:ss');
+
+    var event = {
+      'summary': 'Class Reminder',
+      'location': this.state.Location,
+      'description': this.state.Module+' '+this.state.Class,
+      'start': {
+        'dateTime': startdate,
+        'timeZone': 'Asia/Singapore',
+      },
+      'end': {
+        'dateTime': enddate,
+        'timeZone': 'Asia/Singapore',
+      },
+      'recurrence': [
+        'RRULE:FREQ=WEEKLY;UNTIL=20211231;BYDAY=MO'
+      ],
+      'reminders': {
+        'useDefault': false,
+        'overrides': [
+          {'method': 'email', 'minutes': 24 * 60},
+          {'method': 'popup', 'minutes': 20},
+        ],
+      },
+    };
+    }
+    
+    calendar.events.insert({
+      auth: auth,
+      calendarId: 'primary',
+      resource: event,
+    }, function(err, event) {
+      if (err) {
+        alert('There was an error contacting the Calendar service: ' + err);
+        return;
+      }
+      alert('Event created: %s', event.htmlLink);
+    });
+    this.setState({
+      Day: '',
+      Module: '',
+      Class: '',
+      selectedHoursf:0,
+      selectedHourst:0,
+      selectedMinutesf:0,
+      selectedMinutest:0,
+      Location:''
+      }) 
+  } 
   
   HandleUser = () => {
     const user = firebaseDb.auth().currentUser.uid;
@@ -62,16 +205,8 @@ export default class SwitchExample extends Component {
 
          })
       alert('Saved to your schedule ! ')
-         this.setState({
-      Day: '',
-      Module: '',
-      Class: '',
-      selectedHoursf:0,
-      selectedHourst:0,
-      selectedMinutesf:0,
-      selectedMinutest:0,
-      Location:''
-      }) 
+      addpressed = true;
+      this.googleCalendar()
         
         }
       else {
