@@ -92,7 +92,7 @@ reauthenticate = (currentPassword) => {
         
           <Appbar >
    <Appbar.Action
-     icon={require('../assets/slidein.png')}
+     icon={require('../assets/slideinw.png')}
      onPress={() => this.props.navigation.openDrawer()}
     />
      <Appbar.Content title="Account Details" />

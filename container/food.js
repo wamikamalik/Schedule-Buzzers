@@ -61,7 +61,7 @@ class food extends Component {
            <SafeAreaView style={styles.container}>
                <Appbar >
    <Appbar.Action
-     icon={require('../assets/slidein.png')}
+     icon={require('../assets/slideinw.png')}
      onPress={() => this.props.navigation.openDrawer()}
     />
      <Appbar.Content title="Find Food" />
@@ -258,7 +258,7 @@ class food extends Component {
 //            <SafeAreaView style={styles.container}>
              
 //               <ImageBackground style={{flex: 1, resizeMode: "contain" }} source={require('../assets/back1.png')}>
-//               <TouchableOpacity style={{ position: "absolute", top: 10, left: 10}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slidein.png')}/>
+//               <TouchableOpacity style={{ position: "absolute", top: 10, left: 10}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slideinw.png')}/>
 //                   </TouchableOpacity>
 //                  <Text style={styles.textb}>Find me Food!</Text>
 //                 <Text style={styles.text1}>Location</Text>

@@ -97,7 +97,7 @@ class Profilepage extends React.Component {
             <SafeAreaView style={styles.container}>
                    <Appbar >
    <Appbar.Action
-     icon={require('../assets/slidein.png')}
+     icon={require('../assets/slideinw.png')}
      onPress={() => this.props.navigation.openDrawer()}
     />
      <Appbar.Content title="Profile" />

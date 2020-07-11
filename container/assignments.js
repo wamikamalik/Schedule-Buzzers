@@ -245,7 +245,7 @@ import {Appbar, Title, Subheading} from 'react-native-paper'
              <KeyboardAvoidingView style={styles.container}>
                  <Appbar >
    <Appbar.Action
-     icon={require('../assets/slidein.png')}
+     icon={require('../assets/slideinw.png')}
      onPress={() => this.props.navigation.openDrawer()}
     />
      <Appbar.Content title="Add Assignments" />

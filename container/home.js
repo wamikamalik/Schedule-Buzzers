@@ -38,7 +38,7 @@ class home extends React.Component {
             <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
                 <Appbar >
    <Appbar.Action
-     icon={require('../assets/slidein.png')}
+     icon={require('../assets/slideinw.png')}
      onPress={() => this.props.navigation.openDrawer()}
     />
      <Appbar.Content title="Home" />
