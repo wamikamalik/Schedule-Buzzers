@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "458566252197",
+    "firebase_url": "https://schedule-buzzers-2.firebaseio.com",
+    "project_id": "schedule-buzzers-2",
+    "storage_bucket": "schedule-buzzers-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:458566252197:android:a58ac0cf0abd7632e73f4c",
+        "android_client_info": {
+          "package_name": "com.schedule.schedulebuzzers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "458566252197-hb3463hadk3bcot8jfasn09s0eg267ol.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.schedule.schedulebuzzers",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "458566252197-f3juqgm6r2es8cjk2vat5t10nd37s5tf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxEX7z4ThZVc4RK7uUtzvBRR6BRqXlSms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "458566252197-f3juqgm6r2es8cjk2vat5t10nd37s5tf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

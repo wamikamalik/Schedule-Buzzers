@@ -23,10 +23,10 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.nus.schedulebuzzer"
+      "bundleIdentifier": "com.schedule.schedulebuzzers"
     },
     "android": {
-      "package": "com.nus.schedulebuzzer",
+      "package": "com.schedule.schedulebuzzers",
       "versionCode": 1
     },
     "description": "",

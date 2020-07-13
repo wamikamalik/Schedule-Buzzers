@@ -10,13 +10,17 @@ import {Appbar, Title, Subheading, Dialog, Portal, Paragraph} from 'react-native
 import BlackButton from '../component/BlackButton'
 import { auth } from 'firebase';
 import moment from 'moment';
+import ApiCalendar from 'react-google-calendar-api';
+
+// ...
+//require('./app.js');
 
 moment().format();
 
-const addpressed = false;
-const fs = require('fs');
-const {google} = require('googleapis');
-const SCOPES = ['https://www.googleapis.com/auth/calendar'];
+var addpressed = false;
+// const fs = require('fs');
+// const {google} = require('googleapis');
+// const SCOPES = ['https://www.googleapis.com/auth/calendar'];
 // The file token.json stores the user's access and refresh tokens, and is
 // created automatically when the authorization flow completes for the first
 // time.
@@ -52,82 +56,84 @@ export default class SwitchExample extends Component {
   handleUpdateLocation = Location=> this.setState({Location})
   handleUpdatecode = code => this.setState({code})
 
-  googleCalendar = () => {
-    fs.readFile('credentials.json', (err, content) => {
-      if (err) return alert('Error loading client secret file:', err);
-      // Authorize a client with credentials, then call the Google Calendar API.
-      if(addpressed) {
-        this.authorize(JSON.parse(content), this.AddEvent);
-        addpressed = false;
-      }
-    });
+   googleCalendar = () => {
+    // fs.readFile('credentials.json', (err, content) => {
+    //   if (err) return alert('Error loading client secret file:', err);
+    //   // Authorize a client with credentials, then call the Google Calendar API.
+    //     this.authorize(JSON.parse(content), this.AddEvent);
+    // });
+  //   const oAuth2Client = new google.auth.OAuth2();
+  //   oAuth2Client.setCredentials({access_token:"Token received from firebase"});
+  //   google.options({auth:oAuth2Client});
+    ApiCalendar.handleAuthClick();
+    this.AddEvent()
   }
 
-  authorize = (credentials, callback) => {
-    const {client_secret, client_id, redirect_uris} = credentials.installed;
-    const oAuth2Client = new google.auth.OAuth2(
-        client_id, client_secret, redirect_uris[0]);
+  // authorize = (credentials, callback) => {
+  //   const {client_secret, client_id, redirect_uris} = credentials.installed;
+  //   const oAuth2Client = new google.auth.OAuth2(
+  //       client_id, client_secret, redirect_uris[0]);
   
-    // Check if we have previously stored a token.
-    fs.readFile(TOKEN_PATH, (err, token) => {
-      if (err) {
-        this.setState({visible: true})
-        return getAccessToken(oAuth2Client, callback);
-      }
-      oAuth2Client.setCredentials(JSON.parse(token));
-      callback(oAuth2Client);
-    });
-  }
+  //   // Check if we have previously stored a token.
+  //   fs.readFile(TOKEN_PATH, (err, token) => {
+  //     if (err) {
+  //       this.setState({visible: true})
+  //       return getAccessToken(oAuth2Client, callback);
+  //     }
+  //     oAuth2Client.setCredentials(JSON.parse(token));
+  //     callback(oAuth2Client);
+  //   });
+  // }
 
-  hideDialog() {
-    this.setState({visible: false})
-  }
-  getAccessToken = (oAuth2Client, callback) => {
-      const authUrl = oAuth2Client.generateAuthUrl({
-        access_type: 'offline',
-        scope: SCOPES,
-      });
-      // console.log('Authorize this app by visiting this url:', authUrl);
-      // const rl = readline.createInterface({
-      //   input: process.stdin,
-      //   output: process.stdout,
-      // });
-      // rl.question('Enter the code from that page here: ', (code) => {
-      //   rl.close();
-      if(this.state.code) {
-        oAuth2Client.getToken(this.state.code, (err, token) => {
-          if (err) return alert('Error retrieving access token', err);
-          oAuth2Client.setCredentials(token);
-          // Store the token to disk for later program executions
-          fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
-            if (err) return alert(err);
-            alert('Token stored to', TOKEN_PATH);
-          });
-          callback(oAuth2Client);
-        });
-      }
+  // hideDialog() {
+  //   this.setState({visible: false})
+  // }
+  // getAccessToken = (oAuth2Client, callback) => {
+  //     const authUrl = oAuth2Client.generateAuthUrl({
+  //       access_type: 'offline',
+  //       scope: SCOPES,
+  //     });
+  //     // console.log('Authorize this app by visiting this url:', authUrl);
+  //     // const rl = readline.createInterface({
+  //     //   input: process.stdin,
+  //     //   output: process.stdout,
+  //     // });
+  //     // rl.question('Enter the code from that page here: ', (code) => {
+  //     //   rl.close();
+  //     if(this.state.code) {
+  //       oAuth2Client.getToken(this.state.code, (err, token) => {
+  //         if (err) return alert('Error retrieving access token', err);
+  //         oAuth2Client.setCredentials(token);
+  //         // Store the token to disk for later program executions
+  //         fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
+  //           if (err) return alert(err);
+  //           alert('Token stored to', TOKEN_PATH);
+  //         });
+  //         callback(oAuth2Client);
+  //       });
+  //     }
     //  });
-      return (
-        <View>
-        <Portal>
-        <Dialog visible={this.state.visible} onDismiss={this.hideDialog}>
-          <Dialog.Title>Authorization needed!</Dialog.Title>
-          <Dialog.Content>
-            <Paragraph>Authorize this app by visiting this url:{authUrl}
-            <Text>Enter the code from that page here:</Text>
-            </Paragraph>
-          </Dialog.Content>
-          <Dialog.Actions>
-            <TextInput placeholder="code" onChangeText={this.handleUpdatecode} value={this.state.code}></TextInput>
-          </Dialog.Actions>
-        </Dialog>
-      </Portal>
-      </View>
-      )
-    }
+    //   return (
+    //     <View>
+    //     <Portal>
+    //     <Dialog visible={this.state.visible} onDismiss={this.hideDialog}>
+    //       <Dialog.Title>Authorization needed!</Dialog.Title>
+    //       <Dialog.Content>
+    //         <Paragraph>Authorize this app by visiting this url:{authUrl}
+    //         <Text>Enter the code from that page here:</Text>
+    //         </Paragraph>
+    //       </Dialog.Content>
+    //       <Dialog.Actions>
+    //         <TextInput placeholder="code" onChangeText={this.handleUpdatecode} value={this.state.code}></TextInput>
+    //       </Dialog.Actions>
+    //     </Dialog>
+    //   </Portal>
+    //   </View>
+    //   )
+    // }
 
 
-  AddEvent = (auth) => {
+  AddEvent = () => {
     if(this.state.Day == "Monday") {
     const startdate = moment(toString(new Date())+'T'+this.state.selectedHoursf.toString()+':'+this.state.selectedMinutesf.toString(),'YYYY/DD/MMTHH:mm',true).format('YYYY-MM-DDTHH:mm:ss');
     const enddate = moment(toString(new Date())+'T'+this.state.selectedHourst.toString()+':'+this.state.selectedMinutest.toString(),'YYYY/DD/MMTHH:mm',true).format('YYYY-MM-DDTHH:mm:ss');
@@ -157,17 +163,24 @@ export default class SwitchExample extends Component {
     };
     }
     
-    calendar.events.insert({
-      auth: auth,
-      calendarId: 'primary',
-      resource: event,
-    }, function(err, event) {
-      if (err) {
-        alert('There was an error contacting the Calendar service: ' + err);
-        return;
-      }
-      alert('Event created: %s', event.htmlLink);
-    });
+    // calendar.events.insert({
+    //   auth: auth,
+    //   calendarId: 'primary',
+    //   resource: event,
+    // }, function(err, event) {
+    //   if (err) {
+    //     alert('There was an error contacting the Calendar service: ' + err);
+    //     return;
+    //   }
+    //   alert('Event created: %s', event.htmlLink);
+    // });
+    ApiCalendar.createEvent(event,"primary")
+    .then((result) => {
+      alert(JSON.stringify(result));
+        })
+     .catch((error) => {
+       alert(JSON.stringify(error));
+        });
     this.setState({
       Day: '',
       Module: '',

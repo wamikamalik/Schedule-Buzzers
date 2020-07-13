@@ -9,49 +9,60 @@ import SignInContainer from "./container/SignInContainer"
 import Main from "./container/Main"
 import TermsCond from "./component/TermsCond"
 import firebaseDb from "./firebaseDb"
+import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
 
 
 // function Separator() {
 //   return <View style={styles.separator} />;
 // }
 
-function SignIn ({navigation}) {
-  var provider = new firebaseDb.auth.GoogleAuthProvider();
-  provider.addScope('profile')
-  provider.addScope('email')
-  provider.setCustomParameters({
-    'login_hint': 'user@example.com'
-  });
-  firebaseDb.auth().signInWithRedirect(provider);
-  //alert("hi")
-
+async function SignIn ({navigation}) {
+  // var provider = new firebaseDb.auth.GoogleAuthProvider();
+  // provider.addScope('profile')
+  // provider.addScope('email')
+  // provider.addScope('https://www.googleapis.com/auth/calendar')
+  // provider.setCustomParameters({
+  //   'login_hint': 'user@example.com'
+  // });
+  // firebaseDb.auth().signInWithRedirect(provider);
+  // //alert("hi")
+  // try {
+  //   await GoogleSignIn.askForPlayServicesAsync();
+  //   const { type, user } = await GoogleSignIn.signInAsync();
+  //   const data = await GoogleSignIn.GoogleAuthentication.prototype.toJSON();
+  //   if (type === 'success') {
+  //     await firebaseDb.auth().setPersistence(firebaseDb.auth.Auth.Persistence.LOCAL);
+  //     const credential = firebaseDb.auth.GoogleAuthProviderDb.credential(data.idToken, data.accessToken);
+  //     firebase.auth().signInWithCredential(credential).then(()=>{
+  //           var user = firebaseDb.auth().currentUser
+  //           if(!user) {
+  //             alert("Please Sign In")
+  //           }
+  //           else {
+  //             alert(user.uid)
+  //           }
+  //           // The signed-in user info.
+  //           //var user = result.user;
+  //           handleUser(user.uid)
+  //           alert("hi")
+  //           navigation.navigate("Main")
+  //     });
+  //   }
+  // } catch ({ message }) {
+  //   alert('login: Error:' + message);
+  // }
+  try {
+    // add any configuration settings here:
+    await GoogleSignin.hasPlayServices();
+    const userInfo = await GoogleSignin.signIn();
+    // create a new firebase credential with the token
+    const credential = firebaseDb.auth.GoogleAuthProvider.credential(userInfo.idToken, userInfo.accessToken)
+    // login with credential
+    const firebaseUserCredential = await firebaseDb.auth().signInWithCredential(credential)
+  } catch (error) {
+    console.log(error)
+  }
 }
-//   try {
-//     await GoogleSignIn.askForPlayServicesAsync();
-//     const { type, user } = await GoogleSignIn.signInAsync();
-//     const data = await GoogleSignIn.GoogleAuthentication.prototype.toJSON();
-//     if (type === 'success') {
-//       await firebaseDb.auth().setPersistence(firebaseDb.auth.Auth.Persistence.LOCAL);
-//       const credential = firebaseDb.auth.GoogleAuthProviderDb.credential(data.idToken, data.accessToken);
-//       firebase.auth().signInWithCredential(credential).then(()=>{
-//             var user = firebaseDb.auth().currentUser
-//             if(!user) {
-//               alert("no")
-//             }
-//             else {
-//               alert(user.uid)
-//             }
-//             // The signed-in user info.
-//             //var user = result.user;
-//             handleUser(user.uid)
-//             alert("hi")
-//             navigation.navigate("Main")
-//       });
-//     }
-//   } catch ({ message }) {
-//     alert('login: Error:' + message);
-//   }
-// }
 
 
 function HomeScreen({navigation}) {
@@ -64,8 +75,24 @@ function HomeScreen({navigation}) {
   <Text style={styles.textb}>Buzzer</Text>
   <Text style={styles.textn}>We have you scheduled !!</Text>
       {/* <WhiteButton style={styles.button} onPress={() =>navigation.navigate('SignUp')}>Sign Up</WhiteButton> */}
-      <WhiteButton style={styles.button} onPress={() =>SignIn(navigation)}>Sign In with Google</WhiteButton>
-      <WhiteButton style={styles.button} onPress={() =>{  
+      <WhiteButton style={styles.button} onPress={() =>{
+        SignIn(navigation)
+        var user = firebaseDb.auth().currentUser
+        firebaseDb.firestore()
+        .collection('users')
+        .doc(user.uid)
+        .set ({
+          name: user.displayName,
+          email: user.email,
+          phoneNumber: user.phoneNumber,
+          photoURL: user.photoURL
+        })
+        .catch(err => console.error(err))
+        //alert(user)
+        navigation.navigate("Main")    
+      }
+      }>Sign In with Google</WhiteButton>
+      {/* <WhiteButton style={styles.button} onPress={() =>{  
           let user = null;
           firebaseDb.auth().getRedirectResult().then(function(result) {
             // The signed-in user info.
@@ -102,7 +129,7 @@ function HomeScreen({navigation}) {
             // ...
             alert(errorMessage)
           });
-      }}>Let's Go!</WhiteButton>
+      }}>Let's Go!</WhiteButton> */}
       <Text style={styles.textA}>By proceeding you agree to the </Text><TouchableOpacity onPress={()=>navigation.navigate('Terms')}><Text style={styles.texta}>Terms of Service and Privacy Policy</Text>
         </TouchableOpacity>
       </ImageBackground>
@@ -115,6 +142,17 @@ const Stack = createStackNavigator();
 
 
 class App extends Component {
+
+  componentDidMount() {
+    GoogleSignin.configure({
+      scopes: ['https://www.googleapis.com/auth/calendar'], 
+      webClientId: '458566252197-f3juqgm6r2es8cjk2vat5t10nd37s5tf.apps.googleusercontent.com', 
+      offlineAccess: true, 
+      hostedDomain: '', 
+      loginHint: '', 
+      forceConsentPrompt: true, 
+      });
+  }
   render() {
   return (
     <NavigationContainer independent={true}>

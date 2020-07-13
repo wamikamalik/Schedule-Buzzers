@@ -1,4 +1,4 @@
-package com.schedulebuzzer.generated;
+package com.schedule.schedulebuzzers.generated;
 
 import java.util.Arrays;
 import java.util.List;

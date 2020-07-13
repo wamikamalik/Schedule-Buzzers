@@ -280,7 +280,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.nus.schedulebuzzer";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.schedule.schedulebuzzers";
 				PRODUCT_NAME = schedulebuzzer;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -299,7 +299,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.nus.schedulebuzzer";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.schedule.schedulebuzzers";
 				PRODUCT_NAME = schedulebuzzer;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -355,7 +355,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.nus.schedulebuzzer";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.schedule.schedulebuzzers";
 				PRODUCT_NAME = schedulebuzzer;
 			};
 			name = Debug;
@@ -403,7 +403,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.nus.schedulebuzzer";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.schedule.schedulebuzzers";
 				PRODUCT_NAME = schedulebuzzer;
 			};
 			name = Release;

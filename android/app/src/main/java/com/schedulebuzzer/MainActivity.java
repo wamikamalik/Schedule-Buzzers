@@ -1,4 +1,4 @@
-package com.schedulebuzzer;
+package com.schedule.schedulebuzzers;
 
 import android.os.Bundle;
 
