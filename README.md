@@ -4,6 +4,8 @@ an app to keep you scheduled
 
 for calendar events: https://github.com/wmcmahan/react-native-calendar-events#recurrence-rule
 
+for google calendar control : https://www.npmjs.com/package/react-google-calendar-api
+
 to add calender and google sign in:
 
 sign in: https://firebase.google.com/docs/auth/web/google-signin?utm_campaign=Firebase_featureoverview_education_auth_en_07-26-16&utm_source=Firebase&utm_medium=yt-desc
