@@ -45,4 +45,6 @@ target 'ScheduleBuzzer' do
   use_native_modules!
   pod 'RNGoogleSignin', :path => '../node_modules/react-native-google-signin'
 
+  pod 'react-native-calendar-events', :path => '../node_modules/react-native-calendar-events'
+
 end

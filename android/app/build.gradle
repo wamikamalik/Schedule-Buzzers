@@ -197,6 +197,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.3.2'
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
     addUnimodulesDependencies()
+    compile project(':react-native-calendar-events')
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
