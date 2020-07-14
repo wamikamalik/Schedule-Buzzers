@@ -898,7 +898,7 @@ export default class SwitchExample extends Component {
         alert(alarm)
     RNCalendarEvents.saveEvent('Reminder for class', {
       location: this.state.Location,
-      notes:this.state.Module+'-'+this.state.Class,
+      description:this.state.Module+'-'+this.state.Class,
       startDate: startdate, 
       recurrenceRule: {
         frequency: 'weekly',
@@ -915,7 +915,7 @@ export default class SwitchExample extends Component {
       alert(alarm)
   RNCalendarEvents.saveEvent('Reminder for class', {
     location: this.state.Location,
-    notes:this.state.Module+'-'+this.state.Class,
+    description:this.state.Module+'-'+this.state.Class,
     startDate: startdate, 
     recurrenceRule: {
       frequency: 'weekly',
@@ -932,7 +932,7 @@ export default class SwitchExample extends Component {
     alert(startdate)
 RNCalendarEvents.saveEvent('Reminder for class', {
   location: this.state.Location,
-  notes:this.state.Module+'-'+this.state.Class,
+  description:this.state.Module+'-'+this.state.Class,
   startDate: startdate, 
   recurrenceRule: {
     frequency: 'weekly',
@@ -949,7 +949,7 @@ if(this.state.Day == "Thursday") {
   alert(startdate)
 RNCalendarEvents.saveEvent('Reminder for class', {
 location: this.state.Location,
-notes:this.state.Module+'-'+this.state.Class,
+description:this.state.Module+'-'+this.state.Class,
 startDate: startdate, 
 recurrenceRule: {
   frequency: 'weekly',
@@ -966,7 +966,7 @@ if(this.state.Day == "Friday") {
   alert(startdate)
 RNCalendarEvents.saveEvent('Reminder for class', {
 location: this.state.Location,
-notes:this.state.Module+'-'+this.state.Class,
+description:this.state.Module+'-'+this.state.Class,
 startDate: startdate, 
 recurrenceRule: {
   frequency: 'weekly',
