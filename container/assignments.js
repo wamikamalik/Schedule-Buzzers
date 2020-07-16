@@ -7,6 +7,7 @@ import BlackButton from '../component/BlackButton';
  import firebaseDb from '../firebaseDb';
  import Constants from 'expo-constants'
 import {Appbar, Title, Subheading} from 'react-native-paper'
+import RNCalendarEvents from 'react-native-calendar-events';
 
  moment().format()
 
@@ -17,8 +18,32 @@ import {Appbar, Title, Subheading} from 'react-native-paper'
          deadline: null,
          valid: false,
          done: false,
-         notes: null
+         notes: null,
+         id: null
      }
+
+     componentDidMount() {
+        this._getCalendarStatus();
+        this._requestCalendarPermissions();
+      }
+    
+      _getCalendarStatus = async () => {
+        try {
+          let calendarAuthStatus = await RNCalendarEvents.authorizationStatus();
+          alert(calendarAuthStatus, ["OK"]);
+        } catch (error) {
+          alert("Failed to get Calendar Status");
+        }
+      };
+    
+      _requestCalendarPermissions = async () => {
+        try {
+          let requestCalendarPermission = await RNCalendarEvents.authorizeEventStore();
+          alert(requestCalendarPermission, ["OK"]);
+        } catch (error) {
+          alert("Failed to ask permission");
+        }
+      };
 
      date = () => {
         var date = new Date().getDate();
@@ -62,8 +87,25 @@ import {Appbar, Title, Subheading} from 'react-native-paper'
                             Module: this.state.mod,
                             Name: this.state.name,
                             Deadline: this.state.deadline,
-                            Notes: this.state.notes 
-                    })
+                            Notes: this.state.notes
+                        })
+                        const startdate = moment(this.state.deadline+" 12:00",'DD-MM-YYYY HH:mm').subtract(1,"days").format("YYYY-MM-DDTHH:mm:ss")+".000Z"
+                        const enddate = moment(this.state.deadline+" 12:00",'DD-MM-YYYY HH:mm').format("YYYY-MM-DDTHH:mm:ss")+".000Z"
+                        alert(startdate)
+                        RNCalendarEvents.saveEvent('Reminder for assignment', {
+                            id: doc.data().Id,
+                            description:this.state.name+'-'+this.state.mod+':'+this.state.notes,
+                            startDate: startdate, 
+                            allDay:true,
+                            //endDate:enddate,
+                            recurrenceRule: {
+                                frequency: 'daily',
+                                 endDate: enddate
+                              },
+                            alarms: [{
+                              date: 30
+                            }]
+                        })
                     this.setState({
                         mod: '',
                         name: '',
@@ -75,29 +117,53 @@ import {Appbar, Title, Subheading} from 'react-native-paper'
                     alert("Assignment Updated!!")
                     }
                     else {
-                        firebaseDb.firestore()
-                        .collection('users')
-                        .doc(user)
-                        .collection('assignments')
-                        .doc(this.state.name) 
-                        .set(
-                            {
-                            Module: this.state.mod,
-                            Name: this.state.name,
-                            Deadline: this.state.deadline,
-                            Notes: this.state.notes
-                            })
-                            .then(() => {
-                                this.setState({
-                                    mod: '',
-                                    name: '',
-                                    deadline: '',
-                                    isValid:false,
-                                    done: false,
-                                    notes: ''
-                                }) 
-                                    alert("Assignment Added!!")
-                            })
+                        const startdate = moment(this.state.deadline+" 12:00",'DD-MM-YYYY HH:mm').subtract(1,"days").format("YYYY-MM-DDTHH:mm:ss")+".000Z"
+                        const enddate = moment(this.state.deadline+" 12:00",'DD-MM-YYYY HH:mm').format("YYYY-MM-DDTHH:mm:ss")+".000Z"
+                        //alert(startdate)
+                        RNCalendarEvents.saveEvent('Reminder for assignment', {
+                            //id: this.state.name,
+                            description:this.state.name+'-'+this.state.mod+':'+this.state.notes,
+                            startDate: startdate, 
+                            allDay:true,
+                            //endDate:enddate,
+                            recurrenceRule: {
+                                frequency: 'daily',
+                                 endDate: enddate
+                              },
+                            alarms: [{
+                              date: 30
+                            }]
+                        }).then(id=>{
+                            this.setState({id:id})
+                            //alert(this.state.id)
+                            firebaseDb.firestore()
+                            .collection('users')
+                            .doc(user)
+                            .collection('assignments')
+                            .doc(this.state.name) 
+                            .set(
+                                {
+                                Module: this.state.mod,
+                                Name: this.state.name,
+                                Deadline: this.state.deadline,
+                                Notes: this.state.notes,
+                                Id: this.state.id
+                                })
+                                .then(() => {
+                                    this.setState({
+                                        mod: '',
+                                        name: '',
+                                        deadline: '',
+                                        isValid:false,
+                                        done: false,
+                                        notes: ''
+                                    }) 
+                                        alert("Assignment Added!!")
+                                })
+
+                        }).catch(error => {
+                            alert(error)
+                        })
                     }
                 })
                 .catch(function(error) {
@@ -161,7 +227,7 @@ import {Appbar, Title, Subheading} from 'react-native-paper'
 
      HandleSearch = () => {
         const user = firebaseDb.auth().currentUser.uid;
-            if ((user)&&(this.state.name!=null)) {
+            if ((user)&&(this.state.name!=null)&&(this.state.name!='')) {
                 firebaseDb.firestore()
                 .collection('users')
                 .doc(user)

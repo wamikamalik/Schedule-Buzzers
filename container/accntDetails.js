@@ -28,6 +28,7 @@ reauthenticate = (currentPassword) => {
 
   changePassword = () => {
     if(this.state.password) {
+    if(this.state.newPassword) {
     this.reauthenticate(this.state.password).then(() => {
       var user = firebaseDb.auth().currentUser;
       user.updatePassword(this.state.newPassword).then(() => {
@@ -43,13 +44,17 @@ reauthenticate = (currentPassword) => {
         if(doc.exists) {
         doc.ref.update ({
         password: this.state.newPassword,  
+        })
+      } 
+      else {
+        alert("No Such User!!")
+      }
     })
-  }
-    else {
-      alert("No Such User!!")
+    })
     }
-})
-    })
+    else {
+      alert("Please enter new password")
+    }
   }
   else {
     alert("Please enter current password")
@@ -58,6 +63,7 @@ reauthenticate = (currentPassword) => {
 
   changeEmail  =() => {
     if(this.state.password) {
+    if(this.state.newEmail) {
     this.reauthenticate(this.state.password).then(() => {
       var user = firebaseDb.auth().currentUser;
       user.updateEmail(this.state.newEmail).then(() => {
@@ -80,6 +86,10 @@ reauthenticate = (currentPassword) => {
           }
         })
       })
+    }
+    else{
+      alert("Please enter new email")
+    }
     }
     else {
       alert("Please enter current password")

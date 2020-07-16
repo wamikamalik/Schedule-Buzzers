@@ -75,7 +75,7 @@ class Profilepage extends React.Component {
             displayName: this.state.name,
             email: this.state.userEmail,
             phoneNumber: this.state.phoneNo,
-            photoURL: this.state.photo,   
+            photoURL: this.state.photo,  
           });
           firebaseDb.firestore()
             .collection('users')
@@ -86,7 +86,7 @@ class Profilepage extends React.Component {
                 doc.ref.update ({
                 name: this.state.name,
                 phoneNumber: this.state.phoneNo,
-                photoURL: this.state.photo,   
+                photoURL: this.state.photo ==null?'':this.state.photo,   
             })
             alert("Updated!!")
           }
