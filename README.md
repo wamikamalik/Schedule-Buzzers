@@ -22,7 +22,7 @@ To be done:
 7) See all button in the food page
 8) Bus part 
 9) Crashing on certain buttons- done
-10) calendar event is stored accorging to GMT, then device's calendar adds 8 hrs to make it Spore time. need to subtract 8 hrs while adding to calendar
+10) calendar event is stored accorging to GMT, then device's calendar adds 8 hrs to make it Spore time. need to subtract 8 hrs while adding to calendar - done!!
 
 Proposed Level of Achievement: Gemini
 
