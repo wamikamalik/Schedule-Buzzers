@@ -320,10 +320,11 @@ import RNCalendarEvents from 'react-native-calendar-events';
                  <ScrollView>
                 
                 <Subheading style={styles.text}>Input only Name to remove an Assignment. To update input name and press on search.</Subheading>
+                <Subheading style={styles.text1}>* - Required</Subheading>
                 <Text style={styles.texta}>Module</Text><TextInput style={styles.textInput} placeholder='Module Name' placeholderTextColor="black" onChangeText={this.handleUpdateMod} value={this.state.mod}></TextInput>
-                <Text style={styles.texta}>Name</Text><TextInput style={styles.textInput} placeholder='Assignment name' placeholderTextColor="black" onChangeText={this.handleUpdatename} value={this.state.name}></TextInput>
+                <Text style={styles.texta}>Name*</Text><TextInput style={styles.textInput} placeholder='Assignment name' placeholderTextColor="black" onChangeText={this.handleUpdatename} value={this.state.name}></TextInput>
                 <BlackButton style={styles.button} onPress= {this.HandleSearch}>Search</BlackButton>
-                <Text style={styles.texta}>Deadline</Text>
+                <Text style={styles.texta}>Deadline*</Text>
                     <DatePicker
                     style={{width: 200, marginTop: 10, alignSelf:'center'}}
                     date={this.state.deadline} //initial date from state
@@ -381,6 +382,14 @@ import RNCalendarEvents from 'react-native-calendar-events';
        // textDecorationLine: "underline",
         //color: "white"
     },
+    text1: {
+        //fontWeight:'bold',
+       // fontSize: 28,
+        alignSelf:'center',
+        marginTop: 10,
+       // textDecorationLine: "underline",
+        color: "red"
+    },
     textInput: {
         //borderRadius:5,
         //backgroundColor:'white',
@@ -425,6 +434,7 @@ import RNCalendarEvents from 'react-native-calendar-events';
         height:45,
         alignSelf:'center',
       },
+    
 })
 
 export default assignments

@@ -7,6 +7,7 @@ import BlackButton from '../component/BlackButton';
  import firebaseDb from '../firebaseDb';
  import Constants from 'expo-constants'
 import {Appbar, Title, Subheading} from 'react-native-paper'
+import RNCalendarEvents from 'react-native-calendar-events';
 
  moment().format()
 
@@ -17,8 +18,32 @@ import {Appbar, Title, Subheading} from 'react-native-paper'
          deadline: null,
          valid: false,
          done: false,
-         notes: null
+         notes: null,
+         id: null
      }
+
+     componentDidMount() {
+        this._getCalendarStatus();
+        this._requestCalendarPermissions();
+      }
+    
+      _getCalendarStatus = async () => {
+        try {
+          let calendarAuthStatus = await RNCalendarEvents.authorizationStatus();
+          alert(calendarAuthStatus, ["OK"]);
+        } catch (error) {
+          alert("Failed to get Calendar Status");
+        }
+      };
+    
+      _requestCalendarPermissions = async () => {
+        try {
+          let requestCalendarPermission = await RNCalendarEvents.authorizeEventStore();
+          alert(requestCalendarPermission, ["OK"]);
+        } catch (error) {
+          alert("Failed to ask permission");
+        }
+      };
 
      date = () => {
         var date = new Date().getDate();
@@ -62,8 +87,25 @@ import {Appbar, Title, Subheading} from 'react-native-paper'
                             Module: this.state.mod,
                             Name: this.state.name,
                             Deadline: this.state.deadline,
-                            Notes: this.state.notes 
-                    })
+                            Notes: this.state.notes
+                        })
+                        const startdate = moment(this.state.deadline+" 12:00",'DD-MM-YYYY HH:mm').subtract(1,"days").format("YYYY-MM-DDTHH:mm:ss")+".000Z"
+                        const enddate = moment(this.state.deadline+" 12:00",'DD-MM-YYYY HH:mm').format("YYYY-MM-DDTHH:mm:ss")+".000Z"
+                        alert(startdate)
+                        RNCalendarEvents.saveEvent('Reminder for assignment', {
+                            id: doc.data().Id,
+                            description:this.state.name+'-'+this.state.mod+':'+this.state.notes,
+                            startDate: startdate, 
+                            allDay:true,
+                            //endDate:enddate,
+                            recurrenceRule: {
+                                frequency: 'daily',
+                                 endDate: enddate
+                              },
+                            alarms: [{
+                              date: 30
+                            }]
+                        })
                     this.setState({
                         mod: '',
                         name: '',
@@ -75,29 +117,53 @@ import {Appbar, Title, Subheading} from 'react-native-paper'
                     alert("Assignment Updated!!")
                     }
                     else {
-                        firebaseDb.firestore()
-                        .collection('users')
-                        .doc(user)
-                        .collection('assignments')
-                        .doc(this.state.name) 
-                        .set(
-                            {
-                            Module: this.state.mod,
-                            Name: this.state.name,
-                            Deadline: this.state.deadline,
-                            Notes: this.state.notes
-                            })
-                            .then(() => {
-                                this.setState({
-                                    mod: '',
-                                    name: '',
-                                    deadline: '',
-                                    isValid:false,
-                                    done: false,
-                                    notes: ''
-                                }) 
-                                    alert("Assignment Added!!")
-                            })
+                        const startdate = moment(this.state.deadline+" 12:00",'DD-MM-YYYY HH:mm').subtract(1,"days").format("YYYY-MM-DDTHH:mm:ss")+".000Z"
+                        const enddate = moment(this.state.deadline+" 12:00",'DD-MM-YYYY HH:mm').format("YYYY-MM-DDTHH:mm:ss")+".000Z"
+                        //alert(startdate)
+                        RNCalendarEvents.saveEvent('Reminder for assignment', {
+                            //id: this.state.name,
+                            description:this.state.name+'-'+this.state.mod+':'+this.state.notes,
+                            startDate: startdate, 
+                            allDay:true,
+                            //endDate:enddate,
+                            recurrenceRule: {
+                                frequency: 'daily',
+                                 endDate: enddate
+                              },
+                            alarms: [{
+                              date: 30
+                            }]
+                        }).then(id=>{
+                            this.setState({id:id})
+                            //alert(this.state.id)
+                            firebaseDb.firestore()
+                            .collection('users')
+                            .doc(user)
+                            .collection('assignments')
+                            .doc(this.state.name) 
+                            .set(
+                                {
+                                Module: this.state.mod,
+                                Name: this.state.name,
+                                Deadline: this.state.deadline,
+                                Notes: this.state.notes,
+                                Id: this.state.id
+                                })
+                                .then(() => {
+                                    this.setState({
+                                        mod: '',
+                                        name: '',
+                                        deadline: '',
+                                        isValid:false,
+                                        done: false,
+                                        notes: ''
+                                    }) 
+                                        alert("Assignment Added!!")
+                                })
+
+                        }).catch(error => {
+                            alert(error)
+                        })
                     }
                 })
                 .catch(function(error) {
@@ -155,13 +221,13 @@ import {Appbar, Title, Subheading} from 'react-native-paper'
             
         }
         else {
-            alert('Please key in your assignment name! ')
+            alert('Please key in the assignment name!')
         }   
      }
 
      HandleSearch = () => {
         const user = firebaseDb.auth().currentUser.uid;
-            if ((user)&&(this.state.name!=null)) {
+            if ((user)&&(this.state.name!=null)&&(this.state.name!='')) {
                 firebaseDb.firestore()
                 .collection('users')
                 .doc(user)
@@ -194,10 +260,10 @@ import {Appbar, Title, Subheading} from 'react-native-paper'
                     }
                 })
             
-            }
-            else {
-                alert('Please key in the assignment name !')
             } 
+            else {
+                alert("Please key in the assignment name!")
+            }
     }
 
     //  HandleUpdate = () => {
@@ -243,21 +309,24 @@ import {Appbar, Title, Subheading} from 'react-native-paper'
      render() {
          return (
              <KeyboardAvoidingView style={styles.container}>
-                 <Appbar.Header >
-   <Appbar.BackAction
+           
+         <Appbar.Header>
+         <Appbar.BackAction
      
      onPress={() => this.props.navigation.goBack()}
     />
      <Appbar.Content title="Add Assignments" />
+    
     </Appbar.Header>
 
                  <ScrollView>
                 
                 <Subheading style={styles.text}>Input only Name to remove an Assignment. To update input name and press on search.</Subheading>
+                <Subheading style={styles.text1}>* - Required</Subheading>
                 <Text style={styles.texta}>Module</Text><TextInput style={styles.textInput} placeholder='Module Name' placeholderTextColor="black" onChangeText={this.handleUpdateMod} value={this.state.mod}></TextInput>
-                <Text style={styles.texta}>Name</Text><TextInput style={styles.textInput} placeholder='Assignment name' placeholderTextColor="black" onChangeText={this.handleUpdatename} value={this.state.name}></TextInput>
+                <Text style={styles.texta}>Name*</Text><TextInput style={styles.textInput} placeholder='Assignment name' placeholderTextColor="black" onChangeText={this.handleUpdatename} value={this.state.name}></TextInput>
                 <BlackButton style={styles.button} onPress= {this.HandleSearch}>Search</BlackButton>
-                <Text style={styles.texta}>Deadline</Text>
+                <Text style={styles.texta}>Deadline*</Text>
                     <DatePicker
                     style={{width: 200, marginTop: 10, alignSelf:'center'}}
                     date={this.state.deadline} //initial date from state
@@ -289,6 +358,7 @@ import {Appbar, Title, Subheading} from 'react-native-paper'
                 <BlackButton style={styles.button} onPress= {this.HandleRemove}>Remove</BlackButton>
               
                 </ScrollView>
+             
              </KeyboardAvoidingView>
          )
      }
@@ -314,6 +384,14 @@ import {Appbar, Title, Subheading} from 'react-native-paper'
         marginTop: 10,
        // textDecorationLine: "underline",
         //color: "white"
+    },
+    text1: {
+        //fontWeight:'bold',
+       // fontSize: 28,
+        alignSelf:'center',
+        marginTop: 10,
+       // textDecorationLine: "underline",
+        color: "red"
     },
     textInput: {
         //borderRadius:5,
@@ -359,6 +437,7 @@ import {Appbar, Title, Subheading} from 'react-native-paper'
         height:45,
         alignSelf:'center',
       },
+    
 })
 
 export default assignments
