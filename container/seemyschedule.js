@@ -521,7 +521,7 @@ class seemyschedule extends Component {
   
     return (
       <View style={styles.container}>
-     <Appbar >
+     <Appbar style={styles.top}>
    <Appbar.Action
      icon={require('../assets/slideinw.png')}
      onPress={() => this.props.navigation.openDrawer()}
@@ -610,16 +610,19 @@ class seemyschedule extends Component {
 const styles = StyleSheet.create({
   container: { marginTop: Constants.statusBarHeight, flex: 1, backgroundColor: '#ffebcd', },
   container1: { marginTop: Constants.statusBarHeight, flex: 1, backgroundColor: '#ffebcd', justifyContent:'center',alignItems:'center'},
-  header: { height: 50, backgroundColor: '#ffc0cb' },
+  header: { height: 50, backgroundColor: '#a984ed' },
+  top: {
+    backgroundColor:"#c17eef"
+},
   text: { textAlign: 'center', fontWeight: '100' , color:'black'},
   text1: { textAlign: 'center', fontWeight: '100' , color:'black',position:'absolute',top:3}, 
   dataWrapper: { marginTop: -1 },
-  row: { flex:1, backgroundColor: '#f5deb3',alignItems:'flex-start' , alignSelf:'center'},
-  row1: { flex:1, backgroundColor: '#7fffd4',alignItems:'flex-start' , alignSelf:'center' },
-  row2: { flex:1, backgroundColor: '#ff7f50',alignItems:'flex-start' , alignSelf:'center' },
-  row3: { flex:1, backgroundColor: '#e9967a',alignItems:'flex-start'  , alignSelf:'center'},
-  row4: { flex:1, backgroundColor: '#fffacd',alignItems:'flex-start'  , alignSelf:'center'},
-  row5: { flex:1, backgroundColor: '#dda0dd',alignItems:'flex-start'  , alignSelf:'center'},
+  row: { flex:1, backgroundColor: '#e2bff7',alignItems:'flex-start' , alignSelf:'center'},
+  row1: { flex:1, backgroundColor: 'white',alignItems:'flex-start' , alignSelf:'center' },
+  row2: { flex:1, backgroundColor: 'white',alignItems:'flex-start' , alignSelf:'center' },
+  row3: { flex:1, backgroundColor: 'white',alignItems:'flex-start'  , alignSelf:'center'},
+  row4: { flex:1, backgroundColor: 'white',alignItems:'flex-start'  , alignSelf:'center'},
+  row5: { flex:1, backgroundColor: 'white',alignItems:'flex-start'  , alignSelf:'center'},
  
   image: {
     justifyContent: 'flex-start',

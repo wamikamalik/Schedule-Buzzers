@@ -19,7 +19,8 @@ class food extends Component {
   
     
     getDetails = () => {
-      
+
+      if(this.state.Location != null) {
           firebaseDb.firestore()
           .collection('foodplaces')
           .doc('locations')
@@ -37,7 +38,10 @@ class food extends Component {
           //  modules.push(" ")
             this.setState({places: places, names: names})
           })
-  
+        }
+        else {
+          alert("Please choose a location")
+        }
     }
   
     render() {
@@ -59,7 +63,7 @@ class food extends Component {
         return (
   
            <SafeAreaView style={styles.container}>
-               <Appbar >
+               <Appbar style={styles.top}>
    <Appbar.Action
      icon={require('../assets/slideinw.png')}
      onPress={() => this.props.navigation.openDrawer()}
@@ -117,6 +121,9 @@ class food extends Component {
       backgroundColor: "#ffebcd"
      
     },
+    top: {
+      backgroundColor:"#c17eef"
+  },
     image: {
       justifyContent: 'flex-start',
       alignItems:'flex-start',

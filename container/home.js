@@ -17,6 +17,7 @@ class home extends React.Component {
     }
     componentDidMount() {
     var user = firebaseDb.auth().currentUser;
+    //while(user==null){user = firebaseDb.auth().currentUser}
     firebaseDb.firestore()
         .collection('users')
         .doc(user.uid)
@@ -36,7 +37,7 @@ class home extends React.Component {
     render() {
         return (
             <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
-                <Appbar >
+                <Appbar style={styles.top}>
    <Appbar.Action
      icon={require('../assets/slideinw.png')}
      onPress={() => this.props.navigation.openDrawer()}
@@ -61,7 +62,9 @@ class home extends React.Component {
         // alignItems: "center",
        backgroundColor: '#ffebcd'
     },
-
+    top: {
+        backgroundColor:"#c17eef"
+    },
     text: {
        // fontWeight:'bold',
       //  fontSize: 24,

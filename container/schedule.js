@@ -690,7 +690,7 @@ this.checkTime();
       return (
 
          <SafeAreaView style={styles.container}>
-         <Appbar >
+         <Appbar style={styles.top}>
    <Appbar.Action
      icon={require('../assets/slideinw.png')}
      onPress={() => this.props.navigation.openDrawer()}
@@ -790,6 +790,9 @@ const styles = StyleSheet.create ({
     backgroundColor: '#ffebcd',
    // flexDirection: "column",justifyContent: 'center',alignItems:"center"
   },
+  top: {
+    backgroundColor:"#c17eef"
+},
   image: {
     justifyContent: 'flex-start',
     alignItems:'flex-start',

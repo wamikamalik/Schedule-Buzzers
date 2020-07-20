@@ -2,6 +2,8 @@
 an app to keep you scheduled
 
 
+Need to check if calendar part owrks perfectly after the changes in both assignment and schedule
+
 for calendar events: https://github.com/wmcmahan/react-native-calendar-events#recurrence-rule
 
 for google calendar control : https://www.npmjs.com/package/react-google-calendar-api

@@ -95,7 +95,7 @@ class Profilepage extends React.Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                   <Appbar >
+                   <Appbar style={styles.top}>
    <Appbar.Action
      icon={require('../assets/slideinw.png')}
      onPress={() => this.props.navigation.openDrawer()}
@@ -105,7 +105,7 @@ class Profilepage extends React.Component {
              
               <ScrollView>
               
-
+                <Subheading>Google users of the app can change these in their google settings only</Subheading>
                 <Image style={styles.imagea} source={this.state.photo}></Image>
                 <BlackButton style={styles.buttona} onPress={this.selectImage}>Change</BlackButton>
 
@@ -134,7 +134,9 @@ const styles = StyleSheet.create({
       //alignItems: 'center',
       backgroundColor: '#ffebcd'
     },
-
+    top: {
+      backgroundColor:"#c17eef"
+  },
     textInput: {
         borderRadius:5,
         backgroundColor:'white',

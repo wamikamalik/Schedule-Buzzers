@@ -7,7 +7,7 @@ render (){
 return (
 
 <SafeAreaView style={styles.container}>
-<Appbar.Header>
+<Appbar.Header style={styles.top}>
       <Appbar.BackAction onPress={() => {this.props.navigation.goBack()}} />
       <Appbar.Content title="Terms and Conditions" />
     </Appbar.Header>
@@ -64,7 +64,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffebcd',
     
       },
-
+      top: {
+        backgroundColor:"#c17eef"
+    },
       text1 :{
         fontSize: 28,
         fontWeight:"bold",
