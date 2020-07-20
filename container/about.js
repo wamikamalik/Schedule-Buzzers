@@ -7,7 +7,7 @@ render (){
 return (
 
 <SafeAreaView style={styles.container}>
-<Appbar >
+<Appbar style={styles.top}>
    <Appbar.Action
      icon={require('../assets/slideinw.png')}
      onPress={() => this.props.navigation.openDrawer()}
@@ -58,6 +58,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffebcd',
     
       },
+      top: {
+        backgroundColor:"#c17eef"
+    },
       image: {
         //color: "black",
         justifyContent: 'flex-start',

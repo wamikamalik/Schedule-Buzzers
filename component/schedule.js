@@ -1304,7 +1304,7 @@ this.checkTime();
       return (
 
          <SafeAreaView style={styles.container}>
-         <Appbar.Header >
+         <Appbar.Header style={styles.top}>
          <Appbar.BackAction
      
      onPress={() => this.props.navigation.goBack()}
@@ -1404,6 +1404,9 @@ const styles = StyleSheet.create ({
     backgroundColor: '#ffebcd',
    // flexDirection: "column",justifyContent: 'center',alignItems:"center"
   },
+  top: {
+    backgroundColor:"#c17eef"
+},
   image: {
     justifyContent: 'flex-start',
     alignItems:'flex-start',

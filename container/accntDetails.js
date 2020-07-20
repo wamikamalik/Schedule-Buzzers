@@ -100,13 +100,14 @@ reauthenticate = (currentPassword) => {
       return (
         <SafeAreaView style={styles.container}>
         
-          <Appbar >
+          <Appbar style={styles.top}>
    <Appbar.Action
      icon={require('../assets/slideinw.png')}
      onPress={() => this.props.navigation.openDrawer()}
     />
      <Appbar.Content title="Account Details" />
     </Appbar>
+            <Subheading>Not for Google users of the app</Subheading>
             <Subheading>Enter Current Password:</Subheading>
             <TextInput secureTextEntry style={styles.textInput} placeholder='Password' onChangeText={this.handleUpdatePassword} value={this.state.password}/> 
             <Title>Change Email</Title>
@@ -133,7 +134,9 @@ const styles = StyleSheet.create({
       //alignItems: 'center',
       backgroundColor: '#ffebcd'
     },
-
+    top: {
+      backgroundColor:"#c17eef"
+  },
     textInput: {
         borderWidth:2,
         backgroundColor:'white',

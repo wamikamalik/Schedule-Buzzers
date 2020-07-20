@@ -59,7 +59,7 @@ class food extends Component {
         return (
   
            <SafeAreaView style={styles.container}>
-               <Appbar >
+               <Appbar style={styles.top}>
    <Appbar.Action
      icon={require('../assets/slideinw.png')}
      onPress={() => this.props.navigation.openDrawer()}
@@ -117,6 +117,9 @@ class food extends Component {
       backgroundColor: "#ffebcd"
      
     },
+    top: {
+      backgroundColor:"#c17eef"
+  },
     image: {
       justifyContent: 'flex-start',
       alignItems:'flex-start',

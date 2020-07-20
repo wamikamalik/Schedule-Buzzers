@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, SafeAreaView, Image, Text, ImageBackground } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -8,6 +8,10 @@ import SignUpContainer from "./container/SignUpContainer"
 import SignInContainer from "./container/SignInContainer"
 import Main from "./container/Main"
 import TermsCond from "./component/TermsCond"
+import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
+import firebaseDb from './firebaseDb'
+import BlackButton from './component/BlackButton';
+
 
 // function Separator() {
 //   return <View style={styles.separator} />;
@@ -23,6 +27,12 @@ function HomeScreen({navigation}) {
   <Text style={styles.textn}>We have you scheduled !!</Text>
       <WhiteButton style={styles.button} onPress={() =>navigation.navigate('SignUp')}>Sign Up</WhiteButton>
       <WhiteButton style={styles.button} onPress={() =>navigation.navigate('SignIn')}>Sign In</WhiteButton>
+      <WhiteButton style={{    borderRadius:15,
+        width: 200,
+        height: 75,
+        marginBottom: 30
+        }} 
+        onPress={() =>{navigation.navigate('google')}}>Sign In with Google</WhiteButton>
       </ImageBackground>
 </SafeAreaView>
   );
@@ -32,8 +42,19 @@ const Stack = createStackNavigator();
 
 
 
-function App() {
-
+class App extends Component {
+  
+    componentDidMount() {
+      GoogleSignin.configure({
+        scopes: ['https://www.googleapis.com/auth/calendar'], 
+        webClientId: '458566252197-f3juqgm6r2es8cjk2vat5t10nd37s5tf.apps.googleusercontent.com', 
+        offlineAccess: true, 
+        hostedDomain: '', 
+        loginHint: '', 
+        forceConsentPrompt: true, 
+        });
+    }
+    render() {
   return (
     <NavigationContainer independent={true}>
       <Stack.Navigator mode='modal' headerMode='none'>
@@ -42,9 +63,46 @@ function App() {
         <Stack.Screen name="SignIn" component={SignInContainer}/>
         <Stack.Screen name="Main"  options={{headerLeft:null}} component={Main}/>
         <Stack.Screen name="Terms" component={TermsCond}/>
+        <Stack.Screen name="google"  options={{headerLeft:null}} component={signgoogle}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
+}
+}
+
+export class signgoogle extends Component {
+  async componentDidMount() {
+    try {
+      // add any configuration settings here:
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      // create a new firebase credential with the token
+      const credential = firebaseDb.auth.GoogleAuthProvider.credential(userInfo.idToken, userInfo.accessToken)
+      // login with credential
+      const user = await firebaseDb.auth().signInWithCredential(credential)
+      firebaseDb.firestore()
+    .collection('users')
+    .doc(user.uid)
+    .set ({
+      name: user.displayName,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      photoURL: user.photoURL
+    })
+    .catch(err => console.error(err))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  render() {
+    return(
+      <SafeAreaView style={styles.container1}>
+        <BlackButton style={styles.button} onPress={()=>{this.props.navigation.navigate("Main")}}>
+          Let's Go
+        </BlackButton>
+      </SafeAreaView>
+    )
+  }
 }
 
 
@@ -91,6 +149,12 @@ const styles = StyleSheet.create({
     //justifyContent:"center",
     //alignItems:"center",
     backgroundColor: '#3498db',
+  },
+  container1: { marginTop: Constants.statusBarHeight,
+    flex: 1,
+    justifyContent:"center",
+    alignItems:"center",
+    backgroundColor: '#ffebcd',
   },
   button: {
     borderRadius:15,

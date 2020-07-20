@@ -309,7 +309,7 @@ import RNCalendarEvents from 'react-native-calendar-events';
      render() {
          return (
              <KeyboardAvoidingView style={styles.container}>
-                 <Appbar >
+                 <Appbar style={styles.top}>
    <Appbar.Action
      icon={require('../assets/slideinw.png')}
      onPress={() => this.props.navigation.openDrawer()}
@@ -365,6 +365,9 @@ import RNCalendarEvents from 'react-native-calendar-events';
     container: { marginTop: Constants.statusBarHeight,
         flex: 1,
        backgroundColor: '#ffebcd',
+    },
+    top: {
+        backgroundColor:"#c17eef"
     },
     image: {
         justifyContent: 'flex-start',

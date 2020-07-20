@@ -5,16 +5,16 @@ import firebaseDb from '../firebaseDb';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import assignments from '../component/assignments';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import assigntable from'./assigntable'
 import Constants from 'expo-constants'
 import {Appbar, Title, Subheading} from 'react-native-paper'
 
-const Tab = createMaterialTopTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 function MyTabs() {
   return (
-    
+
     <Tab.Navigator style={styles.container} independent={true} tabBarOptions={{activeTintColor: '#ffffff', labelStyle: { fontSize: 12 }, style: { backgroundColor: '#5e03fc' },}}>
       <Tab.Screen name="Table View" component={assigntable} />
       <Tab.Screen name="List View" component={assignmentnav} />
@@ -157,9 +157,15 @@ componentDidUpdate(prevProps,prevState) {
   
     return (
       <View style={styles.container}>
-       
-        <TouchableOpacity style={{ position: "absolute", top: 10, left: 10}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slideinw.png')}/>
-        </TouchableOpacity>
+            <Appbar style={styles.top}>
+    <Appbar.Action
+    icon={require('../assets/slideinw.png')}
+    onPress={() => this.props.navigation.openDrawer()}
+   />
+    <Appbar.Content title="Home" />
+   </Appbar>
+        {/* <TouchableOpacity style={{ position: "absolute", top: 10, left: 10}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slideinw.png')}/>
+        </TouchableOpacity> */}
         <TouchableOpacity style={{ position: "absolute", top: 5, right: 5}} onPress={() => this.props.navigation.navigate('assignment')}><Image style={styles.image} source={require('../assets/addassignmentlogo.png')}/>
         </TouchableOpacity>
         <Title style={styles.text}>MY ASSIGNMENTS</Title>
@@ -188,6 +194,9 @@ const styles = StyleSheet.create({
    
   
   },
+  top: {
+    backgroundColor:"#c17eef"
+},
   text:{  alignSelf:'center',
   marginTop: 10,},
 
@@ -220,7 +229,7 @@ item: {
 header: {
   fontSize: 32,
   width:Dimensions.get('window').width - 50,
-  backgroundColor: "#b0e0e6",
+  backgroundColor: "#e2bff7",
   borderRadius: 10
 },
 title: {

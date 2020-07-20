@@ -14,7 +14,7 @@ const Stack = createStackNavigator();
 
 function assigntable() {
   return (
-   
+
     <NavigationContainer independent={true}>
       <Stack.Navigator  mode='modal' headerMode='none'>
         <Stack.Screen name = 'assignmenttable' component={myassignment}/>
@@ -123,9 +123,15 @@ componentDidUpdate(prevProps,prevState) {
   
     return (
       <View style={styles.container}>
-         
-         <TouchableOpacity style={{ position: "absolute", top: 10, left: 10}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slideinw.png')}/>
-                </TouchableOpacity>
+             <Appbar style={styles.top}>
+    <Appbar.Action
+    icon={require('../assets/slideinw.png')}
+    onPress={() => this.props.navigation.openDrawer()}
+   />
+    <Appbar.Content title="Home" />
+   </Appbar>
+         {/* <TouchableOpacity style={{ position: "absolute", top: 10, left: 10}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slideinw.png')}/>
+                </TouchableOpacity> */}
                 <TouchableOpacity style={{ position: "absolute", top: 5, right: 5}} onPress={() => this.props.navigation.navigate('assignment')}><Image style={styles.image} source={require('../assets/addassignmentlogo.png')}/>
                 </TouchableOpacity>
        <Title style={styles.text}>MY ASSIGNMENTS</Title> 
@@ -170,12 +176,14 @@ componentDidUpdate(prevProps,prevState) {
 const styles = StyleSheet.create({
   container: { marginTop: Constants.statusBarHeight, flex: 1, backgroundColor: '#ffebcd', },
   container1: { marginTop: Constants.statusBarHeight, flex: 1, backgroundColor: '#ffebcd', justifyContent:'center',alignItems:'center'},
-
-  header: { height: 50, backgroundColor: '#1e90ff' },
+    top: {
+        backgroundColor:"#c17eef"
+    },
+  header: { height: 50, backgroundColor: '#a984ed' },
   text: { textAlign: 'center', fontWeight: '100' , color:'black'},
   text1: { textAlign: 'center', fontWeight: '100' , color:'black'}, 
   dataWrapper: { marginTop: -1 },
-  row: { flex:1, backgroundColor: '#b0e0b6',alignItems:'flex-start' },
+  row: { flex:1, backgroundColor: '#e2bff7',alignItems:'flex-start' },
   row1: { flex:1, backgroundColor: 'white',alignItems:'flex-start' },
   image: {
     justifyContent: 'flex-start',

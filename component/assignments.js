@@ -310,7 +310,7 @@ import RNCalendarEvents from 'react-native-calendar-events';
          return (
              <KeyboardAvoidingView style={styles.container}>
            
-         <Appbar.Header>
+         <Appbar.Header style={styles.top}>
          <Appbar.BackAction
      
      onPress={() => this.props.navigation.goBack()}
@@ -368,6 +368,9 @@ import RNCalendarEvents from 'react-native-calendar-events';
     container: { marginTop: Constants.statusBarHeight,
         flex: 1,
        backgroundColor: '#ffebcd',
+    },
+    top: {
+        backgroundColor:"#c17eef"
     },
     image: {
         justifyContent: 'flex-start',
