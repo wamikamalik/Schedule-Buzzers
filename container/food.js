@@ -19,7 +19,8 @@ class food extends Component {
   
     
     getDetails = () => {
-      
+
+      if(this.state.Location != null) {
           firebaseDb.firestore()
           .collection('foodplaces')
           .doc('locations')
@@ -37,7 +38,10 @@ class food extends Component {
           //  modules.push(" ")
             this.setState({places: places, names: names})
           })
-  
+        }
+        else {
+          alert("Please choose a location")
+        }
     }
   
     render() {
