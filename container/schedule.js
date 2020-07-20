@@ -325,7 +325,43 @@ export default class SwitchExample extends Component {
 // }]
 // })
 // }
-    //this.googleCalendar()
+var k=0;
+firebaseDb.firestore()
+.collection('users')
+.doc(user)
+.collection('classes')
+.doc('Days')
+.collection(this.state.Day)
+.get()
+.then(snapshot=>{
+  snapshot.forEach(doc=>{
+    if ((parseInt(this.state.selectedHoursf)==parseInt(doc.data().selectedHoursf))&&(parseInt(this.state.selectedMinutesf)>=parseInt(doc.data().selectedMinutesf))){
+      k=0;
+      alert("You already have a class at this time")
+    }
+    else if ((this.state.selectedHoursf>doc.data().selectedHoursf)&&(this.state.selectedHourst<=doc.data().selectedHourst)){
+      k=0;
+      alert("You already have a class at this time")
+    }
+    else if ((this.state.selectedHoursf<doc.data().selectedHoursf)&&(this.state.selectedHourst<=doc.data().selectedHourst)&&(this.state.selectedHourst>doc.data().selectedHoursf)){
+      k=0;
+      alert("You already have a class at this time")
+    }
+    else if ((this.state.selectedHoursf<doc.data().selectedHourst)&&(this.state.selectedHourst>=doc.data().selectedHourst)&&(this.state.selectedHoursf>doc.data().selectedHoursf)){
+      k=0;
+      alert("You already have a class at this time")
+    }
+    else if ((this.state.selectedHoursf<doc.data().selectedHourst)&&(this.state.selectedHourst<doc.data().selectedHourst)&&(this.state.selectedHoursf>doc.data().selectedHoursf)){
+      k=0;
+      alert("You already have a class at this time")
+    }
+    else {
+      k=1;
+    }
+  })
+})
+
+if (k==1){
         firebaseDb.firestore()
         .collection('users')
         .doc(user)
@@ -448,11 +484,13 @@ alert('This class already exists !!')
           
     })  //addpressed = true;
       }
+    } 
       else {
         alert('Please fill all the fields!')
       }
-
-     
+    
+  
+  
 
   }
 onremoving= () =>{
