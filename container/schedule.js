@@ -182,33 +182,35 @@ export default class SwitchExample extends Component {
 
               alert('Saved to your schedule ! ')
               this.setState({k:0})
-              let min = 0;
-              let hr = 0;
-              let time = '0'
-              min = (this.state.selectedMinutesf - 30>=0)?this.state.selectedMinutesf - 30:60-(this.state.selectedMinutesf - 30);
-              hr =  ((this.state.selectedMinutesf - 30)>=0)?this.state.selectedHoursf:this.state.selectedHoursf-1;
-              time = hr.toString()+':'+min.toString()
+              // let min = 0;
+              // let hr = 0;
+              // let time = '0'
+              // min = (this.state.selectedMinutesf - 30>=0)?this.state.selectedMinutesf - 30:60-(this.state.selectedMinutesf - 30);
+              // hr =  ((this.state.selectedMinutesf - 30)>=0)?this.state.selectedHoursf:this.state.selectedHoursf-1;
+              // time = hr.toString()+':'+min.toString()
+              let time = new Date()
+              let hrs = time.getTimezoneOffset()/60
               if(this.state.Day == "Monday") {
-                const startdate = moment("2020/07/13 "+this.state.selectedHoursf+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-                const alarm = moment("2020/07/13 "+time,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-                alert(alarm)
+                const startdate = moment("2020/07/13 "+(this.state.selectedHoursf)+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').add(hrs,"hours").format('YYYY-MM-DDTHH:mm:ss')+".000Z";
+                const enddate = moment("2020/07/13 "+this.state.selectedHourst+':'+this.state.selectedMinutest,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
+                //alert(alarm)
                 RNCalendarEvents.saveEvent('Reminder for class', {
                   location: this.state.Location,
-                  notes:this.state.Module+'-'+this.state.Class,
+                  description:this.state.Module+'-'+this.state.Class,
                   startDate: startdate, 
                   recurrenceRule: {
                     frequency: 'weekly',
                     endDate: '2021-12-31T19:26:00.000Z'
                   },
                   alarms: [{
-                    date: alarm
+                    date: 30
                   }]
                 })
               }
               if(this.state.Day == "Tuesday") {
-                const startdate = moment("2020/07/14 "+this.state.selectedHoursf+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-                const alarm = moment("2020/07/14 "+time,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-                alert(alarm)
+                const startdate = moment("2020/07/14 "+(this.state.selectedHoursf)+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').add(hrs,"hours").format('YYYY-MM-DDTHH:mm:ss')+".000Z";
+                const enddate = moment("2020/07/14 "+this.state.selectedHourst+':'+this.state.selectedMinutest,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
+                //alert(alarm)
                 RNCalendarEvents.saveEvent('Reminder for class', {
                   location: this.state.Location,
                   notes:this.state.Module+'-'+this.state.Class,
@@ -218,14 +220,14 @@ export default class SwitchExample extends Component {
                     endDate: '2021-12-31T19:26:00.000Z'
                   },
                   alarms: [{
-                    date: alarm
+                    date: 30
                   }]
                 })
               }
               if(this.state.Day == "Wednesday") {
-                const startdate = moment("2020/07/15 "+this.state.selectedHoursf+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-                const alarm = moment("2020/07/15 "+time,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-                alert(startdate)
+                const startdate = moment("2020/07/15 "+(this.state.selectedHoursf)+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').add(hrs,"hours").format('YYYY-MM-DDTHH:mm:ss')+".000Z";
+                const enddate = moment("2020/07/15 "+this.state.selectedHourst+':'+this.state.selectedMinutest,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
+                //alert(startdate)
                 RNCalendarEvents.saveEvent('Reminder for class', {
                   location: this.state.Location,
                   notes:this.state.Module+'-'+this.state.Class,
@@ -235,14 +237,14 @@ export default class SwitchExample extends Component {
                     endDate: '2021-12-31T19:26:00.000Z'
                   },
                   alarms: [{
-                    date: alarm
+                    date: 30
                   }]
                 })
               }
               if(this.state.Day == "Thursday") {
-                const startdate = moment("2020/07/16 "+this.state.selectedHoursf+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-                const alarm = moment("2020/07/16 "+time,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-                alert(startdate)
+                const startdate = moment("2020/07/16 "+(this.state.selectedHoursf)+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').add(hrs,"hours").format('YYYY-MM-DDTHH:mm:ss')+".000Z";
+                const enddate = moment("2020/07/16 "+this.state.selectedHourst+':'+this.state.selectedMinutest,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
+                //alert(startdate)
                 RNCalendarEvents.saveEvent('Reminder for class', {
                 location: this.state.Location,
                 notes:this.state.Module+'-'+this.state.Class,
@@ -252,14 +254,14 @@ export default class SwitchExample extends Component {
                   endDate: '2021-12-31T19:26:00.000Z'
                 },
                 alarms: [{
-                  date: alarm
+                  date: 30
                 }]
                 })
               }
               if(this.state.Day == "Friday") {
-                const startdate = moment("2020/07/17 "+this.state.selectedHoursf+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-                const alarm = moment("2020/07/17 "+time,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-                alert(startdate)
+                const startdate = moment("2020/07/17 "+(this.state.selectedHoursf)+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').add(hrs,"hours").format('YYYY-MM-DDTHH:mm:ss')+".000Z";
+                const enddate = moment("2020/07/17 "+this.state.selectedHourst+':'+this.state.selectedMinutest,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
+                //alert(startdate)
                 RNCalendarEvents.saveEvent('Reminder for class', {
                 location: this.state.Location,
                 notes:this.state.Module+'-'+this.state.Class,
@@ -269,7 +271,7 @@ export default class SwitchExample extends Component {
                   endDate: '2021-12-31T19:26:00.000Z'
                 },
                 alarms: [{
-                  date: alarm
+                  date: 30
                 }]
                 })
               }
