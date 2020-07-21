@@ -81,19 +81,27 @@ componentDidUpdate(prevProps,prevState) {
     const assignment = [];
     const rowData = [];
     const height = [];
+    let sortedinterm = [];
     let date;
     let h = 0;
     let i = 0;
     this.state.modules&&this.state.modules.map( module =>{
       interm.push({data:module.Name+'\n'+module.Module+'\n', date:module.Deadline})
     })
-
-    const sortedinterm = interm.sort(function(a,b) {
+    if(interm.length==1) {
+      interm[0].date = interm[0].date.split('-').reverse().join('');
+      interm.map(module=>{
+        sortedinterm.push(module)
+      })
+    }
+    else {
+      sortedinterm = interm.sort(function(a,b) {
       a.date = a.date.split('-').reverse().join('');
       b.date = b.date.split('-').reverse().join('');
       return a.date > b.date ? 1 : a.date < b.date ? -1 : 0;
       // return a.localeCompare(b);         // <-- alternative 
     });
+    }
     sortedinterm &&
     sortedinterm.map( module => {
       date = module.date.substr(6,2)+'-'+module.date.substr(4,2)+'-'+module.date.substr(0,4);
@@ -123,19 +131,26 @@ componentDidUpdate(prevProps,prevState) {
   
     return (
       <View style={styles.container}>
-             <Appbar style={styles.top}>
-    <Appbar.Action
-    icon={require('../assets/slideinw.png')}
-    onPress={() => this.props.navigation.openDrawer()}
-   />
-    <Appbar.Content title="Home" />
-   </Appbar>
+     <Appbar style={styles.top}>
+   <Appbar.Action
+     icon={require('../assets/slideinw.png')}
+     onPress={() => this.props.navigation.openDrawer()}
+    />
+     <Appbar.Content title="My Current Assignments" />
+     <Appbar.Action
+     icon={require('../assets/addassignmentlogo.png')}
+     onPress={() => this.props.navigation.navigate('assignment')}
+    />
+    </Appbar>
+        {/* <TouchableOpacity style={{ position: "absolute", top: 10, left: 10}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slideinw.png')}/>
+        </TouchableOpacity> */}
+        <View style={styles.container1}>
          {/* <TouchableOpacity style={{ position: "absolute", top: 10, left: 10}} onPress={()=>this.props.navigation.openDrawer()}><Image style={styles.image} source={require('../assets/slideinw.png')}/>
                 </TouchableOpacity> */}
-                <TouchableOpacity style={{ position: "absolute", top: 5, right: 5}} onPress={() => this.props.navigation.navigate('assignment')}><Image style={styles.image} source={require('../assets/addassignmentlogo.png')}/>
+                {/* <TouchableOpacity style={{ position: "absolute", top: 5, right: 5}} onPress={() => this.props.navigation.navigate('assignment')}><Image style={styles.image} source={require('../assets/addassignmentlogo.png')}/>
                 </TouchableOpacity>
-       <Title style={styles.text}>MY ASSIGNMENTS</Title> 
-       <View style={styles.container1}>
+       <Title style={styles.text}>MY ASSIGNMENTS</Title>  */}
+       {/* <View style={styles.container1}> */}
         <ScrollView horizontal={true}>
           <View>
             <Table borderStyle={{borderColor: 'black', borderWidth: 2}}>

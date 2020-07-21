@@ -43,8 +43,8 @@ export default class SwitchExample extends Component {
     code: null,
     visible: false,
     arr:[], 
-    k:0
-    
+    k:0,
+    id: null
 };
 
   componentDidMount() {
@@ -160,28 +160,11 @@ export default class SwitchExample extends Component {
                 //alert('1') //for testing purposes
               }
             }
+            if(this.state.arr.length==0) {
+              this.setState({k:1});
+            }
             if(this.state.k == 1) {
-              firebaseDb.firestore()
-              .collection('users')
-              .doc(user)
-              .collection('classes')
-              .doc('Days')
-              .collection(this.state.Day)
-              .doc(this.state.Module+this.state.Class)
-              .set({
-                Day: this.state.Day,
-                Module: this.state.Module,
-                Class: this.state.Class,
-                selectedHoursf:parseInt(this.state.selectedHoursf),
-                selectedMinutesf: parseInt(this.state.selectedMinutesf),
-                selectedHourst: parseInt(this.state.selectedHourst),
-                selectedMinutest: parseInt(this.state.selectedMinutest),
-                Location:this.state.Location
-
-              })
-
-              alert('Saved to your schedule ! ')
-              this.setState({k:0})
+              this.setState({k:0,arr:[]})
               // let min = 0;
               // let hr = 0;
               // let time = '0'
@@ -205,15 +188,50 @@ export default class SwitchExample extends Component {
                   alarms: [{
                     date: 30
                   }]
+                }).then(id=>{
+                  this.setState({id:id})
+  
+                  firebaseDb.firestore()
+                  .collection('users')
+                  .doc(user)
+                  .collection('classes')
+                  .doc('Days')
+                  .collection(this.state.Day)
+                  .doc(this.state.Module+this.state.Class)
+                  .set({
+                    Day: this.state.Day,
+                    Module: this.state.Module,
+                    Class: this.state.Class,
+                    selectedHoursf:parseInt(this.state.selectedHoursf),
+                    selectedMinutesf: parseInt(this.state.selectedMinutesf),
+                    selectedHourst: parseInt(this.state.selectedHourst),
+                    selectedMinutest: parseInt(this.state.selectedMinutest),
+                    Location:this.state.Location,
+                    Id: this.state.id
+                  }).then(()=>{
+                    this.setState({
+                      Day: '',
+                      Module: '',
+                      Class: '',
+                      selectedHoursf:0,
+                      selectedHourst:0,
+                      selectedMinutesf:0,
+                      selectedMinutest:0,
+                      Location:''
+                      }) 
+                      alert('Saved to your schedule ! ')
+                  }).catch((error)=>{
+                    alert(error)
+                  })
                 })
               }
               if(this.state.Day == "Tuesday") {
                 const startdate = moment("2020/07/14 "+(this.state.selectedHoursf)+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').add(hrs,"hours").format('YYYY-MM-DDTHH:mm:ss')+".000Z";
                 const enddate = moment("2020/07/14 "+this.state.selectedHourst+':'+this.state.selectedMinutest,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-                //alert(alarm)
+                //alert(startdate)
                 RNCalendarEvents.saveEvent('Reminder for class', {
                   location: this.state.Location,
-                  notes:this.state.Module+'-'+this.state.Class,
+                  description:this.state.Module+'-'+this.state.Class,
                   startDate: startdate, 
                   recurrenceRule: {
                     frequency: 'weekly',
@@ -222,6 +240,41 @@ export default class SwitchExample extends Component {
                   alarms: [{
                     date: 30
                   }]
+                }).then(id=>{
+                  this.setState({id:id})
+  
+                  firebaseDb.firestore()
+                  .collection('users')
+                  .doc(user)
+                  .collection('classes')
+                  .doc('Days')
+                  .collection(this.state.Day)
+                  .doc(this.state.Module+this.state.Class)
+                  .set({
+                    Day: this.state.Day,
+                    Module: this.state.Module,
+                    Class: this.state.Class,
+                    selectedHoursf:parseInt(this.state.selectedHoursf),
+                    selectedMinutesf: parseInt(this.state.selectedMinutesf),
+                    selectedHourst: parseInt(this.state.selectedHourst),
+                    selectedMinutest: parseInt(this.state.selectedMinutest),
+                    Location:this.state.Location,
+                    Id: this.state.id
+                  }).then(()=>{
+                    this.setState({
+                      Day: '',
+                      Module: '',
+                      Class: '',
+                      selectedHoursf:0,
+                      selectedHourst:0,
+                      selectedMinutesf:0,
+                      selectedMinutest:0,
+                      Location:''
+                      }) 
+                      alert('Saved to your schedule ! ')
+                  }).catch((error)=>{
+                    alert(error)
+                  })
                 })
               }
               if(this.state.Day == "Wednesday") {
@@ -230,7 +283,7 @@ export default class SwitchExample extends Component {
                 //alert(startdate)
                 RNCalendarEvents.saveEvent('Reminder for class', {
                   location: this.state.Location,
-                  notes:this.state.Module+'-'+this.state.Class,
+                  description:this.state.Module+'-'+this.state.Class,
                   startDate: startdate, 
                   recurrenceRule: {
                     frequency: 'weekly',
@@ -239,6 +292,41 @@ export default class SwitchExample extends Component {
                   alarms: [{
                     date: 30
                   }]
+                }).then(id=>{
+                  this.setState({id:id})
+  
+                  firebaseDb.firestore()
+                  .collection('users')
+                  .doc(user)
+                  .collection('classes')
+                  .doc('Days')
+                  .collection(this.state.Day)
+                  .doc(this.state.Module+this.state.Class)
+                  .set({
+                    Day: this.state.Day,
+                    Module: this.state.Module,
+                    Class: this.state.Class,
+                    selectedHoursf:parseInt(this.state.selectedHoursf),
+                    selectedMinutesf: parseInt(this.state.selectedMinutesf),
+                    selectedHourst: parseInt(this.state.selectedHourst),
+                    selectedMinutest: parseInt(this.state.selectedMinutest),
+                    Location:this.state.Location,
+                    Id: this.state.id
+                  }).then(()=>{
+                    this.setState({
+                      Day: '',
+                      Module: '',
+                      Class: '',
+                      selectedHoursf:0,
+                      selectedHourst:0,
+                      selectedMinutesf:0,
+                      selectedMinutest:0,
+                      Location:''
+                      }) 
+                      alert('Saved to your schedule ! ')
+                  }).catch((error)=>{
+                    alert(error)
+                  })
                 })
               }
               if(this.state.Day == "Thursday") {
@@ -247,7 +335,7 @@ export default class SwitchExample extends Component {
                 //alert(startdate)
                 RNCalendarEvents.saveEvent('Reminder for class', {
                 location: this.state.Location,
-                notes:this.state.Module+'-'+this.state.Class,
+                description:this.state.Module+'-'+this.state.Class,
                 startDate: startdate, 
                 recurrenceRule: {
                   frequency: 'weekly',
@@ -256,6 +344,41 @@ export default class SwitchExample extends Component {
                 alarms: [{
                   date: 30
                 }]
+                }).then(id=>{
+                  this.setState({id:id})
+  
+                  firebaseDb.firestore()
+                  .collection('users')
+                  .doc(user)
+                  .collection('classes')
+                  .doc('Days')
+                  .collection(this.state.Day)
+                  .doc(this.state.Module+this.state.Class)
+                  .set({
+                    Day: this.state.Day,
+                    Module: this.state.Module,
+                    Class: this.state.Class,
+                    selectedHoursf:parseInt(this.state.selectedHoursf),
+                    selectedMinutesf: parseInt(this.state.selectedMinutesf),
+                    selectedHourst: parseInt(this.state.selectedHourst),
+                    selectedMinutest: parseInt(this.state.selectedMinutest),
+                    Location:this.state.Location,
+                    Id: this.state.id
+                  }).then(()=>{
+                    this.setState({
+                      Day: '',
+                      Module: '',
+                      Class: '',
+                      selectedHoursf:0,
+                      selectedHourst:0,
+                      selectedMinutesf:0,
+                      selectedMinutest:0,
+                      Location:''
+                      }) 
+                      alert('Saved to your schedule ! ')
+                  }).catch((error)=>{
+                    alert(error)
+                  })
                 })
               }
               if(this.state.Day == "Friday") {
@@ -264,7 +387,7 @@ export default class SwitchExample extends Component {
                 //alert(startdate)
                 RNCalendarEvents.saveEvent('Reminder for class', {
                 location: this.state.Location,
-                notes:this.state.Module+'-'+this.state.Class,
+                description:this.state.Module+'-'+this.state.Class,
                 startDate: startdate, 
                 recurrenceRule: {
                   frequency: 'weekly',
@@ -273,6 +396,41 @@ export default class SwitchExample extends Component {
                 alarms: [{
                   date: 30
                 }]
+                }).then(id=>{
+                  this.setState({id:id})
+  
+                  firebaseDb.firestore()
+                  .collection('users')
+                  .doc(user)
+                  .collection('classes')
+                  .doc('Days')
+                  .collection(this.state.Day)
+                  .doc(this.state.Module+this.state.Class)
+                  .set({
+                    Day: this.state.Day,
+                    Module: this.state.Module,
+                    Class: this.state.Class,
+                    selectedHoursf:parseInt(this.state.selectedHoursf),
+                    selectedMinutesf: parseInt(this.state.selectedMinutesf),
+                    selectedHourst: parseInt(this.state.selectedHourst),
+                    selectedMinutest: parseInt(this.state.selectedMinutest),
+                    Location:this.state.Location,
+                    Id: this.state.id
+                  }).then(()=>{
+                    this.setState({
+                      Day: '',
+                      Module: '',
+                      Class: '',
+                      selectedHoursf:0,
+                      selectedHourst:0,
+                      selectedMinutesf:0,
+                      selectedMinutest:0,
+                      Location:''
+                      }) 
+                      alert('Saved to your schedule ! ')
+                  }).catch((error)=>{
+                    alert(error)
+                  })
                 })
               }
             }
@@ -288,7 +446,9 @@ export default class SwitchExample extends Component {
   }
   onremoving= () =>{
     const user = firebaseDb.auth().currentUser.uid;
-    if ((user)&&(this.state.Day!=null)) {
+    if ((user)&&(this.state.Day!=null)&&this.state.Day!="") {
+      if(this.state.Module!=null&&this.state.Module!="") {
+      if(this.state.Class!=null&&this.state.Class!="") {
         firebaseDb.firestore()
         .collection('users')
         .doc(user)
@@ -312,6 +472,7 @@ export default class SwitchExample extends Component {
                 }) 
             }
             else{
+              const id = doc.data().Id
                 firebaseDb.firestore()
                 .collection('users')
                 .doc(user)
@@ -321,6 +482,7 @@ export default class SwitchExample extends Component {
                 .doc(this.state.Module+this.state.Class)
                 .delete()
                 .then(() => {
+                  RNCalendarEvents.removeEvent(id)
                   alert("Removed from your schedule! ");
                     this.setState({
                     Day: '',
@@ -334,8 +496,19 @@ export default class SwitchExample extends Component {
                     }) 
                   })     
             }
-        })        
+        })  
+      }
+      else {
+        alert("Please enter the Class Type.")
+      }
+    }
+    else {
+      alert("Please enter the Module Name.")
+    }      
     }  
+    else{
+      alert("Please enter the Day.")
+    }
        
   }
 

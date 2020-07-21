@@ -192,7 +192,7 @@ import RNCalendarEvents from 'react-native-calendar-events';
 
         HandleRemove = () => {
             const user = firebaseDb.auth().currentUser.uid;
-            if ((user)&&(this.state.name!=null)) {
+            if ((user)&&(this.state.name!=null)&&this.state.name!="") {
                 firebaseDb.firestore()
                 .collection('users')
                 .doc(user)
@@ -204,6 +204,7 @@ import RNCalendarEvents from 'react-native-calendar-events';
                         alert("No such Assignment!")
                     }
                     else{
+                        const id = doc.data().Id
                         firebaseDb.firestore()
                         .collection('users')
                         .doc(user)
@@ -211,6 +212,7 @@ import RNCalendarEvents from 'react-native-calendar-events';
                         .doc(this.state.name)
                         .delete()
                         .then(() => {
+                            RNCalendarEvents.removeEvent(id)
                             alert("Assignment Removed!!")
                         })
                         .catch(function(error) {
