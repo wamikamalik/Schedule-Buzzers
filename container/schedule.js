@@ -41,7 +41,9 @@ export default class SwitchExample extends Component {
     Add: false,
     Remove: false,
     code: null,
-    visible: false
+    visible: false,
+    arr:[], 
+    k:0
     
 };
 
@@ -232,6 +234,7 @@ export default class SwitchExample extends Component {
   
   HandleUser = () => {
     const user = firebaseDb.auth().currentUser.uid;
+   
     
     if ((user)&&(this.state.Day!=null)&&(this.state.Class!=null)&&(this.state.Module!=null)&&(this.state.Location!=null)&&((this.state.selectedHoursf)!=0)&&((this.state.selectedHourst)!=0)) {
 //       let min = 0;
@@ -325,7 +328,7 @@ export default class SwitchExample extends Component {
 // }]
 // })
 // }
-var k=0;
+//var k=0;
 firebaseDb.firestore()
 .collection('users')
 .doc(user)
@@ -335,33 +338,68 @@ firebaseDb.firestore()
 .get()
 .then(snapshot=>{
   snapshot.forEach(doc=>{
-    if ((parseInt(this.state.selectedHoursf)==parseInt(doc.data().selectedHoursf))&&(parseInt(this.state.selectedMinutesf)>=parseInt(doc.data().selectedMinutesf))){
-      k=0;
-      alert("You already have a class at this time")
-    }
-    else if ((this.state.selectedHoursf>doc.data().selectedHoursf)&&(this.state.selectedHourst<=doc.data().selectedHourst)){
-      k=0;
-      alert("You already have a class at this time")
-    }
-    else if ((this.state.selectedHoursf<doc.data().selectedHoursf)&&(this.state.selectedHourst<=doc.data().selectedHourst)&&(this.state.selectedHourst>doc.data().selectedHoursf)){
-      k=0;
-      alert("You already have a class at this time")
-    }
-    else if ((this.state.selectedHoursf<doc.data().selectedHourst)&&(this.state.selectedHourst>=doc.data().selectedHourst)&&(this.state.selectedHoursf>doc.data().selectedHoursf)){
-      k=0;
-      alert("You already have a class at this time")
-    }
-    else if ((this.state.selectedHoursf<doc.data().selectedHourst)&&(this.state.selectedHourst<doc.data().selectedHourst)&&(this.state.selectedHoursf>doc.data().selectedHoursf)){
-      k=0;
-      alert("You already have a class at this time")
-    }
-    else {
-      k=1;
-    }
+    // if ((parseInt(this.state.selectedHoursf)==parseInt(doc.data().selectedHoursf))&&(parseInt(this.state.selectedMinutesf)>=parseInt(doc.data().selectedMinutesf))){
+    //   k=0;
+    //   alert("You already have a class at this time")
+    // }
+    // else if ((parseInt(this.state.selectedHoursf)>parseInt(doc.data().selectedHoursf))&&(parseInt(this.state.selectedHourst)<=parseInt(doc.data().selectedHourst))){
+    //   k=0;
+    //   alert("You already have a class at this time")
+    // }
+    // else if ((parseInt(this.state.selectedHoursf)<parseInt(doc.data().selectedHoursf))&&(parseInt(this.state.selectedHourst)<=parseInt(doc.data().selectedHourst))&&(parseInt(this.state.selectedHourst)>parseInt(doc.data().selectedHoursf))){
+    //   k=0;
+    //   alert("You already have a class at this time")
+    // }
+    // else if ((parseInt(this.state.selectedHoursf)<parseInt(doc.data().selectedHourst))&&(parseInt(this.state.selectedHourst)>=parseInt(doc.data().selectedHourst))&&(parseInt(this.state.selectedHoursf)>parseInt(doc.data().selectedHoursf))){
+    //   k=0;
+    //   alert("You already have a class at this time")
+    // }
+    // else if ((parseInt(this.state.selectedHoursf)<parseInt(doc.data().selectedHourst))&&(parseInt(this.state.selectedHourst)<parseInt(doc.data().selectedHourst))&&(this.state.selectedHoursf>doc.data().selectedHoursf)){
+    //   k=0;
+    //   alert("You already have a class at this time")
+    // }
+    // else {
+    //   k=1;
+    // }
+this.state.arr.push([doc.data().selectedHoursf, doc.data().selectedMinutesf,doc.data().selectedHourst,doc.data().selectedMinutest]);
   })
 })
 
-if (k==1){
+for(let i=0; i< this.state.arr.length;i++){
+  if ((parseInt(this.state.selectedHoursf)==this.state.arr[i][0])&&(parseInt(this.state.selectedMinutesf)>=this.state.arr[i][1])){
+      this.setState({k:0});
+      alert("You already have a class at this time")
+      break;
+    }
+    else if ((parseInt(this.state.selectedHoursf)>this.state.arr[i][0])&&(parseInt(this.state.selectedHourst)<=this.state.arr[i][2])){
+      this.setState({k:0});
+      alert("You already have a class at this time")
+      break;
+    }
+    else if ((parseInt(this.state.selectedHoursf)<this.state.arr[i][0])&&(parseInt(this.state.selectedHourst)<=this.state.arr[i][2])&&(parseInt(this.state.selectedHourst)>this.state.arr[i][0])){
+      this.setState({k:0});
+      alert("You already have a class at this time")
+      break;
+    }
+    else if ((parseInt(this.state.selectedHoursf)<this.state.arr[i][2])&&(parseInt(this.state.selectedHourst)>=this.state.arr[i][2])&&(parseInt(this.state.selectedHoursf)>this.state.arr[i][0])){
+      this.setState({k:0});
+      alert("You already have a class at this time")
+      break;
+    }
+    else if ((parseInt(this.state.selectedHoursf)<this.state.arr[i][2])&&(parseInt(this.state.selectedHourst)<this.state.arr[i][2])&&(parseInt(this.state.selectedHoursf)>this.state.arr[i][0])){
+      this.setState({k:0});
+      alert("You already have a class at this time")
+      break;
+    }
+    else {
+      this.setState({k:1});
+      alert('1') //for testing purposes
+    }
+}
+
+if (this.state.k==1){
+
+
         firebaseDb.firestore()
         .collection('users')
         .doc(user)
@@ -370,8 +408,9 @@ if (k==1){
         .collection(this.state.Day)
         .doc(this.state.Module+this.state.Class)
         .get()
-        .then(function(doc){
+        .then((doc) =>{
           if (!doc.exists){
+       
           this.setState({
           
           Day: this.state.Day,
@@ -386,6 +425,7 @@ if (k==1){
          })
 
       alert('Saved to your schedule ! ')
+        
       let min = 0;
       let hr = 0;
       let time = '0'
@@ -483,8 +523,10 @@ alert('This class already exists !!')
       }
           
     })  //addpressed = true;
-      }
-    } 
+      
+    
+  }
+}
       else {
         alert('Please fill all the fields!')
       }

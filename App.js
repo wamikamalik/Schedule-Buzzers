@@ -29,7 +29,7 @@ function HomeScreen({navigation}) {
       <WhiteButton style={styles.button} onPress={() =>navigation.navigate('SignIn')}>Sign In</WhiteButton>
       <WhiteButton style={{    borderRadius:15,
         width: 200,
-        height: 75,
+        height: 50,
         marginBottom: 30
         }} 
         onPress={() =>{navigation.navigate('google')}}>Sign In with Google</WhiteButton>
@@ -144,7 +144,7 @@ export class signgoogle extends Component {
 // }
 
 const styles = StyleSheet.create({
-  container: { marginTop: Constants.statusBarHeight,
+  container: {marginTop: Constants.statusBarHeight,
     flex: 1,
     //justifyContent:"center",
     //alignItems:"center",
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   },
   textb: {
     color: "white",
-    fontSize: 50,
+    fontSize: 48,
     fontStyle:"italic",
     fontWeight:"bold",
     alignSelf:"center",
@@ -173,15 +173,16 @@ const styles = StyleSheet.create({
   textn: {
     color: "white",
     fontSize: 30,
-    marginBottom: 70,
+    marginBottom: 40,
     alignSelf:"center",
     justifyContent:"center"
   },
   image: {
     height: 200,
-    width: 250,
+    width: 200,
     alignSelf:"center",
-    justifyContent:"center"
+    justifyContent:"center",
+    marginTop: 20
   }
 });
 
