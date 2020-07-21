@@ -103,303 +103,10 @@ export default class SwitchExample extends Component {
   handleUpdateselectedMinutest = selectedMinutest => this.setState({selectedMinutest})
   handleUpdateLocation = Location=> this.setState({Location})
   handleUpdatecode = code => this.setState({code})
-
-  // googleCalendar = () => {
-  //   fs.readFile('credentials.json', (err, content) => {
-  //     if (err) return alert('Error loading client secret file:', err);
-  //     // Authorize a client with credentials, then call the Google Calendar API.
-  //     if(addpressed) {
-  //       this.authorize(JSON.parse(content), this.AddEvent);
-  //       addpressed = false;
-  //     }
-  //   });
-  // }
-
-  // authorize = (credentials, callback) => {
-  //   const {client_secret, client_id, redirect_uris} = credentials.installed;
-  //   const oAuth2Client = new google.auth.OAuth2(
-  //       client_id, client_secret, redirect_uris[0]);
-  
-  //   // Check if we have previously stored a token.
-  //   fs.readFile(TOKEN_PATH, (err, token) => {
-  //     if (err) {
-  //       this.setState({visible: true})
-  //       return getAccessToken(oAuth2Client, callback);
-  //     }
-  //     oAuth2Client.setCredentials(JSON.parse(token));
-  //     callback(oAuth2Client);
-  //   });
-  // }
-
-  // hideDialog() {
-  //   this.setState({visible: false})
-  // }
-  // getAccessToken = (oAuth2Client, callback) => {
-  //     const authUrl = oAuth2Client.generateAuthUrl({
-  //       access_type: 'offline',
-  //       scope: SCOPES,
-  //     });
-  //     // console.log('Authorize this app by visiting this url:', authUrl);
-  //     // const rl = readline.createInterface({
-  //     //   input: process.stdin,
-  //     //   output: process.stdout,
-  //     // });
-  //     // rl.question('Enter the code from that page here: ', (code) => {
-  //     //   rl.close();
-  //     if(this.state.code) {
-  //       oAuth2Client.getToken(this.state.code, (err, token) => {
-  //         if (err) return alert('Error retrieving access token', err);
-  //         oAuth2Client.setCredentials(token);
-  //         // Store the token to disk for later program executions
-  //         fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
-  //           if (err) return alert(err);
-  //           alert('Token stored to', TOKEN_PATH);
-  //         });
-  //         callback(oAuth2Client);
-  //       });
-  //     }
-  //   //  });
-  //     return (
-  //       <View>
-  //       <Portal>
-  //       <Dialog visible={this.state.visible} onDismiss={this.hideDialog}>
-  //         <Dialog.Title>Authorization needed!</Dialog.Title>
-  //         <Dialog.Content>
-  //           <Paragraph>Authorize this app by visiting this url:{authUrl}
-  //           <Text>Enter the code from that page here:</Text>
-  //           </Paragraph>
-  //         </Dialog.Content>
-  //         <Dialog.Actions>
-  //           <TextInput placeholder="code" onChangeText={this.handleUpdatecode} value={this.state.code}></TextInput>
-  //         </Dialog.Actions>
-  //       </Dialog>
-  //     </Portal>
-  //     </View>
-  //     )
-  //   }
-
-
-  // AddEvent = (auth) => {
-  //   if(this.state.Day == "Monday") {
-  //   const startdate = moment(toString(new Date())+'T'+this.state.selectedHoursf.toString()+':'+this.state.selectedMinutesf.toString(),'YYYY/DD/MMTHH:mm',true).format('YYYY-MM-DDTHH:mm:ss');
-  //   const enddate = moment(toString(new Date())+'T'+this.state.selectedHourst.toString()+':'+this.state.selectedMinutest.toString(),'YYYY/DD/MMTHH:mm',true).format('YYYY-MM-DDTHH:mm:ss');
-
-  //   var event = {
-  //     'summary': 'Class Reminder',
-  //     'location': this.state.Location,
-  //     'description': this.state.Module+' '+this.state.Class,
-  //     'start': {
-  //       'dateTime': startdate,
-  //       'timeZone': 'Asia/Singapore',
-  //     },
-  //     'end': {
-  //       'dateTime': enddate,
-  //       'timeZone': 'Asia/Singapore',
-  //     },
-  //     'recurrence': [
-  //       'RRULE:FREQ=WEEKLY;UNTIL=20211231;BYDAY=MO'
-  //     ],
-  //     'reminders': {
-  //       'useDefault': false,
-  //       'overrides': [
-  //         {'method': 'email', 'minutes': 24 * 60},
-  //         {'method': 'popup', 'minutes': 20},
-  //       ],
-  //     },
-  //   };
-  //   }
-    
-  //   calendar.events.insert({
-  //     auth: auth,
-  //     calendarId: 'primary',
-  //     resource: event,
-  //   }, function(err, event) {
-  //     if (err) {
-  //       alert('There was an error contacting the Calendar service: ' + err);
-  //       return;
-  //     }
-  //     alert('Event created: %s', event.htmlLink);
-  //   });
-  //   this.setState({
-  //     Day: '',
-  //     Module: '',
-  //     Class: '',
-  //     selectedHoursf:0,
-  //     selectedHourst:0,
-  //     selectedMinutesf:0,
-  //     selectedMinutest:0,
-  //     Location:''
-  //     }) 
-  // } 
   
   HandleUser = () => {
     const user = firebaseDb.auth().currentUser.uid;
-   
-    
     if ((user)&&(this.state.Day!=null)&&(this.state.Class!=null)&&(this.state.Module!=null)&&(this.state.Location!=null)&&((this.state.selectedHoursf)!=0)&&((this.state.selectedHourst)!=0)) {
-//       let min = 0;
-//       let hr = 0;
-//       let time = '0'
-//       min = (this.state.selectedMinutesf - 30>=0)?this.state.selectedMinutesf - 30:60-(this.state.selectedMinutesf - 30);
-//       hr =  ((this.state.selectedMinutesf - 30)>=0)?this.state.selectedHoursf:this.state.selectedHoursf-1;
-//       time = hr.toString()+':'+min.toString()
-//       if(this.state.Day == "Monday") {
-//         const startdate = moment("2020/07/13 "+this.state.selectedHoursf+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-//         const alarm = moment("2020/07/13 "+time,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-//         alert(alarm)
-//     RNCalendarEvents.saveEvent('Reminder for class', {
-//       location: this.state.Location,
-//       notes:this.state.Module+'-'+this.state.Class,
-//       startDate: startdate, 
-//       recurrenceRule: {
-//         frequency: 'weekly',
-//          endDate: '2021-12-31T19:26:00.000Z'
-//       },
-//       alarms: [{
-//         date: alarm
-//       }]
-//     })
-//   }
-//     if(this.state.Day == "Tuesday") {
-//       const startdate = moment("2020/07/14 "+this.state.selectedHoursf+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-//       const alarm = moment("2020/07/14 "+time,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-//       alert(alarm)
-//   RNCalendarEvents.saveEvent('Reminder for class', {
-//     location: this.state.Location,
-//     notes:this.state.Module+'-'+this.state.Class,
-//     startDate: startdate, 
-//     recurrenceRule: {
-//       frequency: 'weekly',
-//        endDate: '2021-12-31T19:26:00.000Z'
-//     },
-//     alarms: [{
-//       date: alarm
-//     }]
-//   })
-// }
-//   if(this.state.Day == "Wednesday") {
-//     const startdate = moment("2020/07/15 "+this.state.selectedHoursf+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-//     const alarm = moment("2020/07/15 "+time,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-//     alert(startdate)
-// RNCalendarEvents.saveEvent('Reminder for class', {
-//   location: this.state.Location,
-//   notes:this.state.Module+'-'+this.state.Class,
-//   startDate: startdate, 
-//   recurrenceRule: {
-//     frequency: 'weekly',
-//      endDate: '2021-12-31T19:26:00.000Z'
-//   },
-//   alarms: [{
-//     date: alarm
-//   }]
-// })
-//   }
-// if(this.state.Day == "Thursday") {
-//   const startdate = moment("2020/07/16 "+this.state.selectedHoursf+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-//   const alarm = moment("2020/07/16 "+time,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-//   alert(startdate)
-// RNCalendarEvents.saveEvent('Reminder for class', {
-// location: this.state.Location,
-// notes:this.state.Module+'-'+this.state.Class,
-// startDate: startdate, 
-// recurrenceRule: {
-//   frequency: 'weekly',
-//    endDate: '2021-12-31T19:26:00.000Z'
-// },
-// alarms: [{
-//   date: alarm
-// }]
-// })
-// }
-// if(this.state.Day == "Friday") {
-//   const startdate = moment("2020/07/17 "+this.state.selectedHoursf+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-//   const alarm = moment("2020/07/17 "+time,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-//   alert(startdate)
-// RNCalendarEvents.saveEvent('Reminder for class', {
-// location: this.state.Location,
-// notes:this.state.Module+'-'+this.state.Class,
-// startDate: startdate, 
-// recurrenceRule: {
-//   frequency: 'weekly',
-//    endDate: '2021-12-31T19:26:00.000Z'
-// },
-// alarms: [{
-//   date: alarm
-// }]
-// })
-// }
-//var k=0;
-firebaseDb.firestore()
-.collection('users')
-.doc(user)
-.collection('classes')
-.doc('Days')
-.collection(this.state.Day)
-.get()
-.then(snapshot=>{
-  snapshot.forEach(doc=>{
-    // if ((parseInt(this.state.selectedHoursf)==parseInt(doc.data().selectedHoursf))&&(parseInt(this.state.selectedMinutesf)>=parseInt(doc.data().selectedMinutesf))){
-    //   k=0;
-    //   alert("You already have a class at this time")
-    // }
-    // else if ((parseInt(this.state.selectedHoursf)>parseInt(doc.data().selectedHoursf))&&(parseInt(this.state.selectedHourst)<=parseInt(doc.data().selectedHourst))){
-    //   k=0;
-    //   alert("You already have a class at this time")
-    // }
-    // else if ((parseInt(this.state.selectedHoursf)<parseInt(doc.data().selectedHoursf))&&(parseInt(this.state.selectedHourst)<=parseInt(doc.data().selectedHourst))&&(parseInt(this.state.selectedHourst)>parseInt(doc.data().selectedHoursf))){
-    //   k=0;
-    //   alert("You already have a class at this time")
-    // }
-    // else if ((parseInt(this.state.selectedHoursf)<parseInt(doc.data().selectedHourst))&&(parseInt(this.state.selectedHourst)>=parseInt(doc.data().selectedHourst))&&(parseInt(this.state.selectedHoursf)>parseInt(doc.data().selectedHoursf))){
-    //   k=0;
-    //   alert("You already have a class at this time")
-    // }
-    // else if ((parseInt(this.state.selectedHoursf)<parseInt(doc.data().selectedHourst))&&(parseInt(this.state.selectedHourst)<parseInt(doc.data().selectedHourst))&&(this.state.selectedHoursf>doc.data().selectedHoursf)){
-    //   k=0;
-    //   alert("You already have a class at this time")
-    // }
-    // else {
-    //   k=1;
-    // }
-this.state.arr.push([doc.data().selectedHoursf, doc.data().selectedMinutesf,doc.data().selectedHourst,doc.data().selectedMinutest]);
-  })
-})
-
-for(let i=0; i< this.state.arr.length;i++){
-  if ((parseInt(this.state.selectedHoursf)==this.state.arr[i][0])&&(parseInt(this.state.selectedMinutesf)>=this.state.arr[i][1])){
-      this.setState({k:0});
-      alert("You already have a class at this time")
-      break;
-    }
-    else if ((parseInt(this.state.selectedHoursf)>this.state.arr[i][0])&&(parseInt(this.state.selectedHourst)<=this.state.arr[i][2])){
-      this.setState({k:0});
-      alert("You already have a class at this time")
-      break;
-    }
-    else if ((parseInt(this.state.selectedHoursf)<this.state.arr[i][0])&&(parseInt(this.state.selectedHourst)<=this.state.arr[i][2])&&(parseInt(this.state.selectedHourst)>this.state.arr[i][0])){
-      this.setState({k:0});
-      alert("You already have a class at this time")
-      break;
-    }
-    else if ((parseInt(this.state.selectedHoursf)<this.state.arr[i][2])&&(parseInt(this.state.selectedHourst)>=this.state.arr[i][2])&&(parseInt(this.state.selectedHoursf)>this.state.arr[i][0])){
-      this.setState({k:0});
-      alert("You already have a class at this time")
-      break;
-    }
-    else if ((parseInt(this.state.selectedHoursf)<this.state.arr[i][2])&&(parseInt(this.state.selectedHourst)<this.state.arr[i][2])&&(parseInt(this.state.selectedHoursf)>this.state.arr[i][0])){
-      this.setState({k:0});
-      alert("You already have a class at this time")
-      break;
-    }
-    else {
-      this.setState({k:1});
-      alert('1') //for testing purposes
-    }
-}
-
-if (this.state.k==1){
-
-
         firebaseDb.firestore()
         .collection('users')
         .doc(user)
@@ -410,236 +117,232 @@ if (this.state.k==1){
         .get()
         .then((doc) =>{
           if (!doc.exists){
-       
-          this.setState({
-          
-          Day: this.state.Day,
-          Module: this.state.Module,
-          Class: this.state.Class,
-          selectedHoursf:parseInt(this.state.selectedHoursf),
-          selectedMinutesf: parseInt(this.state.selectedMinutesf),
-          selectedHourst: parseInt(this.state.selectedHourst),
-          selectedMinutest: parseInt(this.state.selectedMinutest),
-          Location:this.state.Location
-
-         })
-
-      alert('Saved to your schedule ! ')
-        
-      let min = 0;
-      let hr = 0;
-      let time = '0'
-      min = (this.state.selectedMinutesf - 30>=0)?this.state.selectedMinutesf - 30:60-(this.state.selectedMinutesf - 30);
-      hr =  ((this.state.selectedMinutesf - 30)>=0)?this.state.selectedHoursf:this.state.selectedHoursf-1;
-      time = hr.toString()+':'+min.toString()
-      if(this.state.Day == "Monday") {
-        const startdate = moment("2020/07/13 "+this.state.selectedHoursf+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-        const alarm = moment("2020/07/13 "+time,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-        alert(alarm)
-    RNCalendarEvents.saveEvent('Reminder for class', {
-      location: this.state.Location,
-      notes:this.state.Module+'-'+this.state.Class,
-      startDate: startdate, 
-      recurrenceRule: {
-        frequency: 'weekly',
-         endDate: '2021-12-31T19:26:00.000Z'
-      },
-      alarms: [{
-        date: alarm
-      }]
-    })
-  }
-    if(this.state.Day == "Tuesday") {
-      const startdate = moment("2020/07/14 "+this.state.selectedHoursf+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-      const alarm = moment("2020/07/14 "+time,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-      alert(alarm)
-  RNCalendarEvents.saveEvent('Reminder for class', {
-    location: this.state.Location,
-    notes:this.state.Module+'-'+this.state.Class,
-    startDate: startdate, 
-    recurrenceRule: {
-      frequency: 'weekly',
-       endDate: '2021-12-31T19:26:00.000Z'
-    },
-    alarms: [{
-      date: alarm
-    }]
-  })
-}
-  if(this.state.Day == "Wednesday") {
-    const startdate = moment("2020/07/15 "+this.state.selectedHoursf+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-    const alarm = moment("2020/07/15 "+time,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-    alert(startdate)
-RNCalendarEvents.saveEvent('Reminder for class', {
-  location: this.state.Location,
-  notes:this.state.Module+'-'+this.state.Class,
-  startDate: startdate, 
-  recurrenceRule: {
-    frequency: 'weekly',
-     endDate: '2021-12-31T19:26:00.000Z'
-  },
-  alarms: [{
-    date: alarm
-  }]
-})
-  }
-if(this.state.Day == "Thursday") {
-  const startdate = moment("2020/07/16 "+this.state.selectedHoursf+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-  const alarm = moment("2020/07/16 "+time,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-  alert(startdate)
-RNCalendarEvents.saveEvent('Reminder for class', {
-location: this.state.Location,
-notes:this.state.Module+'-'+this.state.Class,
-startDate: startdate, 
-recurrenceRule: {
-  frequency: 'weekly',
-   endDate: '2021-12-31T19:26:00.000Z'
-},
-alarms: [{
-  date: alarm
-}]
-})
-}
-if(this.state.Day == "Friday") {
-  const startdate = moment("2020/07/17 "+this.state.selectedHoursf+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-  const alarm = moment("2020/07/17 "+time,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
-  alert(startdate)
-RNCalendarEvents.saveEvent('Reminder for class', {
-location: this.state.Location,
-notes:this.state.Module+'-'+this.state.Class,
-startDate: startdate, 
-recurrenceRule: {
-  frequency: 'weekly',
-   endDate: '2021-12-31T19:26:00.000Z'
-},
-alarms: [{
-  date: alarm
-}]
-})
-}
-    }
-      else {
-alert('This class already exists !!')
-      }
-          
-    })  //addpressed = true;
-      
-    
-  }
-}
-      else {
-        alert('Please fill all the fields!')
-      }
-    
-  
-  
-
-  }
-onremoving= () =>{
-  const user = firebaseDb.auth().currentUser.uid;
-        if ((user)&&(this.state.Day!=null)) {
             firebaseDb.firestore()
             .collection('users')
             .doc(user)
             .collection('classes')
             .doc('Days')
             .collection(this.state.Day)
-            .doc(this.state.Module+this.state.Class)
             .get()
-            .then((doc)=>{
-                if(!doc.exists) {
-                    alert("No such schedule found!")
-                   this.setState({
-      Day: '',
-      Module: '',
-      Class: '',
-      selectedHoursf:0,
-      selectedHourst:0,
-      selectedMinutesf:0,
-      selectedMinutest:0,
-      Location:''
-      }) 
-                }
-                else{
-                    firebaseDb.firestore()
-                    .collection('users')
-                    .doc(user)
-                    .collection('classes')
-                    .doc('Days')
-                    .collection(this.state.Day)
-                    .doc(this.state.Module+this.state.Class)
-                    .delete()
-                    .then(() => {
-                      alert("Removed from your schedule! ");
-                       this.setState({
-      Day: '',
-      Module: '',
-      Class: '',
-      selectedHoursf:0,
-      selectedHourst:0,
-      selectedMinutesf:0,
-      selectedMinutest:0,
-      Location:''
-      }) 
-                    })
-                    
-                }
+            .then(snapshot=>{
+              snapshot.forEach(doc=>{
+                const starthr = (doc.data().selectedHoursf<=9)?("0"+doc.data().selectedHoursf):(""+doc.data().selectedHoursf)
+                const startmin = (doc.data().selectedMinutesf<=9)?("0"+doc.data().selectedMinutesf):(""+doc.data().selectedMinutesf)
+                const start1 = parseInt(starthr.toString()+startmin.toString())
+                const endhr = (doc.data().selectedHourst<=9)?("0"+doc.data().selectedHourst):(""+doc.data().selectedHourst)
+                const endmin = (doc.data().selectedMinutest<=9)?("0"+doc.data().selectedMinutest):(""+doc.data().selectedMinutest)
+                const end1 = parseInt(endhr.toString()+endmin.toString())
+                //alert(start1)
+                this.state.arr.push({start: start1, end: end1});
+                  })
             })
-            
-        }  
-       
-     }
+            //alert(JSON.stringify(this.state.arr))
+            const starthr = (parseInt(this.state.selectedHoursf)<=9)?("0"+this.state.selectedHoursf):(""+this.state.selectedHoursf)
+            const startmin = (parseInt(this.state.selectedMinutesf)<=9)?("0"+this.state.selectedMinutesf):(""+this.state.selectedMinutesf)
+            const startnew = parseInt(starthr.toString()+startmin.toString())
+            const endhr = (parseInt(this.state.selectedHourst)<=9)?("0"+this.state.selectedHourst):(""+this.state.selectedHourst)
+            const endmin = (parseInt(this.state.selectedMinutest)<=9)?("0"+this.state.selectedMinutest):(""+this.state.selectedMinutest)
+            const endnew = parseInt(endhr.toString()+endmin.toString())
+            //alert(startnew)
+            for(let i=0; i< this.state.arr.length;i++){
+              if(endnew>this.state.arr[i].start&&endnew<=this.state.arr[i].end) {
+                this.setState({k:0});
+                alert("You already have a class at this time")
+                break;
+              }
+              else if(endnew>this.state.arr[i].end&&startnew<this.state.arr[i].end) {
+                this.setState({k:0});
+                alert("You already have a class at this time")
+                break;          
+              }
+              else {
+                this.setState({k:1});
+                //alert('1') //for testing purposes
+              }
+            }
+            if(this.state.k == 1) {
+              firebaseDb.firestore()
+              .collection('users')
+              .doc(user)
+              .collection('classes')
+              .doc('Days')
+              .collection(this.state.Day)
+              .doc(this.state.Module+this.state.Class)
+              .set({
+                Day: this.state.Day,
+                Module: this.state.Module,
+                Class: this.state.Class,
+                selectedHoursf:parseInt(this.state.selectedHoursf),
+                selectedMinutesf: parseInt(this.state.selectedMinutesf),
+                selectedHourst: parseInt(this.state.selectedHourst),
+                selectedMinutest: parseInt(this.state.selectedMinutest),
+                Location:this.state.Location
 
-checkTime=() =>{
-if ((this.state.selectedHoursf<10) && (this.state.selectedHourst<10)){
-  if (this.state.selectedHoursf < this.state.selectedHourst) {
-    this.HandleUser();
-    // if ((this.state.Class!=null)&&(this.state.Module!=null)&&(this.state.Location!=null)&&(this.state.Day!=null)&&(parseInt(this.state.selectedHoursf)!=0)&&(parseInt(this.state.selectedHourst)!=0)){
-    // alert("Saved to your schedule!");
-    // this.setState({
-    //   Day: '',
-    //   Module: '',
-    //   Class: '',
-    //   selectedHoursf:0,
-    //   selectedHourst:0,
-    //   selectedMinutesf:0,
-    //   selectedMinutest:0,
-    //   Location:''
-    //   }) 
-    // }
-   }
-     else if ((this.state.selectedMinutesf<this.state.selectedMinutest) && (this.state.selectedHoursf==this.state.selectedHourst)){
-    // alert("Saved to your schedule!");
-     this.HandleUser();
-    //  this.setState({
-    //   Day: '',
-    //   Module: '',
-    //   Class: '',
-    //   selectedHoursf:0,
-    //   selectedHourst:0,
-    //   selectedMinutesf:0,
-    //   selectedMinutest:0,
-    //   Location:''
-    //   }) 
-  }
-    else
-    {
-      alert("This time is not possible"); 
-      this.setState({
-        Day: '',
-        Module: '',
-        Class: '',
-        selectedHoursf:0,
-        selectedHourst:0,
-        selectedMinutesf:0,
-        selectedMinutest:0,
-        Location:''
-        }) }
+              })
+
+              alert('Saved to your schedule ! ')
+              this.setState({k:0})
+              let min = 0;
+              let hr = 0;
+              let time = '0'
+              min = (this.state.selectedMinutesf - 30>=0)?this.state.selectedMinutesf - 30:60-(this.state.selectedMinutesf - 30);
+              hr =  ((this.state.selectedMinutesf - 30)>=0)?this.state.selectedHoursf:this.state.selectedHoursf-1;
+              time = hr.toString()+':'+min.toString()
+              if(this.state.Day == "Monday") {
+                const startdate = moment("2020/07/13 "+this.state.selectedHoursf+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
+                const alarm = moment("2020/07/13 "+time,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
+                alert(alarm)
+                RNCalendarEvents.saveEvent('Reminder for class', {
+                  location: this.state.Location,
+                  notes:this.state.Module+'-'+this.state.Class,
+                  startDate: startdate, 
+                  recurrenceRule: {
+                    frequency: 'weekly',
+                    endDate: '2021-12-31T19:26:00.000Z'
+                  },
+                  alarms: [{
+                    date: alarm
+                  }]
+                })
+              }
+              if(this.state.Day == "Tuesday") {
+                const startdate = moment("2020/07/14 "+this.state.selectedHoursf+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
+                const alarm = moment("2020/07/14 "+time,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
+                alert(alarm)
+                RNCalendarEvents.saveEvent('Reminder for class', {
+                  location: this.state.Location,
+                  notes:this.state.Module+'-'+this.state.Class,
+                  startDate: startdate, 
+                  recurrenceRule: {
+                    frequency: 'weekly',
+                    endDate: '2021-12-31T19:26:00.000Z'
+                  },
+                  alarms: [{
+                    date: alarm
+                  }]
+                })
+              }
+              if(this.state.Day == "Wednesday") {
+                const startdate = moment("2020/07/15 "+this.state.selectedHoursf+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
+                const alarm = moment("2020/07/15 "+time,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
+                alert(startdate)
+                RNCalendarEvents.saveEvent('Reminder for class', {
+                  location: this.state.Location,
+                  notes:this.state.Module+'-'+this.state.Class,
+                  startDate: startdate, 
+                  recurrenceRule: {
+                    frequency: 'weekly',
+                    endDate: '2021-12-31T19:26:00.000Z'
+                  },
+                  alarms: [{
+                    date: alarm
+                  }]
+                })
+              }
+              if(this.state.Day == "Thursday") {
+                const startdate = moment("2020/07/16 "+this.state.selectedHoursf+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
+                const alarm = moment("2020/07/16 "+time,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
+                alert(startdate)
+                RNCalendarEvents.saveEvent('Reminder for class', {
+                location: this.state.Location,
+                notes:this.state.Module+'-'+this.state.Class,
+                startDate: startdate, 
+                recurrenceRule: {
+                  frequency: 'weekly',
+                  endDate: '2021-12-31T19:26:00.000Z'
+                },
+                alarms: [{
+                  date: alarm
+                }]
+                })
+              }
+              if(this.state.Day == "Friday") {
+                const startdate = moment("2020/07/17 "+this.state.selectedHoursf+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
+                const alarm = moment("2020/07/17 "+time,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
+                alert(startdate)
+                RNCalendarEvents.saveEvent('Reminder for class', {
+                location: this.state.Location,
+                notes:this.state.Module+'-'+this.state.Class,
+                startDate: startdate, 
+                recurrenceRule: {
+                  frequency: 'weekly',
+                  endDate: '2021-12-31T19:26:00.000Z'
+                },
+                alarms: [{
+                  date: alarm
+                }]
+                })
+              }
+            }
+          }
+          else {
+            alert('This class already exists !!')
+          }  //addpressed = true;
+        })
     }
-    if ((this.state.selectedHoursf<10) && (this.state.selectedHourst>=10))
-    {
-    //  alert("Saved to your schedule!");
+    else {
+      alert('Please fill all the fields!')
+    }
+  }
+  onremoving= () =>{
+    const user = firebaseDb.auth().currentUser.uid;
+    if ((user)&&(this.state.Day!=null)) {
+        firebaseDb.firestore()
+        .collection('users')
+        .doc(user)
+        .collection('classes')
+        .doc('Days')
+        .collection(this.state.Day)
+        .doc(this.state.Module+this.state.Class)
+        .get()
+        .then((doc)=>{
+            if(!doc.exists) {
+                alert("No such schedule found!")
+                this.setState({
+                Day: '',
+                Module: '',
+                Class: '',
+                selectedHoursf:0,
+                selectedHourst:0,
+                selectedMinutesf:0,
+                selectedMinutest:0,
+                Location:''
+                }) 
+            }
+            else{
+                firebaseDb.firestore()
+                .collection('users')
+                .doc(user)
+                .collection('classes')
+                .doc('Days')
+                .collection(this.state.Day)
+                .doc(this.state.Module+this.state.Class)
+                .delete()
+                .then(() => {
+                  alert("Removed from your schedule! ");
+                    this.setState({
+                    Day: '',
+                    Module: '',
+                    Class: '',
+                    selectedHoursf:0,
+                    selectedHourst:0,
+                    selectedMinutesf:0,
+                    selectedMinutest:0,
+                    Location:''
+                    }) 
+                  })     
+            }
+        })        
+    }  
+       
+  }
+
+  checkTime=() =>{
+  if ((this.state.selectedHoursf<10) && (this.state.selectedHourst<10)){
+    if (this.state.selectedHoursf < this.state.selectedHourst) {
       this.HandleUser();
+      // if ((this.state.Class!=null)&&(this.state.Module!=null)&&(this.state.Location!=null)&&(this.state.Day!=null)&&(parseInt(this.state.selectedHoursf)!=0)&&(parseInt(this.state.selectedHourst)!=0)){
+      // alert("Saved to your schedule!");
       // this.setState({
       //   Day: '',
       //   Module: '',
@@ -650,24 +353,39 @@ if ((this.state.selectedHoursf<10) && (this.state.selectedHourst<10)){
       //   selectedMinutest:0,
       //   Location:''
       //   }) 
+      // }
     }
-    if ((this.state.selectedHoursf>=10) && (this.state.selectedHourst<10))
-    {
-      alert("This time is not possible!");
-      this.setState({
-        Day: '',
-        Module: '',
-        Class: '',
-        selectedHoursf:0,
-        selectedHourst:0,
-        selectedMinutesf:0,
-        selectedMinutest:0,
-        Location:''
-        })
+      else if ((this.state.selectedMinutesf<this.state.selectedMinutest) && (this.state.selectedHoursf==this.state.selectedHourst)){
+      // alert("Saved to your schedule!");
+      this.HandleUser();
+      //  this.setState({
+      //   Day: '',
+      //   Module: '',
+      //   Class: '',
+      //   selectedHoursf:0,
+      //   selectedHourst:0,
+      //   selectedMinutesf:0,
+      //   selectedMinutest:0,
+      //   Location:''
+      //   }) 
     }
-    if ((this.state.selectedHoursf>=10) && (this.state.selectedHourst>=10)){
-      if (this.state.selectedHoursf < this.state.selectedHourst) {
-       // alert("Saved to your schedule!");
+      else
+      {
+        alert("This time is not possible"); 
+        this.setState({
+          Day: '',
+          Module: '',
+          Class: '',
+          selectedHoursf:0,
+          selectedHourst:0,
+          selectedMinutesf:0,
+          selectedMinutest:0,
+          Location:''
+          }) }
+      }
+      if ((this.state.selectedHoursf<10) && (this.state.selectedHourst>=10))
+      {
+      //  alert("Saved to your schedule!");
         this.HandleUser();
         // this.setState({
         //   Day: '',
@@ -679,49 +397,75 @@ if ((this.state.selectedHoursf<10) && (this.state.selectedHourst<10)){
         //   selectedMinutest:0,
         //   Location:''
         //   }) 
-       }
-         else if ((this.state.selectedMinutesf<this.state.selectedMinutest) && (this.state.selectedHoursf==this.state.selectedHourst)){
-       //  alert("Saved to your schedule!");
-         this.HandleUser();
-        //  this.setState({
-        //   Day: '',
-        //   Module: '',
-        //   Class: '',
-        //   selectedHoursf:0,
-        //   selectedHourst:0,
-        //   selectedMinutesf:0,
-        //   selectedMinutest:0,
-        //   Location:''
-        //   }) 
+      }
+      if ((this.state.selectedHoursf>=10) && (this.state.selectedHourst<10))
+      {
+        alert("This time is not possible!");
+        this.setState({
+          Day: '',
+          Module: '',
+          Class: '',
+          selectedHoursf:0,
+          selectedHourst:0,
+          selectedMinutesf:0,
+          selectedMinutest:0,
+          Location:''
+          })
+      }
+      if ((this.state.selectedHoursf>=10) && (this.state.selectedHourst>=10)){
+        if (this.state.selectedHoursf < this.state.selectedHourst) {
+        // alert("Saved to your schedule!");
+          this.HandleUser();
+          // this.setState({
+          //   Day: '',
+          //   Module: '',
+          //   Class: '',
+          //   selectedHoursf:0,
+          //   selectedHourst:0,
+          //   selectedMinutesf:0,
+          //   selectedMinutest:0,
+          //   Location:''
+          //   }) 
         }
-        else
-        {
-          alert("This time is not possible");
-          this.setState({
-            Day: '',
-            Module: '',
-            Class: '',
-            selectedHoursf:0,
-            selectedHourst:0,
-            selectedMinutesf:0,
-            selectedMinutest:0,
-            Location:''
-            }) }
-        }
-}
+          else if ((this.state.selectedMinutesf<this.state.selectedMinutest) && (this.state.selectedHoursf==this.state.selectedHourst)){
+        //  alert("Saved to your schedule!");
+          this.HandleUser();
+          //  this.setState({
+          //   Day: '',
+          //   Module: '',
+          //   Class: '',
+          //   selectedHoursf:0,
+          //   selectedHourst:0,
+          //   selectedMinutesf:0,
+          //   selectedMinutest:0,
+          //   Location:''
+          //   }) 
+          }
+          else
+          {
+            alert("This time is not possible");
+            this.setState({
+              Day: '',
+              Module: '',
+              Class: '',
+              selectedHoursf:0,
+              selectedHourst:0,
+              selectedMinutesf:0,
+              selectedMinutest:0,
+              Location:''
+              }) }
+          }
+  }
 
   handleAdd = () => {
-this.checkTime();
+  this.checkTime();
   //alert("Saved to your schedule!");
  //this.HandleUser();
- 
   }
   
-   handleRemove = () => {
+  handleRemove = () => {
     // alert("Removed from your schedule! ");
-     this.onremoving();
-  
-
+    this.onremoving();
   }
 
   render() {
