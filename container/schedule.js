@@ -44,7 +44,8 @@ export default class SwitchExample extends Component {
     visible: false,
     arr:[], 
     k:0,
-    id: null
+    id: null,
+    busdet: null
 };
 
   componentDidMount() {
@@ -714,7 +715,34 @@ export default class SwitchExample extends Component {
           }
         />
         <Text style={styles.text2}>Location</Text>
-              <TextInput style={styles.textInput} placeholder="Location" onChangeText={this.handleUpdateLocation} value={Location}/>
+              {/* <TextInput style={styles.textInput} placeholder="Location" onChangeText={this.handleUpdateLocation} value={Location}/> */}
+              <Picker style={styles.pickerStyle}
+        
+        selectedValue={(this.state && this.state.Location) || 'Select the closest location'}
+       onValueChange={(value) => {this.setState({Location: value});}}>
+     <Picker.Item label=" Select the closest location" value="null" />
+     <Picker.Item label="FASS" value="FASS" />
+     <Picker.Item label="E3,E4,E5" value="E3,E4,E5" />
+     <Picker.Item label="EA" value="EA" />
+     <Picker.Item label="Business" value="Business" />
+     <Picker.Item label="FOS" value="FOS" />
+     <Picker.Item label="Science Drive" value="Science Drive" />
+     <Picker.Item label="Saw Swee Hock School Of Public Health" value="Saw Swee Hock School Of Public Health" />
+     <Picker.Item label="University Town" value="University Town" />
+     <Picker.Item label="USP" value="USP" />
+     <Picker.Item label="Yale NUS" value="Yale NUS" />
+     <Picker.Item label="Yong Siew Toh Conservatory of Music" value= 'Yong Siew Toh Conservatory of Music'/>
+     <Picker.Item label="Medicine" value="Medicine" />
+     <Picker.Item label="Nursing" value="Nursing" />
+     <Picker.Item label="Dentistry" value="Dentistry" />
+     <Picker.Item label="Law" value="Law" />
+     <Picker.Item label="Prince George's Park" value="Prince George's Park" />
+     <Picker.Item label="RVRC" value="RVRC" />
+     <Picker.Item label="Computing" value="Computing" />
+     <Picker.Item label="Lee Kuan Yew School of Public Policy" value="Lee Kuan Yew School of Public Policy" />
+     <Picker.Item label="School of Design and Environment" value="School of Design and Environment" />
+     <Picker.Item label="TCOMS" value="TCOMS" />
+</Picker>
             <BlackButton
             style={styles.button1}
           
