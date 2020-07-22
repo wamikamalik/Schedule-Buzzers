@@ -91,10 +91,10 @@ import RNCalendarEvents from 'react-native-calendar-events';
                         })
                         const startdate = moment(this.state.deadline+" 12:00",'DD-MM-YYYY HH:mm').subtract(1,"days").format("YYYY-MM-DDTHH:mm:ss")+".000Z"
                         const enddate = moment(this.state.deadline+" 12:00",'DD-MM-YYYY HH:mm').format("YYYY-MM-DDTHH:mm:ss")+".000Z"
-                        alert(startdate)
-                        RNCalendarEvents.saveEvent('Reminder for assignment', {
+                        //alert(startdate)
+                        RNCalendarEvents.saveEvent(this.state.name, {
                             id: doc.data().Id,
-                            description:this.state.name+'-'+this.state.mod+':'+this.state.notes,
+                            description:"Module Name: "+this.state.mod+'\n'+"Notes:"+this.state.notes,
                             startDate: startdate, 
                             allDay:true,
                             //endDate:enddate,
@@ -120,9 +120,9 @@ import RNCalendarEvents from 'react-native-calendar-events';
                         const startdate = moment(this.state.deadline+" 12:00",'DD-MM-YYYY HH:mm').subtract(1,"days").format("YYYY-MM-DDTHH:mm:ss")+".000Z"
                         const enddate = moment(this.state.deadline+" 12:00",'DD-MM-YYYY HH:mm').format("YYYY-MM-DDTHH:mm:ss")+".000Z"
                         //alert(startdate)
-                        RNCalendarEvents.saveEvent('Reminder for assignment', {
+                        RNCalendarEvents.saveEvent(this.state.name, {
                             //id: this.state.name,
-                            description:this.state.name+'-'+this.state.mod+':'+this.state.notes,
+                            description:"Module Name: "+this.state.mod+'\n'+"Notes:"+this.state.notes,
                             startDate: startdate, 
                             allDay:true,
                             //endDate:enddate,

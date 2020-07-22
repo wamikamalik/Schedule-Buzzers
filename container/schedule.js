@@ -107,7 +107,7 @@ export default class SwitchExample extends Component {
   
   HandleUser = () => {
     const user = firebaseDb.auth().currentUser.uid;
-    if ((user)&&(this.state.Day!=null)&&(this.state.Class!=null)&&(this.state.Module!=null)&&(this.state.Location!=null)&&((this.state.selectedHoursf)!=0)&&((this.state.selectedHourst)!=0)) {
+    if ((user)&&(this.state.Day!=null)&&(this.state.Class!=null)&&(this.state.Module!=null)&&(this.state.Location!=null)&&((this.state.selectedHoursf)!=0)&&((this.state.selectedHourst)!=0)&&(this.state.Day!='')&&(this.state.Class!='')&&(this.state.Module!='')&&(this.state.Location!='')) {
         firebaseDb.firestore()
         .collection('users')
         .doc(user)
@@ -126,6 +126,7 @@ export default class SwitchExample extends Component {
             .collection(this.state.Day)
             .get()
             .then(snapshot=>{
+              let arr = []
               snapshot.forEach(doc=>{
                 const starthr = (doc.data().selectedHoursf<=9)?("0"+doc.data().selectedHoursf):(""+doc.data().selectedHoursf)
                 const startmin = (doc.data().selectedMinutesf<=9)?("0"+doc.data().selectedMinutesf):(""+doc.data().selectedMinutesf)
@@ -134,10 +135,11 @@ export default class SwitchExample extends Component {
                 const endmin = (doc.data().selectedMinutest<=9)?("0"+doc.data().selectedMinutest):(""+doc.data().selectedMinutest)
                 const end1 = parseInt(endhr.toString()+endmin.toString())
                 //alert(start1)
-                this.state.arr.push({start: start1, end: end1});
+                arr.push({start: start1, end: end1});
                   })
-            })
-            //alert(JSON.stringify(this.state.arr))
+                this.setState({arr: arr})
+            }).then(()=>{
+            alert(JSON.stringify(this.state.arr))
             const starthr = (parseInt(this.state.selectedHoursf)<=9)?("0"+this.state.selectedHoursf):(""+this.state.selectedHoursf)
             const startmin = (parseInt(this.state.selectedMinutesf)<=9)?("0"+this.state.selectedMinutesf):(""+this.state.selectedMinutesf)
             const startnew = parseInt(starthr.toString()+startmin.toString())
@@ -164,23 +166,34 @@ export default class SwitchExample extends Component {
             if(this.state.arr.length==0) {
               this.setState({k:1});
             }
+            }).then(()=>{
             if(this.state.k == 1) {
-              this.setState({k:0,arr:[]})
-              // let min = 0;
-              // let hr = 0;
-              // let time = '0'
-              // min = (this.state.selectedMinutesf - 30>=0)?this.state.selectedMinutesf - 30:60-(this.state.selectedMinutesf - 30);
-              // hr =  ((this.state.selectedMinutesf - 30)>=0)?this.state.selectedHoursf:this.state.selectedHoursf-1;
-              // time = hr.toString()+':'+min.toString()
+              let bus = ''
+              let buses = []
+              firebaseDb.firestore()
+              .collection('busdetails')
+              .doc('stops')
+              .collection(this.state.Location)
+              .get()
+              .then(snapshot => {
+                snapshot.forEach(doc => {
+                
+                    buses.push(doc.id+" stops at "+doc.data().stops)
+              })
+              for(let i=0;i<buses.length;i++) {
+                bus = bus + '\n' + buses[i]
+              }
+              }).then(()=>{
+              // }).then(()=>{
               let time = new Date()
               let hrs = time.getTimezoneOffset()/60
               if(this.state.Day == "Monday") {
                 const startdate = moment("2020/07/13 "+(this.state.selectedHoursf)+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').add(hrs,"hours").format('YYYY-MM-DDTHH:mm:ss')+".000Z";
                 const enddate = moment("2020/07/13 "+this.state.selectedHourst+':'+this.state.selectedMinutest,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
                 //alert(alarm)
-                RNCalendarEvents.saveEvent('Reminder for class', {
+                RNCalendarEvents.saveEvent(this.state.Module+'-'+this.state.Class, {
                   location: this.state.Location,
-                  description:this.state.Module+'-'+this.state.Class,
+                  description:'buses you can take: '+bus,
                   startDate: startdate, 
                   recurrenceRule: {
                     frequency: 'weekly',
@@ -434,7 +447,10 @@ export default class SwitchExample extends Component {
                   })
                 })
               }
+              this.setState({k:0,arr:[]})
+            })
             }
+            })
           }
           else {
             alert('This class already exists !!')

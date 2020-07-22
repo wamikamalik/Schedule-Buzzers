@@ -44,7 +44,8 @@ export default class SwitchExample extends Component {
     visible: false,
     arr:[], 
     k:0,
-    id: null
+    id: null,
+    busdet: null
 };
 
   componentDidMount() {
@@ -106,7 +107,7 @@ export default class SwitchExample extends Component {
   
   HandleUser = () => {
     const user = firebaseDb.auth().currentUser.uid;
-    if ((user)&&(this.state.Day!=null)&&(this.state.Class!=null)&&(this.state.Module!=null)&&(this.state.Location!=null)&&((this.state.selectedHoursf)!=0)&&((this.state.selectedHourst)!=0)) {
+    if ((user)&&(this.state.Day!=null)&&(this.state.Class!=null)&&(this.state.Module!=null)&&(this.state.Location!=null)&&((this.state.selectedHoursf)!=0)&&((this.state.selectedHourst)!=0)&&(this.state.Day!='')&&(this.state.Class!='')&&(this.state.Module!='')&&(this.state.Location!='')) {
         firebaseDb.firestore()
         .collection('users')
         .doc(user)
@@ -125,6 +126,7 @@ export default class SwitchExample extends Component {
             .collection(this.state.Day)
             .get()
             .then(snapshot=>{
+              let arr = []
               snapshot.forEach(doc=>{
                 const starthr = (doc.data().selectedHoursf<=9)?("0"+doc.data().selectedHoursf):(""+doc.data().selectedHoursf)
                 const startmin = (doc.data().selectedMinutesf<=9)?("0"+doc.data().selectedMinutesf):(""+doc.data().selectedMinutesf)
@@ -133,10 +135,11 @@ export default class SwitchExample extends Component {
                 const endmin = (doc.data().selectedMinutest<=9)?("0"+doc.data().selectedMinutest):(""+doc.data().selectedMinutest)
                 const end1 = parseInt(endhr.toString()+endmin.toString())
                 //alert(start1)
-                this.state.arr.push({start: start1, end: end1});
+                arr.push({start: start1, end: end1});
                   })
-            })
-            //alert(JSON.stringify(this.state.arr))
+                this.setState({arr: arr})
+            }).then(()=>{
+            alert(JSON.stringify(this.state.arr))
             const starthr = (parseInt(this.state.selectedHoursf)<=9)?("0"+this.state.selectedHoursf):(""+this.state.selectedHoursf)
             const startmin = (parseInt(this.state.selectedMinutesf)<=9)?("0"+this.state.selectedMinutesf):(""+this.state.selectedMinutesf)
             const startnew = parseInt(starthr.toString()+startmin.toString())
@@ -163,23 +166,34 @@ export default class SwitchExample extends Component {
             if(this.state.arr.length==0) {
               this.setState({k:1});
             }
+            }).then(()=>{
             if(this.state.k == 1) {
-              this.setState({k:0,arr:[]})
-              // let min = 0;
-              // let hr = 0;
-              // let time = '0'
-              // min = (this.state.selectedMinutesf - 30>=0)?this.state.selectedMinutesf - 30:60-(this.state.selectedMinutesf - 30);
-              // hr =  ((this.state.selectedMinutesf - 30)>=0)?this.state.selectedHoursf:this.state.selectedHoursf-1;
-              // time = hr.toString()+':'+min.toString()
+              let bus = ''
+              let buses = []
+              firebaseDb.firestore()
+              .collection('busdetails')
+              .doc('stops')
+              .collection(this.state.Location)
+              .get()
+              .then(snapshot => {
+                snapshot.forEach(doc => {
+                
+                    buses.push(doc.id+" stops at "+doc.data().stops)
+              })
+              for(let i=0;i<buses.length;i++) {
+                bus = bus + '\n' + buses[i]
+              }
+              }).then(()=>{
+              // }).then(()=>{
               let time = new Date()
               let hrs = time.getTimezoneOffset()/60
               if(this.state.Day == "Monday") {
                 const startdate = moment("2020/07/13 "+(this.state.selectedHoursf)+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').add(hrs,"hours").format('YYYY-MM-DDTHH:mm:ss')+".000Z";
                 const enddate = moment("2020/07/13 "+this.state.selectedHourst+':'+this.state.selectedMinutest,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
                 //alert(alarm)
-                RNCalendarEvents.saveEvent('Reminder for class', {
+                RNCalendarEvents.saveEvent(this.state.Module+'-'+this.state.Class, {
                   location: this.state.Location,
-                  description:this.state.Module+'-'+this.state.Class,
+                  description:'buses you can take: '+bus,
                   startDate: startdate, 
                   recurrenceRule: {
                     frequency: 'weekly',
@@ -433,7 +447,10 @@ export default class SwitchExample extends Component {
                   })
                 })
               }
+              this.setState({k:0,arr:[]})
+            })
             }
+            })
           }
           else {
             alert('This class already exists !!')
@@ -660,209 +677,235 @@ export default class SwitchExample extends Component {
      <Appbar.Content title="Add Class" />
     
     </Appbar.Header>
-           <ScrollView>
+    <ScrollView>
             
-              <Text style={styles.text1}>Day of the week</Text>
-              <Picker style={styles.pickerStyle}
-        
-                       selectedValue={(this.state && this.state.Day) || 'Select Day'}
-                      onValueChange={(value) => {this.setState({Day: value});}}>
-                    <Picker.Item label=" Select Day" value="null" />
-                    <Picker.Item label="Monday" value="Monday" />
-                    <Picker.Item label="Tuesday" value="Tuesday" />
-                    <Picker.Item label="Wednesday" value="Wednesday" />
-                    <Picker.Item label="Thursday" value="Thursday" />
-                    <Picker.Item label="Friday" value="Friday" />
-              </Picker>
-              <Text style={styles.text2}>Module</Text>
-              <TextInput style={styles.textInput} placeholder="Module" onChangeText={this.handleUpdateModule} value={Module}/>
-              <Text style={styles.text3}>Class</Text>
-              <Picker style={styles.pickerStyle2}  
-                       selectedValue={(this.state && this.state.Class) || 'Select Class Type'}
-                       onValueChange={(value) => {this.setState({Class: value});}}>
-                    <Picker.Item label="Select Class Type" value="null" />
-                    <Picker.Item label="Lecture" value="lecture" />
-                    <Picker.Item label="Lab" value="lab" />
-                    <Picker.Item label="Tutorial" value="tutorial" />
-
-              </Picker>
-              
-              <Text style={styles.text4}>Time from</Text>
-              <Text style={styles.text6}>
-          {selectedHoursf}hr:{selectedMinutesf}min
-        </Text>
-              <TimePicker 
-          selectedHours={this.state.selectedHoursf}
-          //initial Hours value
-          selectedMinutes={this.state.selectedMinutesf}
-          //initial Minutes value
-          onChange={(selectedHoursf, selectedMinutesf) =>
-            this.setState({selectedHoursf:selectedHoursf, selectedMinutesf: selectedMinutesf })
-          }
-        />
-              <Text style={styles.text5}>Time to</Text>
-              <Text style={styles.text7}>
-          {selectedHourst}hr:{selectedMinutest}min
-        </Text>
-              <TimePicker 
-        
-          selectedHourst={selectedHourst}
-          //initial Hours value
-          selectedMinutest={selectedMinutest}
-          //initial Minutes value
-          onChange={(selectedHourst, selectedMinutest) =>
-            this.setState({ selectedHourst:selectedHourst, selectedMinutest: selectedMinutest })
-          }
-        />
-        <Text style={styles.text2}>Location</Text>
-              <TextInput style={styles.textInput} placeholder="Location" onChangeText={this.handleUpdateLocation} value={Location}/>
-            <BlackButton
-            style={styles.button1}
-          
-            onPress={this.handleAdd}>Add</BlackButton>
-          
-           <BlackButton
-           style={styles.button1}
-           
-            onPress={this.handleRemove}>Remove</BlackButton>
-          
-          {/* <Button
-          title={"Get Calendar Status"}
-          onPress={this._getCalendarStatus}
-        />
-        <Button
-          title={"Request Calendar Permission"}
-          onPress={this._requestCalendarPermissions}
-        />
-        <Button
-          title={"Get Available Calendars"}
-          onPress={this._getCalendars}
-        />
-        <Button title={"Fetch All Events"} onPress={this._fetchAllEvents} /> */}
+            <Text style={styles.text1}>Day of the week</Text>
+            <Picker style={styles.pickerStyle}
       
-        </ScrollView>
-          </SafeAreaView>  
+                     selectedValue={(this.state && this.state.Day) || 'Select Day'}
+                    onValueChange={(value) => {this.setState({Day: value});}}>
+                  <Picker.Item label=" Select Day" value="null" />
+                  <Picker.Item label="Monday" value="Monday" />
+                  <Picker.Item label="Tuesday" value="Tuesday" />
+                  <Picker.Item label="Wednesday" value="Wednesday" />
+                  <Picker.Item label="Thursday" value="Thursday" />
+                  <Picker.Item label="Friday" value="Friday" />
+            </Picker>
+            <Text style={styles.text2}>Module</Text>
+            <TextInput style={styles.textInput} placeholder="Module" onChangeText={this.handleUpdateModule} value={Module}/>
+            <Text style={styles.text3}>Class</Text>
+            <Picker style={styles.pickerStyle2}  
+                     selectedValue={(this.state && this.state.Class) || 'Select Class Type'}
+                     onValueChange={(value) => {this.setState({Class: value});}}>
+                  <Picker.Item label="Select Class Type" value="null" />
+                  <Picker.Item label="Lecture" value="lecture" />
+                  <Picker.Item label="Lab" value="lab" />
+                  <Picker.Item label="Tutorial" value="tutorial" />
 
-      ) 
-  }  
+            </Picker>
+            
+            <Text style={styles.text4}>Time from</Text>
+            <Text style={styles.text6}>
+        {selectedHoursf}hr:{selectedMinutesf}min
+      </Text>
+            <TimePicker 
+        selectedHours={this.state.selectedHoursf}
+        //initial Hours value
+        selectedMinutes={this.state.selectedMinutesf}
+        //initial Minutes value
+        onChange={(selectedHoursf, selectedMinutesf) =>
+          this.setState({selectedHoursf:selectedHoursf, selectedMinutesf: selectedMinutesf })
+        }
+      />
+            <Text style={styles.text5}>Time to</Text>
+            <Text style={styles.text7}>
+        {selectedHourst}hr:{selectedMinutest}min
+      </Text>
+            <TimePicker 
+      
+        selectedHourst={selectedHourst}
+        //initial Hours value
+        selectedMinutest={selectedMinutest}
+        //initial Minutes value
+        onChange={(selectedHourst, selectedMinutest) =>
+          this.setState({ selectedHourst:selectedHourst, selectedMinutest: selectedMinutest })
+        }
+      />
+      <Text style={styles.text2}>Location</Text>
+            {/* <TextInput style={styles.textInput} placeholder="Location" onChangeText={this.handleUpdateLocation} value={Location}/> */}
+            <Picker style={styles.pickerStyle}
+      
+      selectedValue={(this.state && this.state.Location) || 'Select the closest location'}
+     onValueChange={(value) => {this.setState({Location: value});}}>
+   <Picker.Item label=" Select the closest location" value="null" />
+   <Picker.Item label="FASS" value="FASS" />
+   <Picker.Item label="E3,E4,E5" value="E3,E4,E5" />
+   <Picker.Item label="EA" value="EA" />
+   <Picker.Item label="Business" value="Business" />
+   <Picker.Item label="FOS" value="FOS" />
+   <Picker.Item label="Science Drive" value="Science Drive" />
+   <Picker.Item label="Saw Swee Hock School Of Public Health" value="Saw Swee Hock School Of Public Health" />
+   <Picker.Item label="University Town" value="University Town" />
+   <Picker.Item label="USP" value="USP" />
+   <Picker.Item label="Yale NUS" value="Yale NUS" />
+   <Picker.Item label="Yong Siew Toh Conservatory of Music" value= 'Yong Siew Toh Conservatory of Music'/>
+   <Picker.Item label="Medicine" value="Medicine" />
+   <Picker.Item label="Nursing" value="Nursing" />
+   <Picker.Item label="Dentistry" value="Dentistry" />
+   <Picker.Item label="Law" value="Law" />
+   <Picker.Item label="Prince George's Park" value="Prince George's Park" />
+   <Picker.Item label="RVRC" value="RVRC" />
+   <Picker.Item label="Computing" value="Computing" />
+   <Picker.Item label="Lee Kuan Yew School of Public Policy" value="Lee Kuan Yew School of Public Policy" />
+   <Picker.Item label="School of Design and Environment" value="School of Design and Environment" />
+   <Picker.Item label="TCOMS" value="TCOMS" />
+</Picker>
+          <BlackButton
+          style={styles.button1}
+        
+          onPress={this.handleAdd}>Add</BlackButton>
+        
+         <BlackButton
+         style={styles.button1}
+         
+          onPress={this.handleRemove}>Remove</BlackButton>
+        
+        {/* <Button
+        title={"Get Calendar Status"}
+        onPress={this._getCalendarStatus}
+      />
+      <Button
+        title={"Request Calendar Permission"}
+        onPress={this._requestCalendarPermissions}
+      />
+      <Button
+        title={"Get Available Calendars"}
+        onPress={this._getCalendars}
+      />
+      <Button title={"Fetch All Events"} onPress={this._fetchAllEvents} /> */}
+    
+      </ScrollView>
+        </SafeAreaView>  
+
+    ) 
+}  
 }  
 const styles = StyleSheet.create ({  
-  container:{ marginTop: Constants.statusBarHeight,
-    flex: 1,
-    backgroundColor: '#ffebcd',
-   // flexDirection: "column",justifyContent: 'center',alignItems:"center"
-  },
-  top: {
-    backgroundColor:"#c17eef"
+container:{ marginTop: Constants.statusBarHeight,
+  flex: 1,
+  backgroundColor: '#ffebcd',
+ // flexDirection: "column",justifyContent: 'center',alignItems:"center"
 },
-  image: {
-    justifyContent: 'flex-start',
-    alignItems:'flex-start',
-    alignSelf: 'flex-start',
-    height: 40,
-    width:30,
-    marginLeft:15
+top: {
+  backgroundColor:"#c17eef"
+},
+image: {
+  justifyContent: 'flex-start',
+  alignItems:'flex-start',
+  alignSelf: 'flex-start',
+  height: 40,
+  width:30,
+  marginLeft:15
+
+},
+pickerStyle:{
+    marginLeft : 50,
+    height:50,
+    width: (Dimensions.get('window').width>400)?400: Dimensions.get('window').width- 50,
+    color: '#344953',
+    //flexDirection: "",
+  justifyContent: "center",
+  alignSelf: "center"
+},
+pickerStyle2:{
+    height: 50,
+    width: (Dimensions.get('window').width>400)?400: Dimensions.get('window').width- 50,
+    color: '#344953',
+    justifyContent: 'center', 
+    alignSelf: "center" },
+textb: {
+  //color: "white",
+  fontSize: 28,
+  fontWeight:"bold",
+  alignSelf:'center',
+  marginTop:30,
+  textDecorationLine:"underline",
+  justifyContent: 'center',
+  textDecorationLine: "underline"
+  
+},
+text1: {
+  //color: "white",
+  fontSize: 20,
+  marginTop: 20,
+  alignSelf: "center"
+
+},
+text2: {
+  //color: "white",
+  fontSize: 20,
+  marginTop: 20,
+  alignSelf: "center"
+  
+},
+text3: {
+  //color: "white",
+  fontSize: 20,
+  marginTop: 20,
+  alignSelf: "center"
+},
+text4: {
+  //color: "white",
+  fontSize: 20,
+  marginTop: 20,
+  alignSelf: "center"
+},
+text5: {
+  //color: "white",
+  fontSize: 20,
+  marginTop: 20,
+  alignSelf: "center"
+},
+textInput: {
+  borderRadius:5,
+  borderColor:'black',
+  borderWidth: 2,
+  backgroundColor:'white',
+  fontSize: 20,
+  marginTop:10,
+  marginLeft: 5,
+  alignSelf: "center",
+  alignItems: "center"
  
 },
-  pickerStyle:{
-      marginLeft : 50,
-      height:50,
-      width: (Dimensions.get('window').width>400)?400: Dimensions.get('window').width- 50,
-      color: '#344953',
-      //flexDirection: "",
-    justifyContent: "center",
-    alignSelf: "center"
-  },
-  pickerStyle2:{
-      height: 50,
-      width: (Dimensions.get('window').width>400)?400: Dimensions.get('window').width- 50,
-      color: '#344953',
-      justifyContent: 'center', 
-      alignSelf: "center" },
-  textb: {
-    //color: "white",
-    fontSize: 28,
-    fontWeight:"bold",
-    alignSelf:'center',
-    marginTop:30,
-    textDecorationLine:"underline",
-    justifyContent: 'center',
-    textDecorationLine: "underline"
-    
-  },
-  text1: {
-    //color: "white",
-    fontSize: 20,
-    marginTop: 20,
-    alignSelf: "center"
-
-  },
-  text2: {
-    //color: "white",
-    fontSize: 20,
-    marginTop: 20,
-    alignSelf: "center"
-    
-  },
-  text3: {
-    //color: "white",
-    fontSize: 20,
-    marginTop: 20,
-    alignSelf: "center"
-  },
-  text4: {
-    //color: "white",
-    fontSize: 20,
-    marginTop: 20,
-    alignSelf: "center"
-  },
-  text5: {
-    //color: "white",
-    fontSize: 20,
-    marginTop: 20,
-    alignSelf: "center"
-  },
-  textInput: {
-    borderRadius:5,
-    borderColor:'black',
-    borderWidth: 2,
-    backgroundColor:'white',
-    fontSize: 20,
-    marginTop:10,
-    marginLeft: 5,
-    alignSelf: "center",
-    alignItems: "center"
+text6: {
+  //color: "white",
+  fontSize: 20,
+  marginTop: 20,
+  alignSelf: "center"
+},
+text7: {
+  //color: "white",
+  fontSize: 20,
+  marginTop: 20,
+  alignSelf: "center"
+},
+button1: {
+  marginTop: 10,
+      borderRadius:20,
+     // width: 20,
+      height:45,
+      alignSelf:'center',
+      justifyContent:"center",
+      alignItems:"center"
    
-  },
-  text6: {
-    //color: "white",
-    fontSize: 20,
-    marginTop: 20,
-    alignSelf: "center"
-  },
-  text7: {
-    //color: "white",
-    fontSize: 20,
-    marginTop: 20,
-    alignSelf: "center"
-  },
-  button1: {
-    marginTop: 10,
-        borderRadius:20,
-       // width: 20,
-        height:45,
-        alignSelf:'center',
-        justifyContent:"center",
-        alignItems:"center"
-     
-      
-  },
-  picker: {
-    width: (Dimensions.get('window').width>100)?100: Dimensions.get('window').width- 10,
-  },
+    
+},
+picker: {
+  width: (Dimensions.get('window').width>100)?100: Dimensions.get('window').width- 10,
+},
 
-  
+
 })
-
 
 
