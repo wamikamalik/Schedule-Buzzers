@@ -15,6 +15,9 @@ sign in: https://firebase.google.com/docs/auth/web/google-signin?utm_campaign=Fi
 google calendar api: https://developers.google.com/calendar/overview
 
 To be done:
+new: 1) can have a 'buses I can take' page, where u input location and it tells u what buses go there, shldnt be much to do since its algo will be same as the one u will put in schedule 
+2) put pages like profile, accnt , terms , abt us in a separate section called others. Then have one page for them with 4 tabs in it
+
 1) tabs for schedule and assignments display page: to allow diplay in the form of table and sectionlist - Done
 2) add update button in schedule and assignment display page. - Done
 3) check for same timing and assignment name to see if it already exists. 
