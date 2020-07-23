@@ -243,9 +243,9 @@ export default class SwitchExample extends Component {
                 const startdate = moment("2020/07/14 "+(this.state.selectedHoursf)+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').add(hrs,"hours").format('YYYY-MM-DDTHH:mm:ss')+".000Z";
                 const enddate = moment("2020/07/14 "+this.state.selectedHourst+':'+this.state.selectedMinutest,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
                 //alert(startdate)
-                RNCalendarEvents.saveEvent('Reminder for class', {
+                RNCalendarEvents.saveEvent(this.state.Module+'-'+this.state.Class, {
                   location: this.state.Location,
-                  description:this.state.Module+'-'+this.state.Class,
+                  description:'buses you can take: '+bus,
                   startDate: startdate, 
                   recurrenceRule: {
                     frequency: 'weekly',
@@ -295,9 +295,9 @@ export default class SwitchExample extends Component {
                 const startdate = moment("2020/07/15 "+(this.state.selectedHoursf)+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').add(hrs,"hours").format('YYYY-MM-DDTHH:mm:ss')+".000Z";
                 const enddate = moment("2020/07/15 "+this.state.selectedHourst+':'+this.state.selectedMinutest,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
                 //alert(startdate)
-                RNCalendarEvents.saveEvent('Reminder for class', {
+                RNCalendarEvents.saveEvent(this.state.Module+'-'+this.state.Class, {
                   location: this.state.Location,
-                  description:this.state.Module+'-'+this.state.Class,
+                  description:'buses you can take: '+bus,
                   startDate: startdate, 
                   recurrenceRule: {
                     frequency: 'weekly',
@@ -347,17 +347,17 @@ export default class SwitchExample extends Component {
                 const startdate = moment("2020/07/16 "+(this.state.selectedHoursf)+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').add(hrs,"hours").format('YYYY-MM-DDTHH:mm:ss')+".000Z";
                 const enddate = moment("2020/07/16 "+this.state.selectedHourst+':'+this.state.selectedMinutest,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
                 //alert(startdate)
-                RNCalendarEvents.saveEvent('Reminder for class', {
-                location: this.state.Location,
-                description:this.state.Module+'-'+this.state.Class,
-                startDate: startdate, 
-                recurrenceRule: {
-                  frequency: 'weekly',
-                  endDate: '2021-12-31T19:26:00.000Z'
-                },
-                alarms: [{
-                  date: 30
-                }]
+                RNCalendarEvents.saveEvent(this.state.Module+'-'+this.state.Class, {
+                  location: this.state.Location,
+                  description:'buses you can take: '+bus,
+                  startDate: startdate, 
+                  recurrenceRule: {
+                    frequency: 'weekly',
+                    endDate: '2021-12-31T19:26:00.000Z'
+                  },
+                  alarms: [{
+                    date: 30
+                  }]
                 }).then(id=>{
                   this.setState({id:id})
   
@@ -399,17 +399,17 @@ export default class SwitchExample extends Component {
                 const startdate = moment("2020/07/17 "+(this.state.selectedHoursf)+':'+this.state.selectedMinutesf,'YYYY/MM/DD HH:mm').add(hrs,"hours").format('YYYY-MM-DDTHH:mm:ss')+".000Z";
                 const enddate = moment("2020/07/17 "+this.state.selectedHourst+':'+this.state.selectedMinutest,'YYYY/MM/DD HH:mm').format('YYYY-MM-DDTHH:mm:ss')+".000Z";
                 //alert(startdate)
-                RNCalendarEvents.saveEvent('Reminder for class', {
-                location: this.state.Location,
-                description:this.state.Module+'-'+this.state.Class,
-                startDate: startdate, 
-                recurrenceRule: {
-                  frequency: 'weekly',
-                  endDate: '2021-12-31T19:26:00.000Z'
-                },
-                alarms: [{
-                  date: 30
-                }]
+                RNCalendarEvents.saveEvent(this.state.Module+'-'+this.state.Class, {
+                  location: this.state.Location,
+                  description:'buses you can take: '+bus,
+                  startDate: startdate, 
+                  recurrenceRule: {
+                    frequency: 'weekly',
+                    endDate: '2021-12-31T19:26:00.000Z'
+                  },
+                  alarms: [{
+                    date: 30
+                  }]
                 }).then(id=>{
                   this.setState({id:id})
   

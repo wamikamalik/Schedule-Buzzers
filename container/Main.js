@@ -23,6 +23,7 @@ import seemyschedule from './seemyschedule'
 import myassignment from './myassignment'
 import Constants from 'expo-constants'
 import food from './food'
+import buses from './buses'
 
 const DrawerNavigator = createDrawerNavigator();
 
@@ -52,7 +53,8 @@ class Main extends React.Component {
                     <DrawerNavigator.Screen name="Add Class" options={{drawerIcon: config => <Image style={styles.image1} source={require('../assets/calendar-add-512.png')}/>}} component={schedule}/>
                     <DrawerNavigator.Screen name="Add Assignments" options={{drawerIcon: config => <Image style={styles.image1} source={require('../assets/assign.png')}/>}} component={assignments}/>
                      
-                     <DrawerNavigator.Screen name="Find Food" options={{drawerIcon: config => <Image style={styles.image1} source={require('../assets/food.png')}/>}} component={food}/>                                                                                                                      
+                     <DrawerNavigator.Screen name="Find Food" options={{drawerIcon: config => <Image style={styles.image1} source={require('../assets/food.png')}/>}} component={food}/>   
+                     <DrawerNavigator.Screen name="Which bus goes there?" options={{drawerIcon: config => <Image style={styles.image1} source={require('../assets/bus.png')}/>}} component={buses}/>                                                                                                                    
                     <DrawerNavigator.Screen name="Profile" options={{drawerIcon: config => <Image style={styles.image1} source={require('../assets/profile.png')}/>}} component={Profilepage}/>
                     <DrawerNavigator.Screen name="Account Details" options={{drawerIcon: config => <Image style={styles.image1} source={require('../assets/accnt.png')}/>}} component={accntDetails}/> 
                     <DrawerNavigator.Screen name="About the app" options={{drawerIcon: config => <Image style={styles.image1} source={require('../assets/abouticon.png')}/>}} component={about}/> 
