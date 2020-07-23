@@ -9,31 +9,68 @@ import {Appbar, Title , Subheading} from 'react-native-paper'
 export default class buses extends Component {
     state = {
         Location: null,
+        ELocation: null,
         buses: null,
-        stops: null
+        stops: null,
+        k: null,
+        i: null,
+
     };
 
     HandleSearch = () => {
         let stops = []
-        let buses = []
-        if(this.state.Location!=null && this.state.Location!='') {
+        const buses = []
+        const bus = []
+        let i = 0
+        let j = 0
+        let k = 0
+        let l = 0
+        this.setState({buses:null})
+        if(this.state.Location!=null && this.state.Location!=''&&this.state.ELocation!=null && this.state.ELocation!='') {
             firebaseDb.firestore()
             .collection('busdetails')
-            .doc('stops')
+            .doc('routes')
             .collection(this.state.Location)
             .get()
             .then(snapshot => {
-            snapshot.forEach(doc => {
-                stops.push(doc.data().stops)
-                buses.push(doc.id)
-            })
-                this.setState({buses:buses, stops:stops})
+              i = snapshot.docs.length
+              this.setState({i:i})
+              snapshot.forEach(doc => {
+                bus.push(doc.id)
+              })
+              //alert(i)
+              for(j=0;j<bus.length;j++) {
+                let b = bus[j]
+                //alert(j)
+                firebaseDb.firestore()
+                .collection('busdetails')
+                .doc('routes')
+                .collection(this.state.Location)
+                .doc(bus[j])
+                .collection("goesto")
+                .doc(this.state.ELocation)
+                .get()
+                .then((doc1)=>{
+                  if(doc1.exists) {
+                    //alert(b)
+                    buses.push(b)
+                    //alert(buses)
+                    this.setState({buses:buses})
+                  }
+                  else {
+                    //alert(j)
+                    k++;
+                    this.setState({k:k})
+                  }
+                })
+              }
             })
         }
         else {
-            alert("Please choose a Location")
+            alert("Please choose the Locations")
         }
     }
+
     render() {
 
         const busnames=[];
@@ -41,14 +78,22 @@ export default class buses extends Component {
         const details=[];
         let data;
 
-        this.state.stops&&this.state.stops.map( stop => {
-          data = "Stops at " + stop
-          details.push(data)
-        })
+        // this.state.stops&&this.state.stops.map( stop => {
+        //   data = "Stops at " + stop
+        //   details.push(data)
+        // })
         this.state.buses&&this.state.buses.map( bus =>{
-            busnames.push({key: bus, data:details[i]})
+            busnames.push({key: bus})
             i++;
+            //alert(JSON.stringify(busnames))
         })
+
+        //alert(this.state.k)
+        if(this.state.buses==null&&this.state.k==this.state.i&&this.state.i!=null) {
+          //alert("hi")
+          busnames.push({key:"No direct buses available."})
+          //this.setState({k:null,i:null})
+        }
 
         return (
   
@@ -61,43 +106,88 @@ export default class buses extends Component {
                 <Appbar.Content title="Which bus goes there?" />
                 </Appbar>
                 <ScrollView>
-                <Text style={styles.text1}>Location</Text>
+                <Text style={styles.text1}>Starting Location</Text>
                 <Picker style={styles.pickerStyle} selectedValue={(this.state && this.state.Location) || 'Select the closest location'} onValueChange={(value) => {this.setState({Location: value});}}>
                     <Picker.Item label=" Select the closest location" value="null" />
-                    <Picker.Item label="FASS" value="FASS" />
-                    <Picker.Item label="E3,E4,E5" value="E3,E4,E5" />
+                    <Picker.Item label="AS5" value="AS5" />
+                    <Picker.Item label="BIZ2" value="BIZ2" />
+                    <Picker.Item label="Botanic Gardens MRT" value="Botanic Gardens MRT" />
+                    <Picker.Item label="COM2" value="COM2" />
+                    <Picker.Item label="Central Library" value="Central Library" />
+                    <Picker.Item label="College Green" value="College Green" />
                     <Picker.Item label="EA" value="EA" />
-                    <Picker.Item label="Business" value="Business" />
-                    <Picker.Item label="FOS" value="FOS" />
-                    <Picker.Item label="Science Drive" value="Science Drive" />
-                    <Picker.Item label="Saw Swee Hock School Of Public Health" value="Saw Swee Hock School of Public Health" />
-                    <Picker.Item label="University Town" value="University Town" />
-                    <Picker.Item label="USP" value="USP" />
-                    <Picker.Item label="Yale NUS" value="Yale NUS" />
-                    <Picker.Item label="Yong Siew Toh Conservatory of Music" value= 'Yong Siew Toh Conservatory of Music'/>
-                    <Picker.Item label="Medicine" value="Medicine" />
-                    <Picker.Item label="Nursing" value="Nursing" />
-                    <Picker.Item label="Dentistry" value="Dentistry" />
-                    <Picker.Item label="Law" value="Law" />
-                    <Picker.Item label="Prince George's Park" value="Prince Georges Park" />
-                    <Picker.Item label="RVRC" value="RVRC" />
-                    <Picker.Item label="Computing" value="Computing" />
-                    <Picker.Item label="Lee Kuan Yew School of Public Policy" value="Lee Kuan Yew School of Public Policy" />
-                    <Picker.Item label="School of Design and Environment" value="School of Design and Environment" />
+                    <Picker.Item label="Kent Ridge MRT Station" value="Kent Ridge MRT Station" />
+                    <Picker.Item label="Kent Vale" value="Kent Vale" />
+                    <Picker.Item label="LT13" value="LT13" />
+                    <Picker.Item label="LT27" value= 'LT27'/>
+                    <Picker.Item label="Museum" value="Museum" />
+                    <Picker.Item label="NUS IT" value="NUS IT" />
+                    <Picker.Item label="Oei Tiong Ham (BTC)" value="Oei Tiong Ham (BTC)" />
+                    <Picker.Item label="Opp HSSML" value="Opp HSSML" />
+                    <Picker.Item label="Opp Kent Ridge MRT Station" value="Opp Kent Ridge MRT Station" />
+                    <Picker.Item label="Opp NUSS" value="Opp NUSS" />
+                    <Picker.Item label="Opp TCOMS" value="Opp TCOMS" />
+                    <Picker.Item label="Opp University Hall" value="Opp University Hall" />
+                    <Picker.Item label="Opp University Health Centre" value="Opp University Health Centre" />
+                    <Picker.Item label="Opp YIH" value="Opp YIH" />
+                    <Picker.Item label="PGP" value="PGP" />
+                    <Picker.Item label="PGPR" value="PGPR" />
+                    <Picker.Item label="Raffles Hall" value="Raffles Hall" />
+                    <Picker.Item label="S17" value="S17" />
                     <Picker.Item label="TCOMS" value="TCOMS" />
+                    <Picker.Item label="University Hall" value="University Hall" />
+                    <Picker.Item label="University Health Centre" value="University Health Centre" />
+                    <Picker.Item label="University Town" value="University Town" />
+                    <Picker.Item label="Ventus, Opp LT13" value="Ventus, Opp LT13" />
+                    <Picker.Item label="Yusof Ishak House" value="Yusof Ishak House" />
+                </Picker>
+                <Text style={styles.text1}>Destination</Text>
+                <Picker style={styles.pickerStyle} selectedValue={(this.state && this.state.ELocation) || 'Select the closest location'} onValueChange={(value) => {this.setState({ELocation: value});}}>
+                <Picker.Item label=" Select the closest location" value="null" />
+                    <Picker.Item label="AS5" value="AS5" />
+                    <Picker.Item label="BIZ2" value="BIZ2" />
+                    <Picker.Item label="Botanic Gardens MRT" value="Botanic Gardens MRT" />
+                    <Picker.Item label="COM2" value="COM2" />
+                    <Picker.Item label="Central Library" value="Central Library" />
+                    <Picker.Item label="College Green" value="College Green" />
+                    <Picker.Item label="EA" value="EA" />
+                    <Picker.Item label="Kent Ridge MRT Station" value="Kent Ridge MRT Station" />
+                    <Picker.Item label="Kent Vale" value="Kent Vale" />
+                    <Picker.Item label="LT13" value="LT13" />
+                    <Picker.Item label="LT27" value= 'LT27'/>
+                    <Picker.Item label="Museum" value="Museum" />
+                    <Picker.Item label="NUS IT" value="NUS IT" />
+                    <Picker.Item label="Oei Tiong Ham (BTC)" value="Oei Tiong Ham (BTC)" />
+                    <Picker.Item label="Opp HSSML" value="Opp HSSML" />
+                    <Picker.Item label="Opp Kent Ridge MRT Station" value="Opp Kent Ridge MRT Station" />
+                    <Picker.Item label="Opp NUSS" value="Opp NUSS" />
+                    <Picker.Item label="Opp TCOMS" value="Opp TCOMS" />
+                    <Picker.Item label="Opp University Hall" value="Opp University Hall" />
+                    <Picker.Item label="Opp University Health Centre" value="Opp University Health Centre" />
+                    <Picker.Item label="Opp YIH" value="Opp YIH" />
+                    <Picker.Item label="PGP" value="PGP" />
+                    <Picker.Item label="PGPR" value="PGPR" />
+                    <Picker.Item label="Raffles Hall" value="Raffles Hall" />
+                    <Picker.Item label="S17" value="S17" />
+                    <Picker.Item label="TCOMS" value="TCOMS" />
+                    <Picker.Item label="University Hall" value="University Hall" />
+                    <Picker.Item label="University Health Centre" value="University Health Centre" />
+                    <Picker.Item label="University Town" value="University Town" />
+                    <Picker.Item label="Ventus, Opp LT13" value="Ventus, Opp LT13" />
+                    <Picker.Item label="Yusof Ishak House" value="Yusof Ishak House" />
                 </Picker>
                 <BlackButton
                 style={styles.button1}
                 onPress={this.HandleSearch}
                 >Search</BlackButton>
-                <Text style={styles.text1}>Click on a bus name to see the stops</Text>
+                <Text style={styles.text1}>The Buses you can take are:</Text>
            {/* <View style={{flex: 1, alignItems:"center", justifyContent:"center"}}> */}
             
             <View style={{flex: 1, alignItems:"center", justifyContent:"center", marginTop:15}}>
                 <FlatList
                 data={busnames}
                 keyExtractor={item => item.key}
-                renderItem={({item}) => <SomeButton style={styles.item} onPress={()=>{alert(item.data)}}>{item.key}</SomeButton>}
+                renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
                 />
             </View>
             

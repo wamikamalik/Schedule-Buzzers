@@ -15,7 +15,10 @@ const Tab = createMaterialBottomTabNavigator();
 function MyTabs() {
   return (
 
-    <Tab.Navigator style={styles.container} independent={true} tabBarOptions={{activeTintColor: '#ffffff', labelStyle: { fontSize: 12 }, style: { backgroundColor: '#5e03fc' },}}>
+    <Tab.Navigator style={styles.container} independent={true}       
+    activeColor="white"
+    inactiveColor="white"
+    barStyle={{ backgroundColor: '#a984ed' }}>
       <Tab.Screen name="Table View" component={assigntable} />
       <Tab.Screen name="List View" component={assignmentnav} />
     </Tab.Navigator>
