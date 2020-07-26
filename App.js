@@ -32,7 +32,7 @@ function HomeScreen({navigation}) {
         height: 50,
         marginBottom: 30
         }} 
-        onPress={() =>{navigation.navigate('google')}}>Sign In with Google</WhiteButton>
+        onPress={() =>{navigation.navigate('google')}}>Google Sign In</WhiteButton>
       </ImageBackground>
 </SafeAreaView>
   );
@@ -52,7 +52,14 @@ class App extends Component {
         hostedDomain: '', 
         loginHint: '', 
         forceConsentPrompt: true, 
+      });
+      if(firebaseDb.auth().currentUser.uid) {
+        firebaseDb.auth().signOut().then(function() {
+          // Sign-out successful.
+        }).catch(function(error) {
+          // An error happened.
         });
+      }
     }
     render() {
   return (
@@ -159,7 +166,7 @@ const styles = StyleSheet.create({
   button: {
     borderRadius:15,
     width: 200,
-    height: 50,
+    height: 55,
     marginBottom: 30
   },
   textb: {

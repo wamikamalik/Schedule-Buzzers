@@ -139,7 +139,7 @@ export default class SwitchExample extends Component {
                   })
                 this.setState({arr: arr})
             }).then(()=>{
-            alert(JSON.stringify(this.state.arr))
+            //alert(JSON.stringify(this.state.arr))
             const starthr = (parseInt(this.state.selectedHoursf)<=9)?("0"+this.state.selectedHoursf):(""+this.state.selectedHoursf)
             const startmin = (parseInt(this.state.selectedMinutesf)<=9)?("0"+this.state.selectedMinutesf):(""+this.state.selectedMinutesf)
             const startnew = parseInt(starthr.toString()+startmin.toString())
