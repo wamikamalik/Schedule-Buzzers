@@ -30,7 +30,7 @@ import RNCalendarEvents from 'react-native-calendar-events';
       _getCalendarStatus = async () => {
         try {
           let calendarAuthStatus = await RNCalendarEvents.authorizationStatus();
-          alert(calendarAuthStatus, ["OK"]);
+          //alert(calendarAuthStatus, ["OK"]);
         } catch (error) {
           alert("Failed to get Calendar Status");
         }
@@ -39,7 +39,7 @@ import RNCalendarEvents from 'react-native-calendar-events';
       _requestCalendarPermissions = async () => {
         try {
           let requestCalendarPermission = await RNCalendarEvents.authorizeEventStore();
-          alert(requestCalendarPermission, ["OK"]);
+          //alert(requestCalendarPermission, ["OK"]);
         } catch (error) {
           alert("Failed to ask permission");
         }

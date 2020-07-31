@@ -6,5 +6,8 @@
         <string>YOUR-APP-SDK-VERSION-HERE</string>
         <key>EXUpdatesURL</key>
         <string>YOUR-APP-URL-HERE</string>
+        <key>EXUpdatesEnabled</key>
+        <boolean>NO</boolean>
+
 </dict>
 </plist>

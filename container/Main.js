@@ -60,7 +60,7 @@ class Main extends React.Component {
                     <DrawerNavigator.Screen name="Account Details" options={{drawerIcon: config => <Image style={styles.image1} source={require('../assets/accnt.png')}/>}} component={accntDetails}/> 
                     <DrawerNavigator.Screen name="About the app" options={{drawerIcon: config => <Image style={styles.image1} source={require('../assets/abouticon.png')}/>}} component={about}/> 
                     <DrawerNavigator.Screen name="Terms And Conditions" options={{drawerIcon: config => <Image style={styles.image1} source={require('../assets/tc.png')}/>}} component={TermsCond}/>     */}
-                    <DrawerNavigator.Screen name="Other Stuff" options={{drawerIcon: config => <Image style={styles.image1} source={require('../assets/others.png')}/>}} component={others}/>
+                    <DrawerNavigator.Screen name="Account and more" options={{drawerIcon: config => <Image style={styles.image1} source={require('../assets/others.png')}/>}} component={others}/>
                     <DrawerNavigator.Screen name="Sign Out" options={{drawerIcon: config => <Image style={styles.image1} source={require('../assets/logout.png')}/>}} component={App}/>
                 </DrawerNavigator.Navigator>
             </NavigationContainer>

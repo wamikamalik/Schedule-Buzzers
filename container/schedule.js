@@ -56,7 +56,7 @@ export default class SwitchExample extends Component {
   _getCalendarStatus = async () => {
     try {
       let calendarAuthStatus = await RNCalendarEvents.authorizationStatus();
-      alert(calendarAuthStatus, ["OK"]);
+      //alert(calendarAuthStatus, ["OK"]);
     } catch (error) {
       alert("Failed to get Calendar Status");
     }
@@ -65,7 +65,7 @@ export default class SwitchExample extends Component {
   _requestCalendarPermissions = async () => {
     try {
       let requestCalendarPermission = await RNCalendarEvents.authorizeEventStore();
-      alert(requestCalendarPermission, ["OK"]);
+      //alert(requestCalendarPermission, ["OK"]);
     } catch (error) {
       alert("Failed to ask permission");
     }
@@ -139,7 +139,7 @@ export default class SwitchExample extends Component {
                   })
                 this.setState({arr: arr})
             }).then(()=>{
-            alert(JSON.stringify(this.state.arr))
+            //alert(JSON.stringify(this.state.arr))
             const starthr = (parseInt(this.state.selectedHoursf)<=9)?("0"+this.state.selectedHoursf):(""+this.state.selectedHoursf)
             const startmin = (parseInt(this.state.selectedMinutesf)<=9)?("0"+this.state.selectedMinutesf):(""+this.state.selectedMinutesf)
             const startnew = parseInt(starthr.toString()+startmin.toString())
@@ -837,33 +837,38 @@ const styles = StyleSheet.create ({
     //color: "white",
     fontSize: 20,
     marginTop: 20,
-    alignSelf: "center"
+    alignSelf: "center",
+    fontWeight: "bold"
 
   },
   text2: {
     //color: "white",
     fontSize: 20,
     marginTop: 20,
-    alignSelf: "center"
+    alignSelf: "center",
+    fontWeight: "bold"
     
   },
   text3: {
     //color: "white",
     fontSize: 20,
     marginTop: 20,
-    alignSelf: "center"
+    alignSelf: "center",
+    fontWeight: "bold"
   },
   text4: {
     //color: "white",
     fontSize: 20,
     marginTop: 20,
-    alignSelf: "center"
+    alignSelf: "center",
+    fontWeight: "bold"
   },
   text5: {
     //color: "white",
     fontSize: 20,
     marginTop: 20,
-    alignSelf: "center"
+    alignSelf: "center",
+    fontWeight: "bold"
   },
   textInput: {
     borderRadius:5,
@@ -881,13 +886,15 @@ const styles = StyleSheet.create ({
     //color: "white",
     fontSize: 20,
     marginTop: 20,
-    alignSelf: "center"
+    alignSelf: "center",
+    fontWeight: "bold"
   },
   text7: {
     //color: "white",
     fontSize: 20,
     marginTop: 20,
-    alignSelf: "center"
+    alignSelf: "center",
+    fontWeight: "bold"
   },
   button1: {
     marginTop: 10,

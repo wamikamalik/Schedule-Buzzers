@@ -13,7 +13,7 @@ class Profilepage extends React.Component {
         name: null,
         userEmail : null,
         phoneNo : null,
-        photo: null,
+        photo: '',
     }
 
     selectImage = async () => {
@@ -106,7 +106,7 @@ class Profilepage extends React.Component {
               <ScrollView>
               
                 <Subheading>Google users of the app can change these in their google settings only</Subheading>
-                <Image style={styles.imagea} source={this.state.photo}></Image>
+                <Image style={styles.imagea} source={{uri: this.state.photo}}></Image>
                 <BlackButton style={styles.buttona} onPress={this.selectImage}>Change</BlackButton>
 
                 <Title>Name:</Title><TextInput style={styles.textInput} placeholder={this.state.name} onChangeText={this.handleUpdateName} value={this.state.name}/>

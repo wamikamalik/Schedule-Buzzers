@@ -45,7 +45,7 @@ class home extends React.Component {
      <Appbar.Content title="Home" />
     </Appbar>
               <Title style= {styles.text}>Hello,{this.state.name}!!</Title>
-              <Image style={styles.profile} source={this.state.photo}></Image>
+              <Image style={styles.profile} source={{uri: this.state.photo}}></Image>
               <BlackButton style={styles.button} onPress={()=>this.props.navigation.navigate("See Current Schedule")}>See Current Schedule</BlackButton>
               <BlackButton style={styles.button} onPress={()=>this.props.navigation.navigate("See Current Assignments")}>See Current Assignments</BlackButton>
               <BlackButton style={styles.button} onPress={()=>this.props.navigation.openDrawer()}>More Options</BlackButton>
