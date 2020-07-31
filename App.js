@@ -32,7 +32,7 @@ function HomeScreen({navigation}) {
         height: 50,
         marginBottom: 30
         }} 
-        onPress={() =>{navigation.navigate('google')}}>Sign In with Google</WhiteButton>
+        onPress={() =>{navigation.navigate('google')}}>Google Sign In</WhiteButton>
       </ImageBackground>
 </SafeAreaView>
   );
@@ -46,7 +46,6 @@ class App extends Component {
   
     componentDidMount() {
       GoogleSignin.configure({
-        scopes: ['https://www.googleapis.com/auth/calendar'], 
         webClientId: '458566252197-f3juqgm6r2es8cjk2vat5t10nd37s5tf.apps.googleusercontent.com', 
         offlineAccess: true, 
         hostedDomain: '', 
@@ -71,6 +70,11 @@ class App extends Component {
 }
 
 export class signgoogle extends Component {
+
+  state = {
+    user: false
+  }
+
   async componentDidMount() {
     try {
       // add any configuration settings here:
@@ -79,25 +83,40 @@ export class signgoogle extends Component {
       // create a new firebase credential with the token
       const credential = firebaseDb.auth.GoogleAuthProvider.credential(userInfo.idToken, userInfo.accessToken)
       // login with credential
-      const user = await firebaseDb.auth().signInWithCredential(credential)
+      alert(userInfo.idToken)
+    const user = await firebaseDb.auth().signInWithCredential(credential) 
+    //alert(JSON.stringify(user)) 
+    //alert(JSON.stringify(user.user))
+    //alert(uid)
       firebaseDb.firestore()
-    .collection('users')
-    .doc(user.uid)
-    .set ({
-      name: user.displayName,
-      email: user.email,
-      phoneNumber: user.phoneNumber,
-      photoURL: user.photoURL
-    })
-    .catch(err => console.error(err))
-    } catch (error) {
+      .collection('users')
+      .doc(user.user.uid)
+      .set ({
+        name: user.user.displayName,
+        email: user.user.email,
+        phoneNumber: user.user.phoneNumber,
+        photoURL: user.user.photoURL
+      })
+      .catch(err => console.error(err))
+      this.setState({user:user.user})
+    } 
+    catch (error) {
       console.log(error)
     }
   }
   render() {
     return(
+
       <SafeAreaView style={styles.container1}>
-        <BlackButton style={styles.button} onPress={()=>{this.props.navigation.navigate("Main")}}>
+      <BlackButton style={styles.button} onPress={()=>{
+        if(this.state.user.uid) {
+        this.props.navigation.navigate("Main")
+        }
+        else {
+          alert("please sign in")
+          this.props.navigation.navigate("Home")
+        }
+      }}>
           Let's Go
         </BlackButton>
       </SafeAreaView>

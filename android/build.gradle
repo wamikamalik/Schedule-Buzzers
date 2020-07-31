@@ -36,4 +36,16 @@ allprojects {
         jcenter()
         maven { url 'https://jitpack.io' }
     }
+        subprojects {
+    afterEvaluate {
+                android {
+                    compileSdkVersion 28
+                    buildToolsVersion "28.0.3"
+
+                    defaultConfig {
+                        targetSdkVersion 28
+                    }
+                }
+    }
+    }
 }
