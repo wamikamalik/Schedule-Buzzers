@@ -2,11 +2,13 @@ import React from 'react'
 import { SafeAreaView, ImageBackground, Image, TextInput, Text, ActivityIndicator, StyleSheet, Dimensions } from 'react-native'
 import { TouchableOpacity} from 'react-native-gesture-handler';
 import BlackButton from '../component/BlackButton';
-
+import moment from 'moment'
  import firebaseDb from '../firebaseDb';
  import Constants from 'expo-constants'
  import {Appbar, Title, Subheading} from 'react-native-paper';
+ import RNCalendarEvents from 'react-native-calendar-events';
 
+ moment().format()
 
 class home extends React.Component {
 
@@ -15,10 +17,31 @@ class home extends React.Component {
         photo: null,
         loading:true
     }
+
+    _getCalendarStatus = async () => {
+        try {
+          let calendarAuthStatus = await RNCalendarEvents.authorizationStatus();
+          //alert(calendarAuthStatus, ["OK"]);
+        } catch (error) {
+          alert("Failed to get Calendar Status");
+        }
+      };
+    
+      _requestCalendarPermissions = async () => {
+        try {
+          let requestCalendarPermission = await RNCalendarEvents.authorizeEventStore();
+          //alert(requestCalendarPermission, ["OK"]);
+        } catch (error) {
+          alert("Failed to ask permission");
+        }
+      };
+    
     componentDidMount() {
-    var user = firebaseDb.auth().currentUser;
-    //while(user==null){user = firebaseDb.auth().currentUser}
-    firebaseDb.firestore()
+        this._getCalendarStatus();
+        this._requestCalendarPermissions();
+        var user = firebaseDb.auth().currentUser;
+        //while(user==null){user = firebaseDb.auth().currentUser}
+        firebaseDb.firestore()
         .collection('users')
         .doc(user.uid)
         .get()
@@ -33,7 +56,63 @@ class home extends React.Component {
             }
 
         })
+        firebaseDb.firestore()
+        .collection('users')
+        .doc(user.uid)
+        .collection('assignments')
+        .orderBy('Deadline','asc')
+        .get()
+        .then(snapshot => {
+        //const modules=[]
+        const date = new Date()
+        snapshot.forEach(doc => {
+         let d = moment(doc.data().Deadline,"DD-MM-YYYY").format()
+         let given = new Date(d)
+         //alert(given)
+            if(given<date) {
+                let name = []
+                name = doc.data().Name
+                const user = firebaseDb.auth().currentUser.uid;
+                if ((user)&&(name!=null)&&name!="") {
+                    firebaseDb.firestore()
+                    .collection('users')
+                    .doc(user)
+                    .collection('assignments')
+                    .doc(name)
+                    .get()
+                    .then((doc)=>{
+                        if(!doc.exists) {
+                            alert("No such Assignment!")
+                        }
+                        else{
+                            const id = doc.data().Id
+                            firebaseDb.firestore()
+                            .collection('users')
+                            .doc(user)
+                            .collection('assignments')
+                            .doc(name)
+                            .delete()
+                            .then(() => {
+                                RNCalendarEvents.removeEvent(id)
+                                //alert("Assignment Removed!!")
+                            })
+                            .catch(function(error) {
+                                console.error("Error removing document: ", error);
+                            });
+                        }
+                    })
+                }
+  
+            }
+            
+        // alert('something found')
+        })
+        
+        //  modules.push(" ")
+        //this.setState({modules: modules})
+        })
     }
+
     render() {
         return (
             <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
