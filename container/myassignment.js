@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, TouchableOpacity , Dimensions, Image, Text, ImageBackground, SectionList} from 'react-native';
+import {Alert ,StyleSheet, View, ScrollView, TouchableOpacity , Dimensions, Image, Text, ImageBackground, SectionList} from 'react-native';
 // import { Table, TableWrapper, Row, Cell,Col, Rows,Cols } from 'react-native-table-component';
 import firebaseDb from '../firebaseDb';
 import {NavigationContainer} from '@react-navigation/native';
@@ -9,6 +9,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import assigntable from'./assigntable'
 import Constants from 'expo-constants'
 import {Appbar, Title, Subheading} from 'react-native-paper'
+import RNCalendarEvents from 'react-native-calendar-events';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -58,6 +59,24 @@ class myassignment extends Component {
     }
   }
 
+  _getCalendarStatus = async () => {
+    try {
+      let calendarAuthStatus = await RNCalendarEvents.authorizationStatus();
+      //alert(calendarAuthStatus, ["OK"]);
+    } catch (error) {
+      alert("Failed to get Calendar Status");
+    }
+  };
+
+  _requestCalendarPermissions = async () => {
+    try {
+      let requestCalendarPermission = await RNCalendarEvents.authorizeEventStore();
+      //alert(requestCalendarPermission, ["OK"]);
+    } catch (error) {
+      alert("Failed to ask permission");
+    }
+  };
+
  getDetails = () => {
   var user = firebaseDb.auth().currentUser;
   
@@ -81,9 +100,48 @@ class myassignment extends Component {
    })
  }
 
-
+ HandleRemove = (data) => {
+  let name = []
+  name = data.split('\n')
+  const user = firebaseDb.auth().currentUser.uid;
+  if ((user)&&(name!=null)&&name[0]!="") {
+      firebaseDb.firestore()
+      .collection('users')
+      .doc(user)
+      .collection('assignments')
+      .doc(name[0])
+      .get()
+      .then((doc)=>{
+          if(!doc.exists) {
+              alert("No such Assignment!")
+          }
+          else{
+              const id = doc.data().Id
+              firebaseDb.firestore()
+              .collection('users')
+              .doc(user)
+              .collection('assignments')
+              .doc(name[0])
+              .delete()
+              .then(() => {
+                  RNCalendarEvents.removeEvent(id)
+                  alert("Assignment Removed!!")
+              })
+              .catch(function(error) {
+                  console.error("Error removing document: ", error);
+              });
+          }
+      })
+  
+  }
+  else {
+  alert('Please key in the assignment name!')
+  }   
+ }
  componentDidMount() {
   this.getDetails();
+  this._getCalendarStatus();
+  this._requestCalendarPermissions();
 }
 
 componentDidUpdate(prevProps,prevState) {
@@ -165,6 +223,7 @@ componentDidUpdate(prevProps,prevState) {
       i++;
       j=0;
     })
+
   
     return (
       <View style={styles.container}>
@@ -190,7 +249,22 @@ componentDidUpdate(prevProps,prevState) {
           <SectionList
           sections={list}
           keyExtractor={(item, index) => item + index}
-          renderItem={({ item }) => <Item title={item} />}
+          renderItem={({ item }) => <TouchableOpacity style={{fontSize: 16, borderRadius:10, borderLeftWidth:2, borderRightWidth: 2, marginTop: 10, padding: 20, justifyContent:'center'}} onPress={() => {
+            let message = "Are you sure you want to delete this assignment?"+'\n'+item
+            Alert.alert(  
+              'Remove Assignment',  
+              message,  
+              [  
+                  {  
+                      text: 'Yes',  
+                      onPress: () => this.HandleRemove(item),    
+                  },  
+                  {text: 'No', onPress: () => console.log('No Pressed')},  
+              ]  
+            );  
+          }}>
+            <Text style={{fontSize: 16}}>{item}</Text>
+          </TouchableOpacity>}
           renderSectionHeader={({ section: { title } }) => (
             <Text style={styles.header}>{title}</Text>
           )}
@@ -243,10 +317,11 @@ item: {
 
 },
 header: {
-  fontSize: 32,
+  fontSize: 28,
   width:Dimensions.get('window').width - 50,
   backgroundColor: "#e2bff7",
-  borderRadius: 10
+  borderRadius: 10,
+  marginTop: 10
 },
 title: {
   fontSize: 24

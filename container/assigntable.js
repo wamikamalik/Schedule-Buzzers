@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, TouchableOpacity , Image, Text, ImageBackground} from 'react-native';
+import { Alert ,StyleSheet, View, ScrollView, TouchableOpacity , Image, Text, ImageBackground} from 'react-native';
 import { Table, TableWrapper, Row, Cell,Col, Rows,Cols } from 'react-native-table-component';
 import firebaseDb from '../firebaseDb';
 import {NavigationContainer} from '@react-navigation/native';
@@ -8,6 +8,8 @@ import assignments from '../component/assignments';
 import moment from 'moment'
 import Constants from 'expo-constants'
 import {Appbar,Title} from 'react-native-paper'
+import RNCalendarEvents from 'react-native-calendar-events';
+
 moment().format();
 
 const Stack = createStackNavigator();
@@ -38,6 +40,24 @@ class myassignment extends Component {
     }
   }
 
+  _getCalendarStatus = async () => {
+    try {
+      let calendarAuthStatus = await RNCalendarEvents.authorizationStatus();
+      //alert(calendarAuthStatus, ["OK"]);
+    } catch (error) {
+      alert("Failed to get Calendar Status");
+    }
+  };
+
+  _requestCalendarPermissions = async () => {
+    try {
+      let requestCalendarPermission = await RNCalendarEvents.authorizeEventStore();
+      //alert(requestCalendarPermission, ["OK"]);
+    } catch (error) {
+      alert("Failed to ask permission");
+    }
+  };
+
  getDetails = () => {
   var user = firebaseDb.auth().currentUser;
   
@@ -64,6 +84,8 @@ class myassignment extends Component {
 
  componentDidMount() {
   this.getDetails();
+  this._getCalendarStatus();
+  this._requestCalendarPermissions();
 }
 
 componentDidUpdate(prevProps,prevState) {
@@ -72,6 +94,45 @@ componentDidUpdate(prevProps,prevState) {
   this.getDetails();
   //prevState = this.state
  }
+}
+
+HandleRemove = (data) => {
+  let name = []
+  name = data.split('\n')
+  const user = firebaseDb.auth().currentUser.uid;
+  if ((user)&&(name!=null)&&name[0]!="") {
+      firebaseDb.firestore()
+      .collection('users')
+      .doc(user)
+      .collection('assignments')
+      .doc(name[0])
+      .get()
+      .then((doc)=>{
+          if(!doc.exists) {
+              alert("No such Assignment!")
+          }
+          else{
+              const id = doc.data().Id
+              firebaseDb.firestore()
+              .collection('users')
+              .doc(user)
+              .collection('assignments')
+              .doc(name[0])
+              .delete()
+              .then(() => {
+                  RNCalendarEvents.removeEvent(id)
+                  alert("Assignment Removed!!")
+              })
+              .catch(function(error) {
+                  console.error("Error removing document: ", error);
+              });
+          }
+      })
+  
+}
+else {
+  alert('Please key in the assignment name!')
+}   
 }
 
   render() {
@@ -128,6 +189,24 @@ componentDidUpdate(prevProps,prevState) {
     })
     height.push(80*h)
    
+    const element = (data) => (
+      <TouchableOpacity onPress={() => {
+        let message = "Are you sure you want to delete this assignment?"+'\n'+data
+        Alert.alert(  
+          'Remove Assignment',  
+          message,  
+          [  
+              {  
+                  text: 'Yes',  
+                  onPress: () => this.HandleRemove(data),    
+              },  
+              {text: 'No', onPress: () => console.log('No Pressed')},  
+          ]  
+        );  
+      }}>
+        <Text>{data}</Text>
+      </TouchableOpacity>
+    );
   
     return (
       <View style={styles.container}>
@@ -168,14 +247,12 @@ componentDidUpdate(prevProps,prevState) {
                       textStyle={styles.text1}
                     />
                     </TableWrapper>
-                    <TableWrapper style={{flexDirection: 'row'}}>
-                    <Col
-                      width={200}
-                      data={assignment}
-                      heightArr={state.heightArr}
-                      style={styles.row1}
-                      textStyle={styles.text}
-                    /> 
+                    <TableWrapper style={{flexDirection: 'column'}}>
+                    {
+                  assignment.map((cellData, index) => (
+                    <Cell style={{width: 200, height: 80, flex:1, backgroundColor: 'white',alignItems:'center' , alignSelf:'center'}} data={element(cellData)} textStyle={styles.text}/>
+                  ))
+                  }
                   </TableWrapper>
               </Table>}
 
