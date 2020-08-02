@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView,Image, Text,ImageBackground, TouchableOpacity} from 'react-native';
+import { Alert, StyleSheet, View, ScrollView,Image, Text,ImageBackground, TouchableOpacity} from 'react-native';
 import { Table, TableWrapper, Row, Cell,Col, Rows,Cols } from 'react-native-table-component';
 import firebaseDb from '../firebaseDb';
 import {NavigationContainer} from '@react-navigation/native';
@@ -7,6 +7,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import schedule from '../component/schedule';
 import Constants from 'expo-constants'
 import {Appbar, Title, Subheading} from 'react-native-paper'
+import RNCalendarEvents from 'react-native-calendar-events';
 
 const Stack = createStackNavigator();
 function schedulenav() {
@@ -40,6 +41,24 @@ class seemyschedule extends Component {
       //num:null
     }
   }
+
+  _getCalendarStatus = async () => {
+    try {
+      let calendarAuthStatus = await RNCalendarEvents.authorizationStatus();
+      //alert(calendarAuthStatus, ["OK"]);
+    } catch (error) {
+      alert("Failed to get Calendar Status");
+    }
+  };
+
+  _requestCalendarPermissions = async () => {
+    try {
+      let requestCalendarPermission = await RNCalendarEvents.authorizeEventStore();
+      //alert(requestCalendarPermission, ["OK"]);
+    } catch (error) {
+      alert("Failed to ask permission");
+    }
+  };
 
  getDetails = () => {
   var user = firebaseDb.auth().currentUser;
@@ -443,8 +462,57 @@ class seemyschedule extends Component {
   })
  }
 
+ onremoving= (data,day) =>{
+  const user = firebaseDb.auth().currentUser.uid;
+  let Module = []
+  Module = data.split('\n')
+  // alert(data)
+  // alert(day)
+  if ((user)&&(day!=null)&&day!="") {
+    if(data!=null&&data!="") {
+
+      firebaseDb.firestore()
+      .collection('users')
+      .doc(user)
+      .collection('classes')
+      .doc('Days')
+      .collection(day)
+      .doc(Module[0]+Module[1])
+      .get()
+      .then((doc)=>{
+          if(!doc.exists) {
+              alert("No such schedule found!")
+          }
+          else{
+            const id = doc.data().Id
+              firebaseDb.firestore()
+              .collection('users')
+              .doc(user)
+              .collection('classes')
+              .doc('Days')
+              .collection(day)
+              .doc(Module[0]+Module[1])
+              .delete()
+              .then(() => {
+                RNCalendarEvents.removeEvent(id)
+                alert("Removed from your schedule! ");
+                })     
+          }
+      })  
+  }
+  else {
+    alert("No class at this time.")
+  }      
+  }  
+  else{
+    alert("Please enter the Day.")
+  }    
+ }
+
  componentDidMount() {
    this.getDetails();
+   this._getCalendarStatus();
+   this._requestCalendarPermissions();
  }
 
  componentDidUpdate(prevProps,prevState) {
@@ -455,11 +523,11 @@ class seemyschedule extends Component {
   }
  }
 
-
   render() {
 
      const state = this.state;
      let i = 8;
+     let j= 0;
     const monday = [];
     const tuesday = [];
     const wednesday = [];
@@ -516,6 +584,25 @@ class seemyschedule extends Component {
     // this.state.num.map( num => (
     //   numb.push(num)
     // ))
+
+    const element = (data,day) => (
+      <TouchableOpacity onPress={() => {
+        let message = "Are you sure you want to delete this class?"+'\n'+data
+        Alert.alert(  
+          'Remove class on '+day,  
+          message,  
+          [  
+              {  
+                  text: 'Yes',  
+                  onPress: () => this.onremoving(data,day),    
+              },  
+              {text: 'No', onPress: () => console.log('No Pressed')},  
+          ]  
+        );  
+      }}>
+        <Text>{data}</Text>
+      </TouchableOpacity>
+    );
     
    const rowData = [[800],[900],[1000],[1100],[1200],[1300],[1400],[1500],[1600],[1700],[1800],[1900],[2000],[2100]];
   
@@ -550,50 +637,40 @@ class seemyschedule extends Component {
                       textStyle={styles.text1}
                     />
                     </TableWrapper>
-                    <TableWrapper style={{flexDirection: 'row'}}>
-                    <Col
-                      width={100}
-                      data={monday}
-                      heightArr={HeightMon}
-                      style={styles.row1}
-                      textStyle={styles.text}
-                    /> 
+                    <TableWrapper style={{flexDirection: 'column'}}>
+                  {
+                  HeightMon&&monday.map((cellData, index) => (
+                    <Cell style={{width: 100, height: HeightMon[index], flex:1, backgroundColor: 'white',alignItems:'center' , alignSelf:'center'}} data={element(cellData, "Monday")} textStyle={styles.text}/>
+                  ))
+                  }
                   </TableWrapper>
-                  <TableWrapper style={{flexDirection: 'row'}}>
-                    <Col
-                      width={100}
-                      data={tuesday}
-                      heightArr={HeightTue}
-                      style={styles.row2}
-                      textStyle={styles.text}
-                    /> 
+                  <TableWrapper style={{flexDirection: 'column'}}>
+                  {
+                  HeightTue&&tuesday.map((cellData, index) => (
+                    <Cell style={{width: 100, height: HeightTue[index], flex:1, backgroundColor: 'white',alignItems:'center' , alignSelf:'center'}} data={element(cellData, "Tuesday")} textStyle={styles.text}/>
+                  ))
+                  }
                   </TableWrapper>
-                  <TableWrapper style={{flexDirection: 'row'}}>
-                    <Col
-                      width={100}
-                      data={wednesday}
-                      heightArr={HeightWed}
-                      style={styles.row3}
-                      textStyle={styles.text}
-                    /> 
+                  <TableWrapper style={{flexDirection: 'column'}}>
+                  {
+                  HeightWed&&wednesday.map((cellData, index) => (
+                    <Cell style={{width: 100, height: HeightWed[index], flex:1, backgroundColor: 'white',alignItems:'center' , alignSelf:'center'}} data={element(cellData, "Wednesday")} textStyle={styles.text}/>
+                  ))
+                  }
                   </TableWrapper>
-                  <TableWrapper style={{flexDirection: 'row'}}>
-                    <Col
-                      width={100}
-                      data={thursday}
-                      heightArr={HeightThu}
-                      style={styles.row4}
-                      textStyle={styles.text}
-                    /> 
+                  <TableWrapper style={{flexDirection: 'column'}}>
+                  {
+                  HeightThu&&thursday.map((cellData, index) => (
+                    <Cell style={{width: 100, height: HeightThu[index], flex:1, backgroundColor: 'white',alignItems:'center' , alignSelf:'center'}} data={element(cellData, "Thursday")} textStyle={styles.text}/>
+                  ))
+                  }
                   </TableWrapper>
-                  <TableWrapper style={{flexDirection: 'row'}}>
-                    <Col
-                      width={100}
-                      data={friday}
-                      heightArr={HeightFri}
-                      style={styles.row5}
-                      textStyle={styles.text}
-                    /> 
+                  <TableWrapper style={{flexDirection: 'column'}}>
+                  {
+                  HeightFri&&friday.map((cellData, index) => (
+                    <Cell style={{width: 100, height: HeightFri[index], flex:1, backgroundColor: 'white',alignItems:'center' , alignSelf:'center'}} data={element(cellData, "Friday")} textStyle={styles.text}/>
+                  ))
+                  }
                   </TableWrapper>
               </Table>}
 

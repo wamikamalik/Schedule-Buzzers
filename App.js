@@ -52,13 +52,13 @@ class App extends Component {
         loginHint: '', 
         forceConsentPrompt: true, 
       });
-      if(firebaseDb.auth().currentUser.uid) {
-        firebaseDb.auth().signOut().then(function() {
-          // Sign-out successful.
-        }).catch(function(error) {
-          // An error happened.
-        });
-      }
+      // if(firebaseDb.auth().currentUser.uid) {
+      //   firebaseDb.auth().signOut().then(function() {
+      //     // Sign-out successful.
+      //   }).catch(function(error) {
+      //     // An error happened.
+      //   });
+      // }
     }
     render() {
   return (
