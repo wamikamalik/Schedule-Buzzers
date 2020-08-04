@@ -14,7 +14,8 @@ class SignUpContainer extends React.Component {
     password1:'',
     signUpSuccess: false,
     done: false,
-    checked: false
+    checked: false,
+    photo: "https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png"
   }
 
   handleUpdateName = name => this.setState({name})
@@ -72,6 +73,7 @@ class SignUpContainer extends React.Component {
       email: this.state.email,
       password: this.state.password,
       phoneNumber: null,
+      photoURL: this.state.photo
     })
     .catch(err => console.error(err))
   }
@@ -121,7 +123,7 @@ class SignUpContainer extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: { marginTop: Constants.statusBarHeight,
+  container: { 
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',

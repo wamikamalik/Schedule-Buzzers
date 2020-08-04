@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "458566252197-mk0abd25vhmr8ftc4ggj5dss61k2pqfh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.schedule.schedulebuzzers",
+            "certificate_hash": "4c0e212637e7297e46ccdb12dbfb7815b8364dcf"
+          }
+        },
+        {
           "client_id": "458566252197-hb3463hadk3bcot8jfasn09s0eg267ol.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -202,7 +202,7 @@ export default class buses extends Component {
     }  
   }  
   const styles = StyleSheet.create ({  
-    container:{ marginTop: Constants.statusBarHeight,
+    container:{ 
       marginBottom: 10,
       flex: 1,
       backgroundColor: "#ffebcd"

@@ -266,8 +266,8 @@ else {
 }
 
 const styles = StyleSheet.create({
-  container: { marginTop: Constants.statusBarHeight, flex: 1, backgroundColor: '#ffebcd', },
-  container1: { marginTop: Constants.statusBarHeight, flex: 1, backgroundColor: '#ffebcd', justifyContent:'center',alignItems:'center'},
+  container: {  flex: 1, backgroundColor: '#ffebcd', },
+  container1: {  flex: 1, backgroundColor: '#ffebcd', justifyContent:'center',alignItems:'center', marginTop: 10},
     top: {
         backgroundColor:"#c17eef"
     },

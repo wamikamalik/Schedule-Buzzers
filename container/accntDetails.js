@@ -127,7 +127,7 @@ reauthenticate = (currentPassword) => {
 }
 
 const styles = StyleSheet.create({
-    container: { marginTop: Constants.statusBarHeight,
+    container: { 
       flex: 1,
       flexDirection: 'column',
       //justifyContent: 'center',

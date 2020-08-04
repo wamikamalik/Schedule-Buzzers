@@ -19,7 +19,8 @@ const firebaseConfig = {
 }
 
 firebase.initializeApp(firebaseConfig)
+var storage = firebase.storage();
 
 firebase.firestore()
-
+firebase.firestore().settings({ experimentalForceLongPolling: true });
 export default firebase

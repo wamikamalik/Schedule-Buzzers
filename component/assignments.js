@@ -367,7 +367,7 @@ import RNCalendarEvents from 'react-native-calendar-events';
  }
 
  const styles = StyleSheet.create({
-    container: { marginTop: Constants.statusBarHeight,
+    container: { 
         flex: 1,
        backgroundColor: '#ffebcd',
     },

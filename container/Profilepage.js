@@ -4,8 +4,40 @@ import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import BlackButton from '../component/BlackButton';
 import firebaseDb from '../firebaseDb';
 import * as ImagePicker from 'expo-image-picker';
+import RNFetchBlob from 'react-native-fetch-blob'
 import Constants from 'expo-constants'
 import {Appbar, Title, Subheading} from 'react-native-paper'
+import {decode, encode} from 'base-64';
+
+if (!global.btoa) {
+global.btoa = encode;
+}
+if (!global.atob) {
+global.atob = decode;
+}
+
+const Blob = RNFetchBlob.polyfill.Blob
+const fs = RNFetchBlob.fs
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
+window.Blob = Blob
+const Fetch = RNFetchBlob.polyfill.Fetch
+// replace built-in fetch
+window.fetch = new Fetch({
+    // enable this option so that the response data conversion handled automatically
+    auto : true,
+    // when receiving response data, the module will match its Content-Type header
+    // with strings in this array. If it contains any one of string in this array, 
+    // the response body will be considered as binary data and the data will be stored
+    // in file system instead of in memory.
+    // By default, it only store response data to file system when Content-Type 
+    // contains string `application/octet`.
+    binaryContentTypes : [
+        'image/',
+        'video/',
+        'audio/',
+        'foo/',
+    ]
+}).build()
 
 class Profilepage extends React.Component {
 
@@ -13,7 +45,8 @@ class Profilepage extends React.Component {
         name: null,
         userEmail : null,
         phoneNo : null,
-        photo: '',
+        photo: "https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png",
+        photo1:'',
     }
 
     selectImage = async () => {
@@ -66,11 +99,20 @@ class Profilepage extends React.Component {
                     phoneNo: doc.data().phoneNumber,
                     photo: doc.data().photoURL
                }) 
+              //  let imageRef = firebaseDb.app().storage("gs://schedule-buzzers-2.appspot.com").ref(this.state.photo1);
+              //  imageRef
+              //    .getDownloadURL()
+              //    .then((url) => {
+              //      //from url you can fetched the uploaded image easily
+              //      //allowedNodeEnvironmentFlags(url)
+              //      this.setState({photo: url});
+              //    })
+              //    .catch((e) => console.log('getting downloadURL of image error => ', e));
             }
         })
     }
 
-    UpdateUser = () => {  
+   UpdateUser = () => {  
           firebaseDb.auth().currentUser.updateProfile({
             displayName: this.state.name,
             email: this.state.userEmail,
@@ -86,7 +128,46 @@ class Profilepage extends React.Component {
                 doc.ref.update ({
                 name: this.state.name,
                 phoneNumber: this.state.phoneNo,
-                photoURL: this.state.photo ==null?'':this.state.photo,   
+                //photoURL: this.state.photo ==null?'':this.state.photo,   
+            })
+            //let file = new Blob(this.state.photo)
+            let uploadBlob = null
+            fs.readFile(this.state.photo,'base64')
+            .then((data)=>{
+              return Blob.build(data, {type: 'application/octet-stream;BASE64'})
+            }).then((blob)=>{
+              uploadBlob = blob
+              firebaseDb.app().storage("gs://schedule-buzzers-2.appspot.com").ref().child(this.state.name).put(blob,{contentType: 'application/octet-stream'})
+              // .on('state_changed', function(snapshot){
+              //   //You can check the image is now uploaded in the storage bucket
+              //   alert(snapshot)
+              //   firebaseDb.firestore()
+              // .collection('users')
+              // .doc(firebaseDb.auth().currentUser.uid)
+              // .get()
+              // .then((doc) => {
+              //     if(doc.exists) {
+              //     doc.ref.update ({
+              //     photoURL: snapshot,   
+              //     })
+              //     }
+              // })
+              // })
+              // console.log(`has been successfully uploaded.`);
+              .snapshot.ref.getDownloadURL().then(function(downloadURL){
+                  uploadBlob.close()
+                  firebaseDb.firestore()
+                  .collection('users')
+                  .doc(firebaseDb.auth().currentUser.uid)
+                  .get()
+                  .then((doc) => {
+                      if(doc.exists) {
+                      doc.ref.update ({
+                      photoURL: downloadURL,   
+                      })
+                      }
+                  })
+              })
             })
             alert("Updated!!")
           }
@@ -127,7 +208,7 @@ class Profilepage extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    container: { marginTop: Constants.statusBarHeight,
+    container: { 
       flex: 1,
       flexDirection: 'column',
       //justifyContent: 'center',

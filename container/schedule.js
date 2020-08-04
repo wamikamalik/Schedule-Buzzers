@@ -790,7 +790,7 @@ export default class SwitchExample extends Component {
   }  
 }  
 const styles = StyleSheet.create ({  
-  container:{ marginTop: Constants.statusBarHeight,
+  container:{ 
     flex: 1,
     backgroundColor: '#ffebcd',
    // flexDirection: "column",justifyContent: 'center',alignItems:"center"
