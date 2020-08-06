@@ -106,7 +106,17 @@ export default class buses extends Component {
                 <Appbar.Content title="Which bus goes there?" />
                 </Appbar>
                 <ScrollView>
-                <Text style={styles.text1}>Starting Location</Text>
+                <Title style={styles.text1}>Starting Location</Title>
+                <View
+                    style={{
+                      
+                        borderColor: 'black',
+                        borderTopWidth:1,
+                        borderBottomWidth:1,
+                     //   borderRadius: 10,
+                        alignSelf: 'center',
+                        
+                    }}>
                 <Picker style={styles.pickerStyle} selectedValue={(this.state && this.state.Location) || 'Select the closest location'} onValueChange={(value) => {this.setState({Location: value});}}>
                     <Picker.Item label=" Select the closest location" value="null" />
                     <Picker.Item label="AS5" value="AS5" />
@@ -141,7 +151,17 @@ export default class buses extends Component {
                     <Picker.Item label="Ventus, Opp LT13" value="Ventus, Opp LT13" />
                     <Picker.Item label="Yusof Ishak House" value="Yusof Ishak House" />
                 </Picker>
-                <Text style={styles.text1}>Destination</Text>
+                </View>
+                <Title style={styles.text1}>Destination</Title>
+                <View
+                    style={{
+                      
+                        borderColor: 'black',
+                        borderTopWidth:1,
+                        borderBottomWidth:1,
+                     //   borderRadius: 10,
+                        alignSelf: 'center'
+                    }}>
                 <Picker style={styles.pickerStyle} selectedValue={(this.state && this.state.ELocation) || 'Select the closest location'} onValueChange={(value) => {this.setState({ELocation: value});}}>
                 <Picker.Item label=" Select the closest location" value="null" />
                     <Picker.Item label="AS5" value="AS5" />
@@ -176,11 +196,12 @@ export default class buses extends Component {
                     <Picker.Item label="Ventus, Opp LT13" value="Ventus, Opp LT13" />
                     <Picker.Item label="Yusof Ishak House" value="Yusof Ishak House" />
                 </Picker>
+                </View>
                 <BlackButton
                 style={styles.button1}
                 onPress={this.HandleSearch}
                 >Search</BlackButton>
-                <Text style={styles.text1}>The Buses you can take are:</Text>
+                <Title style={styles.text1}>The Buses you can take are:</Title>
            {/* <View style={{flex: 1, alignItems:"center", justifyContent:"center"}}> */}
             
             <View style={{flex: 1, alignItems:"center", justifyContent:"center", marginTop:15}}>
@@ -249,8 +270,8 @@ export default class buses extends Component {
       
     },
     text1: {
-      //color: "white",
-      fontSize: 20,
+      color: "black",
+    //  fontSize: 20,
       marginTop: 20,
       alignSelf: "center",
       justifyContent: 'center',

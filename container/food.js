@@ -73,7 +73,16 @@ class food extends Component {
                 <ScrollView>
               
                 
-                <Text style={styles.text1}>Location</Text>
+                <Title style={styles.text1}>Location</Title>
+                <View
+                    style={{
+                      
+                        borderColor: 'black',
+                        borderTopWidth:1,
+                        borderBottomWidth:1,
+                     //   borderRadius: 10,
+                        alignSelf: 'center'
+                    }}>
                 <Picker style={styles.pickerStyle}
           
                          selectedValue={(this.state && this.state.Location) || 'Select Location'}
@@ -87,6 +96,7 @@ class food extends Component {
                       <Picker.Item label="Science,University hall,Medicine" value="Science,University hall,Medicine" />
                       <Picker.Item label="University Town,Yale NUS" value="University Town,Yale NUS" />
                 </Picker>
+                </View>
              <BlackButton
               style={styles.button1}
               onPress={this.getDetails}
@@ -162,8 +172,8 @@ class food extends Component {
       
     },
     text1: {
-      //color: "white",
-      fontSize: 20,
+      color: "black",
+    //  fontSize: 20,
       marginTop: 20,
       alignSelf: "center",
       justifyContent: 'center',

@@ -673,12 +673,21 @@ export default class SwitchExample extends Component {
      icon={require('../assets/slideinw.png')}
      onPress={() => this.props.navigation.openDrawer()}
     />
-     <Appbar.Content title="Add Class" />
+     <Appbar.Content title="Add Classes" />
     
     </Appbar>
            <ScrollView>
             
-              <Text style={styles.text1}>Day of the week</Text>
+              <Title style={styles.text1}>Day of the week</Title>
+              <View
+                    style={{
+                      
+                        borderColor: 'black',
+                        borderTopWidth:1,
+                        borderBottomWidth:1,
+                     //   borderRadius: 10,
+                        alignSelf: 'center'
+                    }}>
               <Picker style={styles.pickerStyle}
         
                        selectedValue={(this.state && this.state.Day) || 'Select Day'}
@@ -690,10 +699,20 @@ export default class SwitchExample extends Component {
                     <Picker.Item label="Thursday" value="Thursday" />
                     <Picker.Item label="Friday" value="Friday" />
               </Picker>
-              <Text style={styles.text2}>Module</Text>
+              </View>
+              <Title style={styles.text1}>Module</Title>
               <TextInput style={styles.textInput} placeholder="Module" onChangeText={this.handleUpdateModule} value={Module}/>
-              <Text style={styles.text3}>Class</Text>
-              <Picker style={styles.pickerStyle2}  
+              <Title style={styles.text1}>Class</Title>
+              <View
+                    style={{
+                      
+                        borderColor: 'black',
+                        borderTopWidth:1,
+                        borderBottomWidth:1,
+                     //   borderRadius: 10,
+                        alignSelf: 'center'
+                    }}>
+              <Picker style={styles.pickerStyle}  
                        selectedValue={(this.state && this.state.Class) || 'Select Class Type'}
                        onValueChange={(value) => {this.setState({Class: value});}}>
                     <Picker.Item label="Select Class Type" value="null" />
@@ -702,11 +721,24 @@ export default class SwitchExample extends Component {
                     <Picker.Item label="Tutorial" value="tutorial" />
 
               </Picker>
-              
-              <Text style={styles.text4}>Time from</Text>
-              <Text style={styles.text6}>
+              </View>
+              <Title style={styles.text1}>Time from</Title>
+              <Subheading style ={styles.text1} >24 Hours format</Subheading>
+              <View
+                    style={{
+                      
+                        borderColor: 'black',
+                      //  borderTopWidth:1,
+                        borderBottomWidth:1,
+                     //   borderRadius: 10,
+                        alignSelf: 'center'
+                    }}>
+              <Title style={styles.text1}>
           {selectedHoursf}hr:{selectedMinutesf}min
-        </Text>
+         
+        </Title>
+        </View>
+      
               <TimePicker 
           selectedHours={this.state.selectedHoursf}
           //initial Hours value
@@ -716,10 +748,22 @@ export default class SwitchExample extends Component {
             this.setState({selectedHoursf:selectedHoursf, selectedMinutesf: selectedMinutesf })
           }
         />
-              <Text style={styles.text5}>Time to</Text>
-              <Text style={styles.text7}>
+      
+              <Title style={styles.text1}>Time to</Title>
+              <Subheading style={styles.text1}>24 Hours format</Subheading>
+              <View
+                    style={{
+                      
+                        borderColor: 'black',
+                      //  borderTopWidth:1,
+                        borderBottomWidth:1,
+                     //   borderRadius: 10,
+                        alignSelf: 'center'
+                    }}>
+              <Title style={styles.text1}>
           {selectedHourst}hr:{selectedMinutest}min
-        </Text>
+        </Title>
+       </View>
               <TimePicker 
         
           selectedHourst={selectedHourst}
@@ -730,8 +774,18 @@ export default class SwitchExample extends Component {
             this.setState({ selectedHourst:selectedHourst, selectedMinutest: selectedMinutest })
           }
         />
-        <Text style={styles.text2}>Location</Text>
+    
+        <Title style={styles.text1}>Location</Title>
               {/* <TextInput style={styles.textInput} placeholder="Location" onChangeText={this.handleUpdateLocation} value={Location}/> */}
+              <View
+                    style={{
+                      
+                        borderColor: 'black',
+                        borderTopWidth:1,
+                        borderBottomWidth:1,
+                     //   borderRadius: 10,
+                        alignSelf: 'center'
+                    }}>
               <Picker style={styles.pickerStyle}
         
         selectedValue={(this.state && this.state.Location) || 'Select the closest location'}
@@ -759,6 +813,7 @@ export default class SwitchExample extends Component {
      <Picker.Item label="School of Design and Environment" value="School of Design and Environment" />
      <Picker.Item label="TCOMS" value="TCOMS" />
 </Picker>
+</View>
             <BlackButton
             style={styles.button1}
           
@@ -834,11 +889,11 @@ const styles = StyleSheet.create ({
     
   },
   text1: {
-    //color: "white",
-    fontSize: 20,
+  color: "black",
+   // fontSize: 20,
     marginTop: 20,
     alignSelf: "center",
-    fontWeight: "bold"
+    //fontWeight: "bold"
 
   },
   text2: {

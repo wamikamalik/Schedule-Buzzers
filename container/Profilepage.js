@@ -190,13 +190,13 @@ class Profilepage extends React.Component {
                 <Image style={styles.imagea} source={{uri: this.state.photo}}></Image>
                 <BlackButton style={styles.buttona} onPress={this.selectImage}>Change</BlackButton>
 
-                <Title>Name:</Title><TextInput style={styles.textInput} placeholder={this.state.name} onChangeText={this.handleUpdateName} value={this.state.name}/>
+                <Title style = {styles.text1}>Name</Title><TextInput style={styles.textInput} placeholder={this.state.name} onChangeText={this.handleUpdateName} value={this.state.name}/>
                 
-                <Title>Phone No:</Title><TextInput style={styles.textInput} placeholder={this.state.phoneNo} onChangeText={this.handleUpdatePhone} value={this.state.phoneNo}/>
+                <Title style = {styles.text1}>Phone No</Title><TextInput style={styles.textInput} placeholder={this.state.phoneNo} onChangeText={this.handleUpdatePhone} value={this.state.phoneNo}/>
                 
-                <Title>Email:</Title><Text style={styles.email}>{this.state.userEmail}</Text>
+                <Title style = {styles.text1}>Email</Title><Text style={styles.email}>{this.state.userEmail}</Text>
                 
-                <Title>To change email or password go to account details</Title>
+                <Title >To change email or password go to account details</Title>
 
                 
                 <BlackButton style={styles.button} onPress={this.UpdateUser}>Update Details</BlackButton>
@@ -282,6 +282,14 @@ const styles = StyleSheet.create({
         height:35,
         alignSelf:'center',
         justifyContent: "center"
+      },
+      text1: {
+       // fontSize: 20,
+        marginTop: 10,
+        //marginLeft:50,
+        fontWeight:'bold',
+       color: "black",
+       alignSelf:'center'
       },
 })
 

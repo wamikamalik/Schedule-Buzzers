@@ -322,16 +322,18 @@ import RNCalendarEvents from 'react-native-calendar-events';
                  <ScrollView>
                 
                 <Subheading style={styles.text}>Input only Name to remove an Assignment. To update input name and press on search.</Subheading>
+                <Subheading style={styles.text}>Assignments already passed will automatically be removed.</Subheading>
                 <Subheading style={styles.text1}>* - Required</Subheading>
-                <Text style={styles.texta}>Module</Text><TextInput style={styles.textInput} placeholder='Module Name' placeholderTextColor="black" onChangeText={this.handleUpdateMod} value={this.state.mod}></TextInput>
-                <Text style={styles.texta}>Name*</Text><TextInput style={styles.textInput} placeholder='Assignment name' placeholderTextColor="black" onChangeText={this.handleUpdatename} value={this.state.name}></TextInput>
+                <Title style={styles.text}>Module</Title><TextInput style={styles.textInput} placeholder='Module Name'  onChangeText={this.handleUpdateMod} value={this.state.mod}></TextInput>
+                <Title style={styles.text}>Name*</Title><TextInput style={styles.textInput} placeholder='Assignment name'  onChangeText={this.handleUpdatename} value={this.state.name}></TextInput>
                 <BlackButton style={styles.button} onPress= {this.HandleSearch}>Search</BlackButton>
-                <Text style={styles.texta}>Deadline*</Text>
+                <Title style={styles.text}>Deadline*</Title>
                     <DatePicker
-                    style={{width: 200, marginTop: 10, alignSelf:'center'}}
+                    style={{width: 200, marginTop: 10, alignSelf:'center', color:'black'}}
                     date={this.state.deadline} //initial date from state
                     mode="date" //The enum of date, datetime and time
                     placeholder="Enter Deadline"
+
                     format="DD-MM-YYYY"
                     minDate="01-01-2000"
                     maxDate="01-01-2030"
@@ -350,8 +352,8 @@ import RNCalendarEvents from 'react-native-calendar-events';
                         },
                     }}
                     onDateChange={this.handleUpdatedeadline}/> 
-                    <Text style={styles.texta}>If calender is inaccessible, Please enter date below</Text><TextInput style={styles.textInput} placeholder="DD-MM-YYYY" placeholderTextColor="black" onChangeText={this.handleUpdatedeadline} value={this.state.deadline}></TextInput>
-                    <Text style={styles.texta}>Notes</Text><TextInput style={styles.textInputa} placeholder='Additional notes' placeholderTextColor="black" onChangeText={this.handleUpdatenotes} value={this.state.notes} multiline></TextInput>
+                    <Title style={styles.text}>If calender is inaccessible, Please enter date below</Title><TextInput style={styles.textInput} placeholder="DD-MM-YYYY" onChangeText={this.handleUpdatedeadline} value={this.state.deadline}></TextInput>
+                    <Title style={styles.text}>Notes</Title><TextInput style={styles.textInputa} placeholder='Additional notes' onChangeText={this.handleUpdatenotes} value={this.state.notes} multiline></TextInput>
 
                 <BlackButton style={styles.button} onPress= {this.UpdateUser}>Add/Update</BlackButton>
                 {/* <WhiteButton style={styles.button} onPress= {this.HandleUpdate}>Update</WhiteButton> */}
@@ -380,15 +382,15 @@ import RNCalendarEvents from 'react-native-calendar-events';
         marginLeft:15
     },
     text: {
-        //fontWeight:'bold',
+        fontWeight:'bold',
        // fontSize: 28,
         alignSelf:'center',
         marginTop: 10,
        // textDecorationLine: "underline",
-        //color: "white"
+        color: "black"
     },
     text1: {
-        //fontWeight:'bold',
+        fontWeight:'bold',
        // fontSize: 28,
         alignSelf:'center',
         marginTop: 10,
