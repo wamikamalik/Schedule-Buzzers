@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Platform,KeyboardAvoidingView,StyleSheet,ImageBackground, Image, Text, View,Button, Picker, Modal, TouchableHighlight,TouchableOpacity, SafeAreaView, TextInput, Dimensions } from 'react-native';
+import { Alert, Platform,KeyboardAvoidingView,StyleSheet,ImageBackground, Image, Text, View,Button, Picker, Modal, TouchableHighlight,TouchableOpacity, SafeAreaView, TextInput, Dimensions } from 'react-native';
 //import {Button} from 'react-native-elements';
 import TimePicker from 'react-native-simple-time-picker';
 import firebaseDb from '../firebaseDb';
@@ -233,7 +233,17 @@ export default class SwitchExample extends Component {
                       selectedMinutest:0,
                       Location:''
                       }) 
-                      alert('Saved to your schedule ! ')
+                      Alert.alert(  
+                        'Class Saved',  
+                        "Saved to your schedule! What do you want to do next?",  
+                        [  
+                            {  
+                                text: 'See current Schedule',  
+                                onPress: () => this.props.navigation.navigate("See Current Schedule"),    
+                            },  
+                            {text: 'Add more classes', onPress: () => console.log('No Pressed')},  
+                        ]  
+                      ); 
                   }).catch((error)=>{
                     alert(error)
                   })
@@ -285,7 +295,17 @@ export default class SwitchExample extends Component {
                       selectedMinutest:0,
                       Location:''
                       }) 
-                      alert('Saved to your schedule ! ')
+                      Alert.alert(  
+                        'Class Saved',  
+                        "Saved to your schedule! What do you want to do next?",  
+                        [  
+                            {  
+                                text: 'See current Schedule',  
+                                onPress: () => this.props.navigation.navigate("See Current Schedule"),    
+                            },  
+                            {text: 'Add more classes', onPress: () => console.log('No Pressed')},  
+                        ]  
+                      ); 
                   }).catch((error)=>{
                     alert(error)
                   })
@@ -337,7 +357,17 @@ export default class SwitchExample extends Component {
                       selectedMinutest:0,
                       Location:''
                       }) 
-                      alert('Saved to your schedule ! ')
+                      Alert.alert(  
+                        'Class Saved',  
+                        "Saved to your schedule! What do you want to do next?",  
+                        [  
+                            {  
+                                text: 'See current Schedule',  
+                                onPress: () => this.props.navigation.navigate("See Current Schedule"),    
+                            },  
+                            {text: 'Add more classes', onPress: () => console.log('No Pressed')},  
+                        ]  
+                      ); 
                   }).catch((error)=>{
                     alert(error)
                   })
@@ -389,7 +419,17 @@ export default class SwitchExample extends Component {
                       selectedMinutest:0,
                       Location:''
                       }) 
-                      alert('Saved to your schedule ! ')
+                      Alert.alert(  
+                        'Class Saved',  
+                        "Saved to your schedule! What do you want to do next?",  
+                        [  
+                            {  
+                                text: 'See current Schedule',  
+                                onPress: () => this.props.navigation.navigate("See Current Schedule"),    
+                            },  
+                            {text: 'Add more classes', onPress: () => console.log('No Pressed')},  
+                        ]  
+                      ); 
                   }).catch((error)=>{
                     alert(error)
                   })
@@ -441,7 +481,17 @@ export default class SwitchExample extends Component {
                       selectedMinutest:0,
                       Location:''
                       }) 
-                      alert('Saved to your schedule ! ')
+                      Alert.alert(  
+                        'Class Saved',  
+                        "Saved to your schedule! What do you want to do next?",  
+                        [  
+                            {  
+                                text: 'See current Schedule',  
+                                onPress: () => this.props.navigation.navigate("See Current Schedule"),    
+                            },  
+                            {text: 'Add more classes', onPress: () => console.log('No Pressed')},  
+                        ]  
+                      );  
                   }).catch((error)=>{
                     alert(error)
                   })

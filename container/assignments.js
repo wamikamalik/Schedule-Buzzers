@@ -1,5 +1,5 @@
 import React from 'react'
-import { KeyboardAvoidingView, ScrollView, ImageBackground, Image, TextInput, Text, Button, ActivityIndicator, StyleSheet, Dimensions } from 'react-native'
+import { Alert, KeyboardAvoidingView, ScrollView, ImageBackground, Image, TextInput, Text, Button, ActivityIndicator, StyleSheet, Dimensions } from 'react-native'
 import { TouchableOpacity} from 'react-native-gesture-handler';
 import DatePicker from 'react-native-datepicker'
 import moment from 'moment'
@@ -158,7 +158,17 @@ import RNCalendarEvents from 'react-native-calendar-events';
                                         done: false,
                                         notes: ''
                                     }) 
-                                        alert("Assignment Added!!")
+                                        Alert.alert(  
+                        'Assignment Saved',  
+                        "A new assignment has been added! What do you want to do next?",  
+                        [  
+                            {  
+                                text: 'See current Assignments',  
+                                onPress: () => this.props.navigation.navigate("See Current Assignments"),    
+                            },  
+                            {text: 'Add more Assignments', onPress: () => console.log('No Pressed')},  
+                        ]  
+                      );  
                                 })
 
                         }).catch(error => {
