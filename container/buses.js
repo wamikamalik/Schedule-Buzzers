@@ -4,7 +4,11 @@ import firebaseDb from '../firebaseDb';
 import Constants from 'expo-constants'
 import BlackButton from '../component/BlackButton'
 import SomeButton from '../component/SomeButton'
-import {Appbar, Title , Subheading} from 'react-native-paper'
+import {Appbar, Title , Subheading, Card} from 'react-native-paper'
+import MapView, { Marker } from 'react-native-maps';
+import RNLocation from "react-native-location";
+
+const { width, height } = Dimensions.get('window');
 
 export default class buses extends Component {
     state = {
@@ -14,7 +18,48 @@ export default class buses extends Component {
         stops: null,
         k: null,
         i: null,
+        lat: 1.309976,
+        long: 103.788458,
+        userlat:null,
+        userlong:null,
+        region : {
+          latitude: 1.309976,
+          longitude: 103.788458,
+          latitudeDelta: 0.05,
+          longitudeDelta: 0.05*width/height,
+        }
 
+    };
+
+    componentWillMount() {
+      RNLocation.configure({
+        distanceFilter: 5.0
+      });
+      
+      RNLocation.requestPermission({
+        ios: "whenInUse",
+        android: {
+          detail: "fine",
+          rationale: {
+            title: "Location permission",
+            message: "We would like to use your location to help you find the bus stop",
+            buttonPositive: "OK",
+            buttonNegative: "Cancel"
+          }
+        }
+      }).then(granted => {
+        if (granted) {
+          this._startUpdatingLocation();
+        }
+      });
+    }
+  
+    _startUpdatingLocation = () => {
+      this.locationSubscription = RNLocation.subscribeToLocationUpdates(
+        locations => {
+          this.setState({ userlat: locations[0].latitude, userlong:locations[0].longitude });
+        }
+      );
     };
 
     HandleSearch = () => {
@@ -33,13 +78,25 @@ export default class buses extends Component {
             .collection(this.state.Location)
             .get()
             .then(snapshot => {
-              i = snapshot.docs.length
+              i = snapshot.docs.length-1
               this.setState({i:i})
               snapshot.forEach(doc => {
                 bus.push(doc.id)
+                l++;
+                if(l = i+1) {
+                    firebaseDb.firestore()
+                    .collection('busdetails')
+                    .doc('routes')
+                    .collection(this.state.Location)
+                    .doc('location')
+                    .get()
+                    .then((doc)=>{
+                      this.setState({lat:doc.data().lat, long: doc.data().long})
+                    })
+                }
               })
               //alert(i)
-              for(j=0;j<bus.length;j++) {
+              for(j=0;j<bus.length-1;j++) {
                 let b = bus[j]
                 //alert(j)
                 firebaseDb.firestore()
@@ -63,7 +120,7 @@ export default class buses extends Component {
                     this.setState({k:k})
                   }
                 })
-              }
+              } 
             })
         }
         else {
@@ -105,8 +162,34 @@ export default class buses extends Component {
                 />
                 <Appbar.Content title="Which bus goes there?" />
                 </Appbar>
+                <View style={styles.container1}>
+              <MapView
+              style = {styles.map}
+              region={{
+                latitude: this.state.lat,
+                longitude: this.state.long,
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01*width/height,
+              }}
+              >
+                <Marker
+                coordinate={{latitude: this.state.lat,
+                  longitude: this.state.long,}}
+                title={this.state.Location}
+                />
+                {this.state.userlat&&<Marker
+                coordinate={{latitude: this.state.userlat,
+                  longitude: this.state.userlong,}}
+                title={'Your Location'}
+                />}
+              </MapView>
+              </View>
+              {/* <Overlay image={require('../assets/homeback.png')} bounds={[[35.68184060244454, 139.76531982421875],[35.679609609368576, 139.76806640625]]} opacity={2.0}/> */}
+              <Card elevation={30} style={{ backgroundColor:"transparent", height:225}}>
                 <ScrollView>
-                <Title style={styles.text1}>Starting Location</Title>
+                <ImageBackground source = {require('../assets/homeback.png')} style={{resizeMode:"cover"}}>
+                <Card.Content>
+                <View><Title style={styles.text1}>Starting Location</Title></View>
                 <View
                     style={{
                       
@@ -117,6 +200,7 @@ export default class buses extends Component {
                         alignSelf: 'center',
                         
                     }}>
+                      
                 <Picker style={styles.pickerStyle} selectedValue={(this.state && this.state.Location) || 'Select the closest location'} onValueChange={(value) => {this.setState({Location: value});}}>
                     <Picker.Item label=" Select the closest location" value="null" />
                     <Picker.Item label="AS5" value="AS5" />
@@ -211,12 +295,19 @@ export default class buses extends Component {
                 renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
                 />
             </View>
+                </Card.Content>
+                </ImageBackground>
+                </ScrollView>
+              </Card>
+                
+
+              {/* </View> */}
             
             {/* <View style={{alignContent: "center", justifyContent:"center", alignItems:"center"}}>
                 <Text> Click on an item to view details!</Text>
             </View> */}
             {/* </View> */}
-            </ScrollView>
+
             </SafeAreaView>  
   
         ) 
@@ -225,12 +316,28 @@ export default class buses extends Component {
   const styles = StyleSheet.create ({  
     container:{ 
       marginBottom: 10,
-      flex: 1,
-      backgroundColor: "#ffebcd"
+      backgroundColor: "#ffebcd",
+      flex: 4, flexDirection:"column"
      
     },
     top: {
       backgroundColor:"#c17eef"
+  },
+  container1: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  map: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
     image: {
       justifyContent: 'flex-start',
