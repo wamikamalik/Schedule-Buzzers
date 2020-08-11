@@ -20,6 +20,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 var storage = firebase.storage();
+//var functions = firebase.functions();
 
 firebase.firestore()
 firebase.firestore().settings({ experimentalForceLongPolling: true });
