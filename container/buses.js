@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity , Dimensions, Image, Text, ImageBackground, FlatList, Button, Picker,} from 'react-native';
+import { View, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity , Dimensions, Image, Text, ImageBackground, FlatList, Button, Picker} from 'react-native';
 import firebaseDb from '../firebaseDb';
 import Constants from 'expo-constants'
 import BlackButton from '../component/BlackButton'
 import SomeButton from '../component/SomeButton'
-import {Appbar, Title , Subheading, Card} from 'react-native-paper'
+import {Appbar, Title , Subheading, Card, ActivityIndicator} from 'react-native-paper'
 import MapView, { Marker } from 'react-native-maps';
 import RNLocation from "react-native-location";
 import {getDistance} from 'geolib'
@@ -26,6 +26,8 @@ export default class buses extends Component {
         i: null,
         lat: 1.309976,
         long: 103.788458,
+        nlat: null,
+        nlong:null,
         userlat:null,
         userlong:null,
         mind:null,
@@ -34,8 +36,14 @@ export default class buses extends Component {
           longitude: 103.788458,
           latitudeDelta: 0.05,
           longitudeDelta: 0.05*width/height,
-        }
-
+        },
+        d: [],
+        locations: ["AS5", "BIZ2", "Botanic Gardens MRT","COM2","Central Library", "College Green",
+      "EA", "Kent Ridge MRT Station","Kent Vale","LT13","LT27","Museum","NUS IT","Oei Tiong Ham (BTC)",
+      "Opp HSSML","Opp Kent Ridge MRT Station","Opp NUSS","Opp TCOMS","Opp University Hall","Opp University Health Centre",
+      "Opp YIH","PGP","PGPR","Raffles Hall","S17","TCOMS","University Hall","University Health Centre",
+      "University Town","Ventus, Opp LT13","Yusof Ishak House"],
+      loading: true
     };
 
     distance = (coordinate1, coordinate2) => {
@@ -58,11 +66,6 @@ export default class buses extends Component {
     }
 
     componentDidMount() {
-      const locations = ["AS5", "BIZ2", "Botanic Gardens MRT","COM2","Central Library", "College Green",
-      "EA", "Kent Ridge MRT Station","Kent Vale","LT13","LT27","Museum","NUS IT","Oei Tiong Ham (BTC)",
-      "Opp HSSML","Opp Kent Ridge MRT Station","Opp NUSS","Opp TCOMS","Opp University Hall","Opp University Health Centre",
-      "Opp YIH","PGP","PGPR","Raffles Hall","S17","TCOMS","University Hall","University Health Centre",
-      "University Town","Ventus, Opp LT13","Yusof Ishak House"]
       let d = []
       let i = 0 
       let j = 0
@@ -92,8 +95,8 @@ export default class buses extends Component {
       //    })
       // })
       // })
-      for(i=0;i<locations.length;i++) {
-      var loc = locations[i];
+      for(i=0;i<this.state.locations.length;i++) {
+      var loc = this.state.locations[i];
       firebaseDb.firestore()
       .collection('busdetails')
       .doc('routes')
@@ -106,16 +109,20 @@ export default class buses extends Component {
           {lat: doc.data().lat, lon: doc.data().long}))
          j = d.indexOf(Math.min(...d));
          //alert(j)
-         this.setState({Location: locations[j]})
+         if(d.length==31) {
          firebaseDb.firestore()
          .collection('busdetails')
          .doc('routes')
-         .collection(locations[j])
+         .collection(this.state.locations[j])
          .doc('location')
          .get()
          .then((doc)=>{
-           this.setState({lat:doc.data().lat, long:doc.data().long})
+           this.setState({Location:this.state.locations[j],lat:doc.data().lat, long:doc.data().long, loading:false})
          })
+        }
+        else {
+          this.setState({loading:true})
+        }
       })
       }
     }
@@ -221,6 +228,7 @@ export default class buses extends Component {
 
         const busnames=[];
         let i = 0;
+        let j = 0;
         const details=[];
         let data;
 
@@ -241,17 +249,33 @@ export default class buses extends Component {
           //this.setState({k:null,i:null})
         }
 
+        //  if(this.state.nlat) {
+        //     //alert(j)
+        //     this.setState({Location: this.state.nlat})
+        //     firebaseDb.firestore()
+        //     .collection('busdetails')
+        //     .doc('routes')
+        //     .collection(this.state.nlat)
+        //     .doc('location')
+        //     .get()
+        //     .then((doc)=>{
+        //       this.setState({lat:doc.data().lat, long:doc.data().long})
+        //     })
+        // }
+
         return (
   
            <SafeAreaView style={styles.container}>
-               <Appbar style={styles.top}>
+
+              <Appbar style={styles.top}>
                 <Appbar.Action
-                icon={require('../assets/slideinw.png')}
-                onPress={() => this.props.navigation.openDrawer()}
-                />
-                <Appbar.Content title="Which bus goes there?" />
+                  icon={require('../assets/slideinw.png')}
+                  onPress={() => this.props.navigation.openDrawer()}
+                  />
+                  <Appbar.Content title="Which Bus Goes There?" />
                 </Appbar>
                 <View style={styles.container1}>
+                  
               <MapView
               style = {styles.map}
               region={{
@@ -280,11 +304,21 @@ export default class buses extends Component {
               </MapView>
               </View>
               {/* <Overlay image={require('../assets/homeback.png')} bounds={[[35.68184060244454, 139.76531982421875],[35.679609609368576, 139.76806640625]]} opacity={2.0}/> */}
+
               <Card elevation={30} style={{ backgroundColor:"transparent", height:225}}>
-                <ScrollView>
+
+                <ScrollView showsVerticalScrollIndicator={true}>
                 <ImageBackground source = {require('../assets/homeback.png')} style={{resizeMode:"cover"}}>
                 <Card.Content>
-                <View><Title style={styles.text1}>Starting Location</Title></View>
+                {this.state.loading&&<View style={{position: 'absolute',
+                left: 0,
+                right: 0,
+                top: 0,
+                bottom: 0,
+                justifyContent: 'center',
+                backgroundColor:"#F5FCFF88"}}> 
+                  </View> }
+               <View><Title style={styles.text1}>Starting Location</Title></View>
                 <View
                     style={{
                       
@@ -395,7 +429,16 @@ export default class buses extends Component {
                 </ScrollView>
               </Card>
                 
-
+              {this.state.loading&&<View style={{position: 'absolute',
+                left: 0,
+                right: 0,
+                top: 0,
+                bottom: 0,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor:"#F5FCFF88"}}> 
+                  {this.state.loading&&<ActivityIndicator animating={true} size='large' pointerEvents={"none"}/>}
+                  </View> }
               {/* </View> */}
             
             {/* <View style={{alignContent: "center", justifyContent:"center", alignItems:"center"}}>
