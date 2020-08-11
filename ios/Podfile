@@ -47,4 +47,6 @@ target 'ScheduleBuzzer' do
 
   pod 'react-native-calendar-events', :path => '../node_modules/react-native-calendar-events'
 
+  pod 'RNDateTimePicker', :path => '../node_modules/@react-native-community/datetimepicker'
+
 end

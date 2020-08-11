@@ -1,15 +1,17 @@
-import React, {Component} from 'react';
-import { Alert, Platform,KeyboardAvoidingView,StyleSheet,ImageBackground, Image, Text, View,Button, Picker, Modal, TouchableHighlight,TouchableOpacity, SafeAreaView, TextInput, Dimensions } from 'react-native';
+import React, {Component, useState} from 'react';
+import { Alert, Platform,KeyboardAvoidingView,StyleSheet,ImageBackground, Image, Text, View,Button, Picker, Modal, TouchableHighlight,TouchableOpacity, SafeAreaView, Dimensions } from 'react-native';
 //import {Button} from 'react-native-elements';
 import TimePicker from 'react-native-simple-time-picker';
 import firebaseDb from '../firebaseDb';
 //import BlackButton from '../component/BlackButton';
 import Constants from 'expo-constants'
 import { ScrollView } from 'react-native-gesture-handler';
-import {Appbar, Title, Subheading, Dialog, Portal, Paragraph} from 'react-native-paper'
+import {Appbar, Title, Subheading, Dialog, Portal, Paragraph, TextInput} from 'react-native-paper'
 import BlackButton from '../component/BlackButton'
+import PurpleButton from '../component/purplebutton'
 import { auth } from 'firebase';
 import moment from 'moment';
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 
 import RNCalendarEvents from 'react-native-calendar-events';
@@ -45,7 +47,11 @@ export default class SwitchExample extends Component {
     arr:[], 
     k:0,
     id: null,
-    busdet: null
+    busdet: null,
+    timepicker:false,
+    timepicker1:false,
+    date:new Date(),
+    date2:new Date(),
 };
 
   componentDidMount() {
@@ -104,7 +110,8 @@ export default class SwitchExample extends Component {
   handleUpdateselectedMinutest = selectedMinutest => this.setState({selectedMinutest})
   handleUpdateLocation = Location=> this.setState({Location})
   handleUpdatecode = code => this.setState({code})
-  
+
+
   HandleUser = () => {
     const user = firebaseDb.auth().currentUser.uid;
     if ((user)&&(this.state.Day!=null)&&(this.state.Class!=null)&&(this.state.Module!=null)&&(this.state.Location!=null)&&((this.state.selectedHoursf)!=0)&&((this.state.selectedHourst)!=0)&&(this.state.Day!='')&&(this.state.Class!='')&&(this.state.Module!='')&&(this.state.Location!='')) {
@@ -708,12 +715,69 @@ export default class SwitchExample extends Component {
   handleRemove = () => {
     // alert("Removed from your schedule! ");
     this.onremoving();
-  }
+  };
 
+ 
+
+  onChange = (event, selectedDate) => {
+  // const [date, setDate] = useState(new Date(1598051730000));
+  
+    const d=JSON.stringify(date);
+ 
+  
+ 
+    const currentDate = selectedDate || date;
+   // setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+    this.setState({selectedHoursf:(JSON.stringify(date.getHours())), selectedMinutesf:(JSON.stringify(date.getMinutes())) })
+  };
+
+//   showMode = (currentMode) => {
+//     setShow(true);
+//     setMode(currentMode);
+//   };
+ 
+ showTimepicker = () => {
+  //const [date, setDate] = useState(new Date(1598051730000));
+    this.setState({timepicker: true});
+  };
+  showTimepicker1 = () => {
+    //const [date, setDate] = useState(new Date(1598051730000));
+      this.setState({timepicker1: true});
+    };
+ 
   render() {
     const { Module, selectedHoursf,selectedMinutesf,selectedHourst,selectedMinutest, Location } = this.state;
     const { Day } = this.state;
     const { Class } = this.state;
+  //  const date = (new Date(1598051730000));
+ //  const [mode, setMode] = ('date');
+//    var show = false;
+//    var setShow=false;
+//   const onChange = (event, selectedDate) => {
+//    // const [date, setDate] = useState(new Date(1598051730000));
+   
+//      const d=JSON.stringify(date);
+  
+   
+  
+//      const currentDate = selectedDate || date;
+//      setShow(Platform.OS === 'ios');
+//      setDate(currentDate);
+//      this.setState({selectedHoursf:parseInt(JSON.stringify(date.getHours())), selectedMinutesf:  parseInt(JSON.stringify(date.getMinutes())) })
+//    };
+//    const   showMode = (currentMode) => {
+//     setShow(true);
+//     setMode(currentMode);
+//   };
+ 
+// const showTimepicker = () => {
+//     //showMode('time');
+//     //setShow(true);
+//     setMode("time");
+//     show=true;
+//   };
+
    
       return (
 
@@ -751,7 +815,7 @@ export default class SwitchExample extends Component {
               </Picker>
               </View>
               <Title style={styles.text1}>Module</Title>
-              <TextInput style={styles.textInput} placeholder="Module" onChangeText={this.handleUpdateModule} value={Module}/>
+              <TextInput style={styles.textInput}  mode='outlined' label="Module" placeholder="Module" onChangeText={this.handleUpdateModule} value={Module}/>
               <Title style={styles.text1}>Class</Title>
               <View
                     style={{
@@ -784,12 +848,12 @@ export default class SwitchExample extends Component {
                         alignSelf: 'center'
                     }}>
               <Title style={styles.text1}>
-          {selectedHoursf}hr:{selectedMinutesf}min
+          {this.state.selectedHoursf}hr:{this.state.selectedMinutesf}min
          
         </Title>
         </View>
       
-              <TimePicker 
+                {/* <TimePicker 
           selectedHours={this.state.selectedHoursf}
           //initial Hours value
           selectedMinutes={this.state.selectedMinutesf}
@@ -797,8 +861,26 @@ export default class SwitchExample extends Component {
           onChange={(selectedHoursf, selectedMinutesf) =>
             this.setState({selectedHoursf:selectedHoursf, selectedMinutesf: selectedMinutesf })
           }
-        />
-      
+        />  */}
+       
+  
+       <View>
+        <PurpleButton style={styles.button2} onPress={this.showTimepicker}>Choose start time</PurpleButton>
+      </View>
+     {this.state.timepicker &&(
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={this.state.date}
+          mode="time"
+          is24Hour={true}
+          display="default"
+        //  timeZoneOffsetInMinutes={480}
+          onChange={(event, value)=>{
+            this.setState({selectedHoursf:parseInt(JSON.stringify(value.getHours())), selectedMinutesf:parseInt(JSON.stringify(value.getMinutes())), timepicker:false})
+          }}
+     /> )}
+    
+
               <Title style={styles.text1}>Time to</Title>
               <Subheading style={styles.text1}>24 Hours format</Subheading>
               <View
@@ -811,10 +893,10 @@ export default class SwitchExample extends Component {
                         alignSelf: 'center'
                     }}>
               <Title style={styles.text1}>
-          {selectedHourst}hr:{selectedMinutest}min
+          {this.state.selectedHourst}hr:{this.state.selectedMinutest}min
         </Title>
        </View>
-              <TimePicker 
+              {/* <TimePicker 
         
           selectedHourst={selectedHourst}
           //initial Hours value
@@ -823,7 +905,22 @@ export default class SwitchExample extends Component {
           onChange={(selectedHourst, selectedMinutest) =>
             this.setState({ selectedHourst:selectedHourst, selectedMinutest: selectedMinutest })
           }
-        />
+        /> */}
+         <View>
+        <PurpleButton style={styles.button2} onPress={this.showTimepicker1}>Choose end time</PurpleButton>
+      </View>
+     {this.state.timepicker1 &&(
+        <DateTimePicker
+          testID="dateTimePicker2"
+          value={this.state.date2}
+          mode="time"
+          is24Hour={true}
+          display="default"
+        //  timeZoneOffsetInMinutes={480}
+          onChange={(event, value)=>{
+            this.setState({selectedHourst:parseInt(JSON.stringify(value.getHours())), selectedMinutest:parseInt(JSON.stringify(value.getMinutes())), timepicker1:false})
+          }}
+     /> )}
     
         <Title style={styles.text1}>Location</Title>
               {/* <TextInput style={styles.textInput} placeholder="Location" onChangeText={this.handleUpdateLocation} value={Location}/> */}
@@ -976,15 +1073,15 @@ const styles = StyleSheet.create ({
     fontWeight: "bold"
   },
   textInput: {
-    borderRadius:5,
+   // borderRadius:5,
     borderColor:'black',
-    borderWidth: 2,
-    backgroundColor:'white',
+  //   borderWidth: 1,
+   backgroundColor:'white',
     fontSize: 20,
-    marginTop:10,
-    marginLeft: 5,
-    alignSelf: "center",
-    alignItems: "center"
+    //  marginTop:10,
+    // marginLeft: 5,
+   // alignSelf: "center",
+   // alignItems: "center"
    
   },
   text6: {
@@ -1003,12 +1100,26 @@ const styles = StyleSheet.create ({
   },
   button1: {
     marginTop: 10,
-        borderRadius:20,
-       // width: 20,
-        height:45,
-        alignSelf:'center',
-        justifyContent:"center",
-        alignItems:"center"
+      borderRadius:20,
+     // width: 20,
+      height:45,
+      alignSelf:'center',
+      justifyContent:"center",
+      alignItems:"center"
+   
+     
+      
+  },
+  button2: {
+    marginTop: 10,
+      borderRadius:20,
+     // width: 20,
+      height:45,
+      alignSelf:'center',
+      justifyContent:"center",
+      alignItems:"center",
+    //  color:"#c17eef"
+   
      
       
   },

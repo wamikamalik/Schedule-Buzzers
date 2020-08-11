@@ -1,10 +1,10 @@
 import React from 'react'
-import { SafeAreaView, Image, TextInput, Text, ActivityIndicator, StyleSheet, ImageBackground,Dimensions, borderWidth} from 'react-native'
+import { SafeAreaView, Image, Text, ActivityIndicator, StyleSheet, ImageBackground,Dimensions, borderWidth} from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import BlackButton from '../component/BlackButton';
 import firebaseDb from '../firebaseDb';
 import Constants from 'expo-constants'
-import {Appbar, Title, Subheading} from 'react-native-paper';
+import {Appbar, Title, Subheading,TextInput} from 'react-native-paper';
 
 class accntDetails extends React.Component {
 
@@ -109,15 +109,15 @@ reauthenticate = (currentPassword) => {
     </Appbar>
             <Subheading>Not for Google users of the app</Subheading>
             <Subheading>Enter Current Password:</Subheading>
-            <TextInput secureTextEntry style={styles.textInput} placeholder='Password' onChangeText={this.handleUpdatePassword} value={this.state.password}/> 
+            <TextInput secureTextEntry style={styles.textInput} mode ="outlined" label="Current Password" placeholder='Password' onChangeText={this.handleUpdatePassword} value={this.state.password}/> 
             <Title>Change Email</Title>
             <Subheading>Enter new email:</Subheading>
-            <TextInput style={styles.textInput} placeholder='New Email' onChangeText={this.handleUpdateEmail} value={this.state.newEmail}/> 
+            <TextInput style={styles.textInput} mode ="outlined" label="New Email" placeholder='New Email' onChangeText={this.handleUpdateEmail} value={this.state.newEmail}/> 
             <BlackButton style={styles.button} onPress={this.changeEmail}>Update Email</BlackButton>
             
             <Title>Change Password</Title>
             <Subheading>Enter new password:</Subheading>
-            <TextInput secureTextEntry style={styles.textInput} placeholder='New Password' onChangeText={this.handleUpdatenewPassword} value={this.state.newPassword}/> 
+            <TextInput secureTextEntry style={styles.textInput} mode ="outlined" label="New Password" placeholder='New Password' onChangeText={this.handleUpdatenewPassword} value={this.state.newPassword}/> 
             <BlackButton style={styles.button} onPress={this.changePassword}>Update Password</BlackButton>
         
         </SafeAreaView>
@@ -138,16 +138,16 @@ const styles = StyleSheet.create({
       backgroundColor:"#c17eef"
   },
     textInput: {
-        borderWidth:2,
-        backgroundColor:'white',
+        // borderWidth:2,
+        // backgroundColor:'white',
         fontSize: 20,
         //marginTop: 10,
         marginLeft: 5,
         width: (Dimensions.get('window').width>400)?400: Dimensions.get('window').width- 50,
         height: 50,
-        fontWeight: "bold",
+        //fontWeight: "bold",
         alignSelf:'center',
-        alignItems: 'center',
+       // alignItems: 'center',
         //color: "white"
       },
       text: {

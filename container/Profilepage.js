@@ -1,12 +1,12 @@
 import React from 'react'
-import { SafeAreaView, Image, TextInput, Text, ActivityIndicator, StyleSheet, Button, ImageBackground } from 'react-native'
+import { SafeAreaView, Image, Text, ActivityIndicator,Dimensions, StyleSheet, Button, ImageBackground } from 'react-native'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import BlackButton from '../component/BlackButton';
 import firebaseDb from '../firebaseDb';
 import * as ImagePicker from 'expo-image-picker';
 import RNFetchBlob from 'react-native-fetch-blob'
 import Constants from 'expo-constants'
-import {Appbar, Title, Subheading} from 'react-native-paper'
+import {Appbar, Title, Subheading,TextInput} from 'react-native-paper'
 import {decode, encode} from 'base-64';
 
 if (!global.btoa) {
@@ -190,9 +190,9 @@ class Profilepage extends React.Component {
                 <Image style={styles.imagea} source={{uri: this.state.photo}}></Image>
                 <BlackButton style={styles.buttona} onPress={this.selectImage}>Change</BlackButton>
 
-                <Title style = {styles.text1}>Name</Title><TextInput style={styles.textInput} placeholder={this.state.name} onChangeText={this.handleUpdateName} value={this.state.name}/>
+                <Title style = {styles.text1}>Name</Title><TextInput style={styles.textInput} mode="outlined" label="Name" placeholder={this.state.name} onChangeText={this.handleUpdateName} value={this.state.name}/>
                 
-                <Title style = {styles.text1}>Phone No</Title><TextInput style={styles.textInput} placeholder={this.state.phoneNo} onChangeText={this.handleUpdatePhone} value={this.state.phoneNo}/>
+                <Title style = {styles.text1}>Phone No</Title><TextInput style={styles.textInput}mode="outlined" label="Phone No" placeholder={this.state.phoneNo} onChangeText={this.handleUpdatePhone} value={this.state.phoneNo}/>
                 
                 <Title style = {styles.text1}>Email</Title><Text style={styles.email}>{this.state.userEmail}</Text>
                 
@@ -218,20 +218,19 @@ const styles = StyleSheet.create({
     top: {
       backgroundColor:"#c17eef"
   },
-    textInput: {
-        borderRadius:5,
-        backgroundColor:'white',
-        fontSize: 20,
-        //marginTop: 10,
-        //marginLeft: 5,
-        // width: 400,
-        // height: 50,
-        fontWeight: "bold",
-        alignSelf:'center',
-        alignItems: 'center',
-        borderWidth:2,
-        //color: 'white'
-      },
+  textInput: {
+    // borderWidth:2,
+    // backgroundColor:'white',
+    fontSize: 20,
+    //marginTop: 10,
+    marginLeft: 5,
+    width: (Dimensions.get('window').width>400)?400: Dimensions.get('window').width- 50,
+    height: 50,
+    //fontWeight: "bold",
+    alignSelf:'center',
+   // alignItems: 'center',
+    //color: "white"
+  },
       email: {
         borderRadius:5,
         //backgroundColor:'white',

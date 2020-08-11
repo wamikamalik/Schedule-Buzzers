@@ -1,10 +1,10 @@
 import React from 'react'
-import { View, Image, TextInput, Text, ActivityIndicator, StyleSheet,Dimensions } from 'react-native'
+import { View, Image,  Text, ActivityIndicator, StyleSheet,Dimensions } from 'react-native'
 import BlackButton from '../component/BlackButton';
 import firebaseDb from '../firebaseDb';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Constants from 'expo-constants'
-import {Appbar, Title, Subheading} from 'react-native-paper';
+import {Appbar, Title, Subheading, TextInput} from 'react-native-paper';
 class SignInContainer extends React.Component {
   state = {
     name: '',
@@ -49,8 +49,8 @@ class SignInContainer extends React.Component {
 
     return (
       <View style={styles.container}>
-        <TextInput style={styles.textInput} placeholder="Email" onChangeText={this.handleUpdateEmail} value={email}/>
-        <TextInput secureTextEntry style={styles.textInput} placeholder="Password" 
+        <TextInput style={styles.textInput} placeholder="Email" mode="outlined" label="Email" onChangeText={this.handleUpdateEmail} value={email}/>
+        <TextInput secureTextEntry style={styles.textInput} placeholder="Password" label="Password" mode="outlined"
         onChangeText={this.handleUpdatePassword} value={password}/>
         <BlackButton style={styles.button} onPress={this.handleSignIn}>
           Sign In
@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffebcd'
   },
   textInput: {
-    borderRadius: 5,
-    borderWidth: 2,
+   // borderRadius: 5,
+  //  borderWidth: 2,
     backgroundColor: "white",
     fontSize: 20,
     marginBottom: 8,
