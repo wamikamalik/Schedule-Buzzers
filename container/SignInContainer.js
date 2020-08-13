@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 8,
     width: (Dimensions.get('window').width>400)?400:Dimensions.get('window').width-40,
-    height: 50
+  
   },
   button: {
     marginTop: 42,

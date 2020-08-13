@@ -1,10 +1,11 @@
 import React from 'react'
-import { View, KeyboardAvoidingView, Image, TextInput, Text, StyleSheet,Dimensions } from 'react-native'
+import { View, KeyboardAvoidingView, Image, Text, StyleSheet,Dimensions } from 'react-native'
 import firebaseDb from '../firebaseDb'
 import BlackButton from '../component/BlackButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {CheckBox} from 'react-native-elements'
 import Constants from 'expo-constants'
+import {Appbar, Title, Subheading, TextInput} from 'react-native-paper';
 
 class SignUpContainer extends React.Component {
   state = {
@@ -82,11 +83,11 @@ class SignUpContainer extends React.Component {
 
     return (
      <View style={styles.container}>
-        <TextInput style={styles.textInput} placeholder="Name" onChangeText={this.handleUpdateName} value={name}/>
-        <TextInput style={styles.textInput} placeholder="Email" onChangeText={this.handleUpdateEmail} value={email}/>
-        <TextInput secureTextEntry style={styles.textInput} placeholder="Password" 
+        <TextInput style={styles.textInput} placeholder="Name" label="Name" mode = "outlined" onChangeText={this.handleUpdateName} value={name}/>
+        <TextInput style={styles.textInput} placeholder="Email" label="Email" mode="outlined" onChangeText={this.handleUpdateEmail} value={email}/>
+        <TextInput secureTextEntry style={styles.textInput} placeholder="Password" label="Password" mode="outlined"
         onChangeText={this.handleUpdatePassword} value={password}/>
-        <TextInput secureTextEntry style={styles.textInput} placeholder="Repeat Password" 
+        <TextInput secureTextEntry style={styles.textInput} placeholder="Repeat Password" label="Repeat Password" mode="outlined"
         onChangeText={this.handleUpdatePassword1} value={password1}/>
         <CheckBox containerStyle={{backgroundColor: '#ffebcd',borderColor:'#ffebcd'}} 
         title ={<View>
@@ -131,13 +132,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffebcd'
   },
   textInput: {
-    borderRadius:5,
-    borderWidth: 2,
+    // borderRadius:5,
+    // borderWidth: 2,
     backgroundColor:'white',
     fontSize: 20,
     marginBottom: 8,
     width: (Dimensions.get('window').width>400)?400:Dimensions.get('window').width-40,
-    height: 50
   },
   button: {
     marginTop: 20,

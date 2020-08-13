@@ -777,8 +777,7 @@ export default class SwitchExample extends Component {
 //     setMode("time");
 //     show=true;
 //   };
-
-   
+ 
       return (
 
          <SafeAreaView style={styles.container}>
@@ -793,17 +792,20 @@ export default class SwitchExample extends Component {
     </Appbar.Header>
     
   
-           <ScrollView>
-            
+    <ScrollView>
+            <View style={{marginLeft:15, marginRight: 15}}>
               <Title style={styles.text1}>Day of the week</Title>
               <View
                     style={{
                       
                         borderColor: 'black',
-                        borderTopWidth:1,
-                        borderBottomWidth:1,
+                        // borderTopWidth:1,
+                        // borderBottomWidth:1,
+                        borderWidth: 1,
+                        paddingLeft: 15,
+                        backgroundColor:"white",
                      //   borderRadius: 10,
-                        alignSelf: 'center'
+                        
                     }}>
               <Picker style={styles.pickerStyle}
         
@@ -824,10 +826,13 @@ export default class SwitchExample extends Component {
                     style={{
                       
                         borderColor: 'black',
-                        borderTopWidth:1,
-                        borderBottomWidth:1,
+                        // borderTopWidth:1,
+                        // borderBottomWidth:1,
+                        borderWidth: 1,
+                        paddingLeft: 15,
+                        backgroundColor:"white",
                      //   borderRadius: 10,
-                        alignSelf: 'center'
+                        
                     }}>
               <Picker style={styles.pickerStyle}  
                        selectedValue={(this.state && this.state.Class) || 'Select Class Type'}
@@ -931,10 +936,13 @@ export default class SwitchExample extends Component {
                     style={{
                       
                         borderColor: 'black',
-                        borderTopWidth:1,
-                        borderBottomWidth:1,
+                        // borderTopWidth:1,
+                        // borderBottomWidth:1,
+                        borderWidth: 1,
+                        paddingLeft: 15,
+                        backgroundColor:"white",
                      //   borderRadius: 10,
-                        alignSelf: 'center'
+                        
                     }}>
               <Picker style={styles.pickerStyle}
         
@@ -987,7 +995,7 @@ export default class SwitchExample extends Component {
           onPress={this._getCalendars}
         />
         <Button title={"Fetch All Events"} onPress={this._fetchAllEvents} /> */}
-      
+      </View>
         </ScrollView>
           </SafeAreaView>  
 
@@ -1019,14 +1027,16 @@ const styles = StyleSheet.create ({
       color: '#344953',
       //flexDirection: "",
     justifyContent: "center",
-    alignSelf: "center"
+    alignSelf: "center",
+    marginLeft:20, marginRight:20
   },
   pickerStyle2:{
       height: 50,
       width: (Dimensions.get('window').width>400)?400: Dimensions.get('window').width- 50,
       color: '#344953',
-      justifyContent: 'center', 
-      alignSelf: "center" },
+      marginLeft:20, marginRight:20
+    },
+      
   textb: {
     //color: "white",
     fontSize: 28,
@@ -1043,7 +1053,7 @@ const styles = StyleSheet.create ({
    // fontSize: 20,
     marginTop: 20,
     alignSelf: "center",
-    //fontWeight: "bold"
+    fontWeight: "bold"
 
   },
   text2: {
@@ -1080,7 +1090,7 @@ const styles = StyleSheet.create ({
     borderColor:'black',
   //   borderWidth: 1,
    backgroundColor:'white',
-    fontSize: 20,
+    fontSize: 17,
     //  marginTop:10,
     // marginLeft: 5,
    // alignSelf: "center",
