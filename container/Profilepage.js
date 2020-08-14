@@ -1,5 +1,5 @@
 import React from 'react'
-import { SafeAreaView, Image, Text, ActivityIndicator,Dimensions, StyleSheet, Button, ImageBackground } from 'react-native'
+import { View, SafeAreaView, Image, Text, ActivityIndicator,Dimensions, StyleSheet, Button, ImageBackground } from 'react-native'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import BlackButton from '../component/BlackButton';
 import firebaseDb from '../firebaseDb';
@@ -185,8 +185,8 @@ class Profilepage extends React.Component {
     </Appbar>
              
               <ScrollView>
-              
-                <Subheading>Google users of the app can change these in their google settings only</Subheading>
+              <View style={{marginLeft:15, marginRight: 15}}>
+                <Subheading>(*Only local changes for Google users.)</Subheading>
                 <Image style={styles.imagea} source={{uri: this.state.photo}}></Image>
                 <BlackButton style={styles.buttona} onPress={this.selectImage}>Change</BlackButton>
 
@@ -196,10 +196,11 @@ class Profilepage extends React.Component {
                 
                 <Title style = {styles.text1}>Email</Title><Text style={styles.email}>{this.state.userEmail}</Text>
                 
-                <Title >To change email or password go to account details</Title>
+                <Subheading >To change email or password go to account details</Subheading>
 
                 
                 <BlackButton style={styles.button} onPress={this.UpdateUser}>Update Details</BlackButton>
+                </View>
                </ScrollView>
             </SafeAreaView>
             
@@ -224,10 +225,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     //marginTop: 10,
     marginLeft: 5,
-    width: (Dimensions.get('window').width>400)?400: Dimensions.get('window').width- 50,
-    height: 50,
+    //width: (Dimensions.get('window').width>400)?400: Dimensions.get('window').width- 50,
+    //height: 50,
     //fontWeight: "bold",
-    alignSelf:'center',
+    //alignSelf:'center',
    // alignItems: 'center',
     //color: "white"
   },
@@ -265,7 +266,7 @@ const styles = StyleSheet.create({
       borderRadius: 70,
       alignSelf:'center',
       marginTop: 25,
-      marginBottom: 2
+      marginBottom: 10
     },
     button: {
         marginTop: 25,

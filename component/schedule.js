@@ -793,354 +793,403 @@ export default class SwitchExample extends Component {
     
   
     <ScrollView>
-            <View style={{marginLeft:15, marginRight: 15}}>
-              <Title style={styles.text1}>Day of the week</Title>
-              <View
-                    style={{
-                      
-                        borderColor: 'black',
-                        // borderTopWidth:1,
-                        // borderBottomWidth:1,
-                        borderWidth: 1,
-                        paddingLeft: 15,
-                        backgroundColor:"white",
-                     //   borderRadius: 10,
-                        
-                    }}>
-              <Picker style={styles.pickerStyle}
-        
-                       selectedValue={(this.state && this.state.Day) || 'Select Day'}
-                      onValueChange={(value) => {this.setState({Day: value});}}>
-                    <Picker.Item label=" Select Day" value="null" />
-                    <Picker.Item label="Monday" value="Monday" />
-                    <Picker.Item label="Tuesday" value="Tuesday" />
-                    <Picker.Item label="Wednesday" value="Wednesday" />
-                    <Picker.Item label="Thursday" value="Thursday" />
-                    <Picker.Item label="Friday" value="Friday" />
-              </Picker>
-              </View>
-              <Title style={styles.text1}>Module</Title>
-              <TextInput style={styles.textInput}  mode='outlined' label="Module" placeholder="Module" onChangeText={this.handleUpdateModule} value={Module}/>
-              <Title style={styles.text1}>Class</Title>
-              <View
-                    style={{
-                      
-                        borderColor: 'black',
-                        // borderTopWidth:1,
-                        // borderBottomWidth:1,
-                        borderWidth: 1,
-                        paddingLeft: 15,
-                        backgroundColor:"white",
-                     //   borderRadius: 10,
-                        
-                    }}>
-              <Picker style={styles.pickerStyle}  
-                       selectedValue={(this.state && this.state.Class) || 'Select Class Type'}
-                       onValueChange={(value) => {this.setState({Class: value});}}>
-                    <Picker.Item label="Select Class Type" value="null" />
-                    <Picker.Item label="Lecture" value="lecture" />
-                    <Picker.Item label="Lab" value="lab" />
-                    <Picker.Item label="Tutorial" value="tutorial" />
 
-              </Picker>
-              </View>
-              <Title style={styles.text1}>Time from</Title>
-              <Subheading style ={styles.text1} >24 Hours format</Subheading>
-              <View
-                    style={{
-                      
-                        borderColor: 'black',
-                      //  borderTopWidth:1,
-                        borderBottomWidth:1,
-                     //   borderRadius: 10,
-                        alignSelf: 'center'
-                    }}>
-              <Title style={styles.text1}>
-          {this.state.selectedHoursf}hr:{this.state.selectedMinutesf}min
-         
-        </Title>
-        </View>
-      
-                {/* <TimePicker 
-          selectedHours={this.state.selectedHoursf}
-          //initial Hours value
-          selectedMinutes={this.state.selectedMinutesf}
-          //initial Minutes value
-          onChange={(selectedHoursf, selectedMinutesf) =>
-            this.setState({selectedHoursf:selectedHoursf, selectedMinutesf: selectedMinutesf })
-          }
-        />  */}
-       
+<View style={{marginLeft:15, marginRight: 15}}>
+<Subheading style={{fontWeight:'bold', alignSelf:'center', marginTop: 10, color: "red"}}>* - 24 Hours format</Subheading>
+  <Title style={styles.text1}>Day of the week</Title>
+  <View
+        style={{
+          
+            borderColor: 'black',
+            // borderTopWidth:1,
+            // borderBottomWidth:1,
+            borderWidth: 1,
+            paddingLeft: 15,
+            backgroundColor:"white",
+         //   borderRadius: 10,
+            
+        }}>
+  <Picker style={styles.pickerStyle}
+
+           selectedValue={(this.state && this.state.Day) || 'Select Day'}
+          onValueChange={(value) => {this.setState({Day: value});}}>
+        <Picker.Item label=" Select Day" value="null" />
+        <Picker.Item label="Monday" value="Monday" />
+        <Picker.Item label="Tuesday" value="Tuesday" />
+        <Picker.Item label="Wednesday" value="Wednesday" />
+        <Picker.Item label="Thursday" value="Thursday" />
+        <Picker.Item label="Friday" value="Friday" />
+  </Picker>
+  </View>
+  <Title style={styles.text1}>Module</Title>
+  <TextInput style={styles.textInput}  mode='outlined' label="Module" placeholder="Module" onChangeText={this.handleUpdateModule} value={Module}/>
+  <Title style={styles.text1}>Class</Title>
+  <View
+        style={{
+          
+            borderColor: 'black',
+            // borderTopWidth:1,
+            // borderBottomWidth:1,
+            borderWidth: 1,
+            paddingLeft: 15,
+            backgroundColor:"white",
+         //   borderRadius: 10,
+            
+        }}>
+  <Picker style={styles.pickerStyle}  
+           selectedValue={(this.state && this.state.Class) || 'Select Class Type'}
+           onValueChange={(value) => {this.setState({Class: value});}}>
+        <Picker.Item label="Select Class Type" value="null" />
+        <Picker.Item label="Lecture" value="lecture" />
+        <Picker.Item label="Lab" value="lab" />
+        <Picker.Item label="Tutorial" value="tutorial" />
+
+  </Picker>
+  </View>
+  <Title style={styles.text1}>Time from*</Title>
+  {/* <Subheading style ={styles.text1} >24 Hours format</Subheading> */}
+  <View style={{flex:2, flexDirection:"row"}}>
+  <View
+        style={{
+          
+            // borderColor: 'black',
+          //  borderTopWidth:1,
+            // borderBottomWidth:1,
+         //   borderRadius: 10,
+         width: (Dimensions.get('window').width/2),
+            justifyContent: "flex-end",
+            flex: 3, flexDirection:"row"
+        }}>
+          <View>
+  <TextInput style={styles.textInput} mode='outlined' label="hr" value={this.state.selectedHoursf.toString()} disabled={true}></TextInput></View>
+  <View><Title style={styles.text1}> : </Title></View>
+<View><TextInput style={styles.textInput} mode='outlined' label="m" value={this.state.selectedMinutesf.toString()} disabled={true}></TextInput></View>
+{/* <View><Title style={styles.text1}> min</Title></View> */}
+</View>
+
+    {/* <TimePicker 
+selectedHours={this.state.selectedHoursf}
+//initial Hours value
+selectedMinutes={this.state.selectedMinutesf}
+//initial Minutes value
+onChange={(selectedHoursf, selectedMinutesf) =>
+this.setState({selectedHoursf:selectedHoursf, selectedMinutesf: selectedMinutesf })
+}
+/>  */}
+
+
+<View style={{marginLeft: 10, flex:2, flexDirection:"column"}}>
+{/* <PurpleButton style={styles.button2} onPress={this.showTimepicker}>Choose start time</PurpleButton> */}
+<TouchableOpacity onPress={this.showTimepicker}><Image style={{width:50, height:50,marginTop:5,borderRadius:20, marginLeft: 10}} source={require("../assets/clock.png")}></Image>
+<Text>Start time</Text>
+</TouchableOpacity>
+</View>
+</View>
+{this.state.timepicker &&(
+<DateTimePicker
+testID="dateTimePicker"
+value={this.state.date}
+mode="time"
+is24Hour={true}
+display="default"
+//  timeZoneOffsetInMinutes={480}
+onChange={(event, value)=>{
+this.setState({selectedHoursf:parseInt(JSON.stringify(value.getHours())), selectedMinutesf:parseInt(JSON.stringify(value.getMinutes())), timepicker:false})
+}}
+/> )}
+
+<Title style={styles.text1}>Time to*</Title>
+{/* <Subheading style ={styles.text1} >24 Hours format</Subheading> */}
+<View style={{flex:2, flexDirection:"row"}}>
+<View
+style={{
   
-       <View>
-        <PurpleButton style={styles.button2} onPress={this.showTimepicker}>Choose start time</PurpleButton>
-      </View>
-     {this.state.timepicker &&(
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={this.state.date}
-          mode="time"
-          is24Hour={true}
-          display="default"
-        //  timeZoneOffsetInMinutes={480}
-          onChange={(event, value)=>{
-            this.setState({selectedHoursf:parseInt(JSON.stringify(value.getHours())), selectedMinutesf:parseInt(JSON.stringify(value.getMinutes())), timepicker:false})
-          }}
-     /> )}
-    
+    // borderColor: 'black',
+  //  borderTopWidth:1,
+    // borderBottomWidth:1,
+  //   borderRadius: 10,
+  width: (Dimensions.get('window').width/2),
+    justifyContent: "flex-end",
+    flex: 3, flexDirection:"row"
+}}>
+  <View>
+  <TextInput style={styles.textInput} mode='outlined' label="hr" value={this.state.selectedHoursf.toString()} disabled={true}></TextInput></View>
+  <View><Title style={styles.text1}> : </Title></View>
+<View><TextInput style={styles.textInput} mode='outlined' label="m" value={this.state.selectedMinutesf.toString()} disabled={true}></TextInput></View>
+{/* <View><Title style={styles.text1}> min</Title></View> */}
+</View>
 
-              <Title style={styles.text1}>Time to</Title>
-              <Subheading style={styles.text1}>24 Hours format</Subheading>
-              <View
-                    style={{
-                      
-                        borderColor: 'black',
-                      //  borderTopWidth:1,
-                        borderBottomWidth:1,
-                     //   borderRadius: 10,
-                        alignSelf: 'center'
-                    }}>
-              <Title style={styles.text1}>
-          {this.state.selectedHourst}hr:{this.state.selectedMinutest}min
-        </Title>
-       </View>
-              {/* <TimePicker 
-        
-          selectedHourst={selectedHourst}
-          //initial Hours value
-          selectedMinutest={selectedMinutest}
-          //initial Minutes value
-          onChange={(selectedHourst, selectedMinutest) =>
-            this.setState({ selectedHourst:selectedHourst, selectedMinutest: selectedMinutest })
-          }
-        /> */}
-         <View>
-        <PurpleButton style={styles.button2} onPress={this.showTimepicker1}>Choose end time</PurpleButton>
-      </View>
-     {this.state.timepicker1 &&(
-        <DateTimePicker
-          testID="dateTimePicker2"
-          value={this.state.date2}
-          mode="time"
-          is24Hour={true}
-          display="default"
-        //  timeZoneOffsetInMinutes={480}
-          onChange={(event, value)=>{
-            this.setState({selectedHourst:parseInt(JSON.stringify(value.getHours())), selectedMinutest:parseInt(JSON.stringify(value.getMinutes())), timepicker1:false})
-          }}
-     /> )}
-    
-        <Title style={styles.text1}>Location</Title>
-              {/* <TextInput style={styles.textInput} placeholder="Location" onChangeText={this.handleUpdateLocation} value={Location}/> */}
-              <View
-                    style={{
-                      
-                        borderColor: 'black',
-                        // borderTopWidth:1,
-                        // borderBottomWidth:1,
-                        borderWidth: 1,
-                        paddingLeft: 15,
-                        backgroundColor:"white",
-                     //   borderRadius: 10,
-                        
-                    }}>
-              <Picker style={styles.pickerStyle}
-        
-        selectedValue={(this.state && this.state.Location) || 'Select the closest location'}
-       onValueChange={(value) => {this.setState({Location: value});}}>
-     <Picker.Item label=" Select the closest location" value="null" />
-     <Picker.Item label="FASS" value="FASS" />
-     <Picker.Item label="E3,E4,E5" value="E3,E4,E5" />
-     <Picker.Item label="EA" value="EA" />
-     <Picker.Item label="Business" value="Business" />
-     <Picker.Item label="FOS" value="FOS" />
-     <Picker.Item label="Science Drive" value="Science Drive" />
-     <Picker.Item label="Saw Swee Hock School Of Public Health" value="Saw Swee Hock School Of Public Health" />
-     <Picker.Item label="University Town" value="University Town" />
-     <Picker.Item label="USP" value="USP" />
-     <Picker.Item label="Yale NUS" value="Yale NUS" />
-     <Picker.Item label="Yong Siew Toh Conservatory of Music" value= 'Yong Siew Toh Conservatory of Music'/>
-     <Picker.Item label="Medicine" value="Medicine" />
-     <Picker.Item label="Nursing" value="Nursing" />
-     <Picker.Item label="Dentistry" value="Dentistry" />
-     <Picker.Item label="Law" value="Law" />
-     <Picker.Item label="Prince George's Park" value="Prince George's Park" />
-     <Picker.Item label="RVRC" value="RVRC" />
-     <Picker.Item label="Computing" value="Computing" />
-     <Picker.Item label="Lee Kuan Yew School of Public Policy" value="Lee Kuan Yew School of Public Policy" />
-     <Picker.Item label="School of Design and Environment" value="School of Design and Environment" />
-     <Picker.Item label="TCOMS" value="TCOMS" />
+    {/* <TimePicker 
+selectedHours={this.state.selectedHoursf}
+//initial Hours value
+selectedMinutes={this.state.selectedMinutesf}
+//initial Minutes value
+onChange={(selectedHoursf, selectedMinutesf) =>
+this.setState({selectedHoursf:selectedHoursf, selectedMinutesf: selectedMinutesf })
+}
+/>  */}
+
+
+<View style={{marginLeft: 10, flex:2, flexDirection:"column"}}>
+{/* <PurpleButton style={styles.button2} onPress={this.showTimepicker}>Choose start time</PurpleButton> */}
+<TouchableOpacity onPress={this.showTimepicker1}><Image style={{width:50, height:50,marginTop:5,borderRadius:20, marginLeft: 10}} source={require("../assets/clock.png")}></Image>
+<Text>End time</Text>
+</TouchableOpacity>
+</View>
+</View>
+
+  {/* <Title style={styles.text1}>Time to</Title>
+  <Subheading style={styles.text1}>24 Hours format</Subheading>
+  <View
+        style={{
+          
+            borderColor: 'black',
+          //  borderTopWidth:1,
+            borderBottomWidth:1,
+         //   borderRadius: 10,
+            alignSelf: 'center'
+        }}>
+  <Title style={styles.text1}>
+{this.state.selectedHourst}hr:{this.state.selectedMinutest}min
+</Title>
+</View>
+//        <TimePicker 
+
+//   selectedHourst={selectedHourst}
+//   //initial Hours value
+//   selectedMinutest={selectedMinutest}
+//   //initial Minutes value
+//   onChange={(selectedHourst, selectedMinutest) =>
+//     this.setState({ selectedHourst:selectedHourst, selectedMinutest: selectedMinutest })
+//   }
+// /> 
+<View>
+<PurpleButton style={styles.button2} onPress={this.showTimepicker1}>Choose end time</PurpleButton>
+</View> */}
+{this.state.timepicker1 &&(
+<DateTimePicker
+testID="dateTimePicker2"
+value={this.state.date2}
+mode="time"
+is24Hour={true}
+display="default"
+//  timeZoneOffsetInMinutes={480}
+onChange={(event, value)=>{
+this.setState({selectedHourst:parseInt(JSON.stringify(value.getHours())), selectedMinutest:parseInt(JSON.stringify(value.getMinutes())), timepicker1:false})
+}}
+/> )}
+
+<Title style={styles.text1}>Location</Title>
+  {/* <TextInput style={styles.textInput} placeholder="Location" onChangeText={this.handleUpdateLocation} value={Location}/> */}
+  <View
+        style={{
+          
+            borderColor: 'black',
+            // borderTopWidth:1,
+            // borderBottomWidth:1,
+            borderWidth: 1,
+            paddingLeft: 15,
+            backgroundColor:"white",
+         //   borderRadius: 10,
+            
+        }}>
+  <Picker style={styles.pickerStyle}
+
+selectedValue={(this.state && this.state.Location) || 'Select the closest location'}
+onValueChange={(value) => {this.setState({Location: value});}}>
+<Picker.Item label=" Select the closest location" value="null" />
+<Picker.Item label="FASS" value="FASS" />
+<Picker.Item label="E3,E4,E5" value="E3,E4,E5" />
+<Picker.Item label="EA" value="EA" />
+<Picker.Item label="Business" value="Business" />
+<Picker.Item label="FOS" value="FOS" />
+<Picker.Item label="Science Drive" value="Science Drive" />
+<Picker.Item label="Saw Swee Hock School Of Public Health" value="Saw Swee Hock School Of Public Health" />
+<Picker.Item label="University Town" value="University Town" />
+<Picker.Item label="USP" value="USP" />
+<Picker.Item label="Yale NUS" value="Yale NUS" />
+<Picker.Item label="Yong Siew Toh Conservatory of Music" value= 'Yong Siew Toh Conservatory of Music'/>
+<Picker.Item label="Medicine" value="Medicine" />
+<Picker.Item label="Nursing" value="Nursing" />
+<Picker.Item label="Dentistry" value="Dentistry" />
+<Picker.Item label="Law" value="Law" />
+<Picker.Item label="Prince George's Park" value="Prince George's Park" />
+<Picker.Item label="RVRC" value="RVRC" />
+<Picker.Item label="Computing" value="Computing" />
+<Picker.Item label="Lee Kuan Yew School of Public Policy" value="Lee Kuan Yew School of Public Policy" />
+<Picker.Item label="School of Design and Environment" value="School of Design and Environment" />
+<Picker.Item label="TCOMS" value="TCOMS" />
 </Picker>
 </View>
-            <BlackButton
-            style={styles.button1}
-          
-            onPress={this.handleAdd}>Add</BlackButton>
-          
-           <BlackButton
-           style={styles.button1}
-           
-            onPress={this.handleRemove}>Remove</BlackButton>
-          
-          {/* <Button
-          title={"Get Calendar Status"}
-          onPress={this._getCalendarStatus}
-        />
-        <Button
-          title={"Request Calendar Permission"}
-          onPress={this._requestCalendarPermissions}
-        />
-        <Button
-          title={"Get Available Calendars"}
-          onPress={this._getCalendars}
-        />
-        <Button title={"Fetch All Events"} onPress={this._fetchAllEvents} /> */}
-      </View>
-        </ScrollView>
-          </SafeAreaView>  
+<BlackButton
+style={styles.button1}
 
-      ) 
-  }  
+onPress={this.handleAdd}>Add</BlackButton>
+
+<BlackButton
+style={styles.button1}
+
+onPress={this.handleRemove}>Remove</BlackButton>
+
+{/* <Button
+title={"Get Calendar Status"}
+onPress={this._getCalendarStatus}
+/>
+<Button
+title={"Request Calendar Permission"}
+onPress={this._requestCalendarPermissions}
+/>
+<Button
+title={"Get Available Calendars"}
+onPress={this._getCalendars}
+/>
+<Button title={"Fetch All Events"} onPress={this._fetchAllEvents} /> */}
+</View>
+</ScrollView>
+</SafeAreaView>  
+
+) 
+}  
 }  
 const styles = StyleSheet.create ({  
-  container:{ 
-    flex: 1,
-    backgroundColor: '#ffebcd',
-   // flexDirection: "column",justifyContent: 'center',alignItems:"center"
-  },
-  top: {
-    backgroundColor:"#c17eef"
+container:{ 
+flex: 1,
+backgroundColor: '#ffebcd',
+// flexDirection: "column",justifyContent: 'center',alignItems:"center"
 },
-  image: {
-    justifyContent: 'flex-start',
-    alignItems:'flex-start',
-    alignSelf: 'flex-start',
-    height: 40,
-    width:30,
-    marginLeft:15
- 
+top: {
+backgroundColor:"#c17eef"
 },
-  pickerStyle:{
-      marginLeft : 50,
-      height:50,
-      width: (Dimensions.get('window').width>400)?400: Dimensions.get('window').width- 50,
-      color: '#344953',
-      //flexDirection: "",
-    justifyContent: "center",
-    alignSelf: "center",
-    marginLeft:20, marginRight:20
-  },
-  pickerStyle2:{
-      height: 50,
-      width: (Dimensions.get('window').width>400)?400: Dimensions.get('window').width- 50,
-      color: '#344953',
-      marginLeft:20, marginRight:20
-    },
-      
-  textb: {
-    //color: "white",
-    fontSize: 28,
-    fontWeight:"bold",
-    alignSelf:'center',
-    marginTop:30,
-    textDecorationLine:"underline",
-    justifyContent: 'center',
-    textDecorationLine: "underline"
-    
-  },
-  text1: {
-  color: "black",
-   // fontSize: 20,
-    marginTop: 20,
-    alignSelf: "center",
-    fontWeight: "bold"
+image: {
+justifyContent: 'flex-start',
+alignItems:'flex-start',
+alignSelf: 'flex-start',
+height: 40,
+width:30,
+marginLeft:15
 
-  },
-  text2: {
-    //color: "white",
-    fontSize: 20,
-    marginTop: 20,
-    alignSelf: "center",
-    fontWeight: "bold"
-    
-  },
-  text3: {
-    //color: "white",
-    fontSize: 20,
-    marginTop: 20,
-    alignSelf: "center",
-    fontWeight: "bold"
-  },
-  text4: {
-    //color: "white",
-    fontSize: 20,
-    marginTop: 20,
-    alignSelf: "center",
-    fontWeight: "bold"
-  },
-  text5: {
-    //color: "white",
-    fontSize: 20,
-    marginTop: 20,
-    alignSelf: "center",
-    fontWeight: "bold"
-  },
-  textInput: {
-   // borderRadius:5,
-    borderColor:'black',
-  //   borderWidth: 1,
-   backgroundColor:'white',
-    fontSize: 17,
-    //  marginTop:10,
-    // marginLeft: 5,
-   // alignSelf: "center",
-   // alignItems: "center"
-   
-  },
-  text6: {
-    //color: "white",
-    fontSize: 20,
-    marginTop: 20,
-    alignSelf: "center",
-    fontWeight: "bold"
-  },
-  text7: {
-    //color: "white",
-    fontSize: 20,
-    marginTop: 20,
-    alignSelf: "center",
-    fontWeight: "bold"
-  },
-  button1: {
-    marginTop: 10,
-      borderRadius:20,
-     // width: 20,
-      height:45,
-      alignSelf:'center',
-      justifyContent:"center",
-      alignItems:"center"
-   
-     
-      
-  },
-  button2: {
-    marginTop: 10,
-      borderRadius:20,
-     // width: 20,
-      height:45,
-      alignSelf:'center',
-      justifyContent:"center",
-      alignItems:"center",
-    //  color:"#c17eef"
-   
-     
-      
-  },
-  picker: {
-    width: (Dimensions.get('window').width>100)?100: Dimensions.get('window').width- 10,
-  },
+},
+pickerStyle:{
+marginLeft : 50,
+height:50,
+width: (Dimensions.get('window').width>400)?400: Dimensions.get('window').width- 50,
+color: '#344953',
+//flexDirection: "",
+justifyContent: "center",
+alignSelf: "center",
+marginLeft:20, marginRight:20
+},
+pickerStyle2:{
+height: 50,
+width: (Dimensions.get('window').width>400)?400: Dimensions.get('window').width- 50,
+color: '#344953',
+marginLeft:20, marginRight:20
+},
 
-  
+textb: {
+//color: "white",
+fontSize: 28,
+fontWeight:"bold",
+alignSelf:'center',
+marginTop:30,
+textDecorationLine:"underline",
+justifyContent: 'center',
+textDecorationLine: "underline"
+
+},
+text1: {
+color: "black",
+// fontSize: 20,
+marginTop: 20,
+alignSelf: "center",
+fontWeight: "bold"
+
+},
+text2: {
+//color: "white",
+fontSize: 20,
+marginTop: 20,
+alignSelf: "center",
+fontWeight: "bold"
+
+},
+text3: {
+//color: "white",
+fontSize: 20,
+marginTop: 20,
+alignSelf: "center",
+fontWeight: "bold"
+},
+text4: {
+//color: "white",
+fontSize: 20,
+marginTop: 20,
+alignSelf: "center",
+fontWeight: "bold"
+},
+text5: {
+//color: "white",
+fontSize: 20,
+marginTop: 20,
+alignSelf: "center",
+fontWeight: "bold"
+},
+textInput: {
+// borderRadius:5,
+borderColor:'black',
+//   borderWidth: 1,
+backgroundColor:'white',
+fontSize: 17,
+//  marginTop:10,
+// marginLeft: 5,
+// alignSelf: "center",
+// alignItems: "center"
+
+},
+text6: {
+//color: "white",
+fontSize: 20,
+marginTop: 20,
+alignSelf: "center",
+fontWeight: "bold"
+},
+text7: {
+//color: "white",
+fontSize: 20,
+marginTop: 20,
+alignSelf: "center",
+fontWeight: "bold"
+},
+button1: {
+marginTop: 10,
+borderRadius:20,
+// width: 20,
+height:45,
+alignSelf:'center',
+justifyContent:"center",
+alignItems:"center"
+
+
+
+},
+button2: {
+marginTop: 10,
+borderRadius:20,
+// width: 20,
+height:45,
+alignSelf:'center',
+justifyContent:"center",
+alignItems:"center",
+//  color:"#c17eef"
+
+
+
+},
+picker: {
+width: (Dimensions.get('window').width>100)?100: Dimensions.get('window').width- 10,
+},
+
+
 })
 
 

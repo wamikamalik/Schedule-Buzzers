@@ -1,5 +1,5 @@
 import React from 'react'
-import { SafeAreaView, Image, Text, ActivityIndicator, StyleSheet, ImageBackground,Dimensions, borderWidth} from 'react-native'
+import { View, SafeAreaView, Image, Text, ActivityIndicator, StyleSheet, ImageBackground,Dimensions, borderWidth} from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import BlackButton from '../component/BlackButton';
 import firebaseDb from '../firebaseDb';
@@ -13,6 +13,8 @@ class accntDetails extends React.Component {
         userEmail : null,
         newEmail: null,
         newPassword: null,
+        opene: false,
+        openp: false
     }
 
     handleUpdatePassword = password => this.setState({password})
@@ -97,6 +99,7 @@ reauthenticate = (currentPassword) => {
   }
 
   render() {
+
       return (
         <SafeAreaView style={styles.container}>
         
@@ -107,19 +110,20 @@ reauthenticate = (currentPassword) => {
     />
      <Appbar.Content title="Account Details" />
     </Appbar>
-            <Subheading>Not for Google users of the app</Subheading>
+    <View style={{marginLeft:15, marginRight: 15}}>
+            <Subheading>(*Not for Google users of the app.)</Subheading>
             <Subheading>Enter Current Password:</Subheading>
             <TextInput secureTextEntry style={styles.textInput} mode ="outlined" label="Current Password" placeholder='Password' onChangeText={this.handleUpdatePassword} value={this.state.password}/> 
-            <Title>Change Email</Title>
-            <Subheading>Enter new email:</Subheading>
-            <TextInput style={styles.textInput} mode ="outlined" label="New Email" placeholder='New Email' onChangeText={this.handleUpdateEmail} value={this.state.newEmail}/> 
-            <BlackButton style={styles.button} onPress={this.changeEmail}>Update Email</BlackButton>
+            <TouchableOpacity onPress = {()=>{this.setState({opene:!this.state.opene})}}><Title style={{marginTop:10,alignSelf:"center"}}>Change Email v</Title></TouchableOpacity>
+            {this.state.opene&&<Subheading>Enter new email:</Subheading>}
+            {this.state.opene&&<TextInput style={styles.textInput} mode ="outlined" label="New Email" placeholder='New Email' onChangeText={this.handleUpdateEmail} value={this.state.newEmail}/>}
+            {this.state.opene&&<BlackButton style={styles.button} onPress={this.changeEmail}>Update Email</BlackButton>}
             
-            <Title>Change Password</Title>
-            <Subheading>Enter new password:</Subheading>
-            <TextInput secureTextEntry style={styles.textInput} mode ="outlined" label="New Password" placeholder='New Password' onChangeText={this.handleUpdatenewPassword} value={this.state.newPassword}/> 
-            <BlackButton style={styles.button} onPress={this.changePassword}>Update Password</BlackButton>
-        
+            <TouchableOpacity onPress = {()=>{this.setState({openp:!this.state.openp})}}><Title style={{marginTop:10,alignSelf:"center"}}>Change Password v</Title></TouchableOpacity>
+            {this.state.openp&&<Subheading>Enter new password:</Subheading>}
+            {this.state.openp&&<TextInput secureTextEntry style={styles.textInput} mode ="outlined" label="New Password" placeholder='New Password' onChangeText={this.handleUpdatenewPassword} value={this.state.newPassword}/>}
+             {this.state.openp&&<BlackButton style={styles.button} onPress={this.changePassword}>Update Password</BlackButton>}
+            </View>
         </SafeAreaView>
             
         )
@@ -143,10 +147,10 @@ const styles = StyleSheet.create({
         fontSize: 20,
         //marginTop: 10,
         marginLeft: 5,
-        width: (Dimensions.get('window').width>400)?400: Dimensions.get('window').width- 50,
-        height: 50,
+        //width: (Dimensions.get('window').width>400)?400: Dimensions.get('window').width- 50,
+        //height: 50,
         //fontWeight: "bold",
-        alignSelf:'center',
+        //alignSelf:'center',
        // alignItems: 'center',
         //color: "white"
       },
@@ -165,14 +169,6 @@ const styles = StyleSheet.create({
         textDecorationLine:'underline',
         //color: "white",
       },
-      image: {
-        justifyContent: 'flex-start',
-        alignItems:'flex-start',
-        alignSelf: 'flex-start',
-        height: 40,
-        width:30,
-        marginLeft:15
-    },
     button: {
         marginTop: 20,
         borderRadius:20,

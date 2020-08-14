@@ -791,7 +791,9 @@ export default class SwitchExample extends Component {
     
     </Appbar>
            <ScrollView>
+
             <View style={{marginLeft:15, marginRight: 15}}>
+            <Subheading style={{fontWeight:'bold', alignSelf:'center', marginTop: 10, color: "red"}}>* - 24 Hours format</Subheading>
               <Title style={styles.text1}>Day of the week</Title>
               <View
                     style={{
@@ -842,21 +844,25 @@ export default class SwitchExample extends Component {
 
               </Picker>
               </View>
-              <Title style={styles.text1}>Time from</Title>
-              <Subheading style ={styles.text1} >24 Hours format</Subheading>
+              <Title style={styles.text1}>Time from*</Title>
+              {/* <Subheading style ={styles.text1} >24 Hours format</Subheading> */}
+              <View style={{flex:2, flexDirection:"row"}}>
               <View
                     style={{
                       
-                        borderColor: 'black',
+                        // borderColor: 'black',
                       //  borderTopWidth:1,
-                        borderBottomWidth:1,
+                        // borderBottomWidth:1,
                      //   borderRadius: 10,
-                        alignSelf: 'center'
+                     width: (Dimensions.get('window').width/2),
+                        justifyContent: "flex-end",
+                        flex: 3, flexDirection:"row"
                     }}>
-              <Title style={styles.text1}>
-          {this.state.selectedHoursf}hr:{this.state.selectedMinutesf}min
-         
-        </Title>
+                      <View>
+              <TextInput style={styles.textInput} mode='outlined' label="hr" value={this.state.selectedHoursf.toString()} disabled={true}></TextInput></View>
+              <View><Title style={styles.text1}> : </Title></View>
+          <View><TextInput style={styles.textInput} mode='outlined' label="m" value={this.state.selectedMinutesf.toString()} disabled={true}></TextInput></View>
+          {/* <View><Title style={styles.text1}> min</Title></View> */}
         </View>
       
                 {/* <TimePicker 
@@ -870,8 +876,12 @@ export default class SwitchExample extends Component {
         />  */}
        
   
-       <View>
-        <PurpleButton style={styles.button2} onPress={this.showTimepicker}>Choose start time</PurpleButton>
+       <View style={{marginLeft: 10, flex:2, flexDirection:"column"}}>
+        {/* <PurpleButton style={styles.button2} onPress={this.showTimepicker}>Choose start time</PurpleButton> */}
+          <TouchableOpacity onPress={this.showTimepicker}><Image style={{width:50, height:50,marginTop:5,borderRadius:20, marginLeft: 10}} source={require("../assets/clock.png")}></Image>
+          <Text>Start time</Text>
+          </TouchableOpacity>
+      </View>
       </View>
      {this.state.timepicker &&(
         <DateTimePicker
@@ -886,8 +896,47 @@ export default class SwitchExample extends Component {
           }}
      /> )}
     
+    <Title style={styles.text1}>Time to*</Title>
+      {/* <Subheading style ={styles.text1} >24 Hours format</Subheading> */}
+      <View style={{flex:2, flexDirection:"row"}}>
+      <View
+            style={{
+              
+                // borderColor: 'black',
+              //  borderTopWidth:1,
+                // borderBottomWidth:1,
+              //   borderRadius: 10,
+              width: (Dimensions.get('window').width/2),
+                justifyContent: "flex-end",
+                flex: 3, flexDirection:"row"
+            }}>
+              <View>
+              <TextInput style={styles.textInput} mode='outlined' label="hr" value={this.state.selectedHoursf.toString()} disabled={true}></TextInput></View>
+              <View><Title style={styles.text1}> : </Title></View>
+          <View><TextInput style={styles.textInput} mode='outlined' label="m" value={this.state.selectedMinutesf.toString()} disabled={true}></TextInput></View>
+          {/* <View><Title style={styles.text1}> min</Title></View> */}
+        </View>
+      
+                {/* <TimePicker 
+          selectedHours={this.state.selectedHoursf}
+          //initial Hours value
+          selectedMinutes={this.state.selectedMinutesf}
+          //initial Minutes value
+          onChange={(selectedHoursf, selectedMinutesf) =>
+            this.setState({selectedHoursf:selectedHoursf, selectedMinutesf: selectedMinutesf })
+          }
+        />  */}
+       
+  
+       <View style={{marginLeft: 10, flex:2, flexDirection:"column"}}>
+        {/* <PurpleButton style={styles.button2} onPress={this.showTimepicker}>Choose start time</PurpleButton> */}
+          <TouchableOpacity onPress={this.showTimepicker1}><Image style={{width:50, height:50,marginTop:5,borderRadius:20, marginLeft: 10}} source={require("../assets/clock.png")}></Image>
+          <Text>End time</Text>
+          </TouchableOpacity>
+      </View>
+      </View>
 
-              <Title style={styles.text1}>Time to</Title>
+              {/* <Title style={styles.text1}>Time to</Title>
               <Subheading style={styles.text1}>24 Hours format</Subheading>
               <View
                     style={{
@@ -902,19 +951,19 @@ export default class SwitchExample extends Component {
           {this.state.selectedHourst}hr:{this.state.selectedMinutest}min
         </Title>
        </View>
-              {/* <TimePicker 
+        //        <TimePicker 
         
-          selectedHourst={selectedHourst}
-          //initial Hours value
-          selectedMinutest={selectedMinutest}
-          //initial Minutes value
-          onChange={(selectedHourst, selectedMinutest) =>
-            this.setState({ selectedHourst:selectedHourst, selectedMinutest: selectedMinutest })
-          }
-        /> */}
+        //   selectedHourst={selectedHourst}
+        //   //initial Hours value
+        //   selectedMinutest={selectedMinutest}
+        //   //initial Minutes value
+        //   onChange={(selectedHourst, selectedMinutest) =>
+        //     this.setState({ selectedHourst:selectedHourst, selectedMinutest: selectedMinutest })
+        //   }
+        // /> 
          <View>
         <PurpleButton style={styles.button2} onPress={this.showTimepicker1}>Choose end time</PurpleButton>
-      </View>
+      </View> */}
      {this.state.timepicker1 &&(
         <DateTimePicker
           testID="dateTimePicker2"
