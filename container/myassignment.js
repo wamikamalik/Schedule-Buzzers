@@ -139,6 +139,50 @@ class myassignment extends Component {
   }   
  }
 
+ removeMod=(data)=>{
+  let name = []
+  name = data.split('\n')
+  const user = firebaseDb.auth().currentUser.uid;
+  if ((user)&&(name!=null)&&name[0]!="") {
+      firebaseDb.firestore()
+      .collection('users')
+      .doc(user)
+      .collection('assignments')
+      .where("Module","==",name[1])
+      .get()
+      .then(snapshot =>{
+       snapshot.forEach((doc)=>{
+         
+          
+const id= doc.id;
+              const id2 = doc.data().Id
+              firebaseDb.firestore()
+              .collection('users')
+              .doc(user)
+              .collection('assignments')
+              .doc(id)
+              .delete()
+              .then(() => {
+               // alert("1")
+                  RNCalendarEvents.removeEvent(id2)
+                
+              })
+              .catch(function(error) {
+                  console.error("Error removing document: ", error);
+              });
+          
+      })
+  
+})
+  alert("All assignments removed!!")
+  }
+else {
+  alert('Please key in the assignment name!')
+}   
+
+
+}
+
 removeAll=()=>{
 
   const user =firebaseDb.auth().currentUser.uid;
@@ -158,13 +202,14 @@ if (snapshot.size!=0){
           .doc(user)
           .collection('assignments')
           .doc(id)
-          .get()
+          .delete()
           .then(() => {
-            alert(1)
-           // RNCalendarEvents.removeEvent(id2)
-           // alert("Removed from your schedule! ");
+           // alert(1)
+           RNCalendarEvents.removeEvent(id2)
+            
             })     
            } )
+           alert("All assignments removed! ");
           }
           else {
       alert("No assignments exist! ");}
@@ -173,7 +218,7 @@ if (snapshot.size!=0){
 
  showAlert() {  
   Alert.alert(  
-      'Delete Schedule',  
+      'Delete Assignments',  
       'Are you sure you want to remove all your assignments?',  
       [  
           {  
@@ -308,12 +353,16 @@ componentDidUpdate(prevProps,prevState) {
               message,  
               [  
                   {  
-                      text: 'Yes',  
+                      text: 'Yes, just remove this assignment',  
                       onPress: () => this.HandleRemove(item),    
-                  },  
+                  },
+                  {  
+                    text: 'Remove all assignments related to this module',  
+                    onPress: () => this.removeMod(item),    
+                },  
                   {text: 'No', onPress: () => console.log('No Pressed')},  
               ]  
-            );  
+            ); 
           }}>
             <Text style={{fontSize: 16}}>{item}</Text>
           </TouchableOpacity>}

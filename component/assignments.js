@@ -164,7 +164,7 @@ import RNCalendarEvents from 'react-native-calendar-events';
                         [  
                             {  
                                 text: 'See current Assignments',  
-                                onPress: () => this.props.navigation.navigate("See Current Assignments"),    
+                                onPress: () => this.props.navigation.goBack(),    
                             },  
                             {text: 'Add more Assignments', onPress: () => console.log('No Pressed')},  
                         ]  
@@ -340,7 +340,7 @@ import RNCalendarEvents from 'react-native-calendar-events';
                 <Title style={styles.text}>Name*</Title>
                 <View style={{flex:2,flexDirection:"row"}}>
                     <View style={{width:(Dimensions.get('window').width>400)?330:Dimensions.get('window').width-80, marginRight:2}}>
-                <TextInput style={styles.textInputa} mode="outlined" label="Assignement Name" placeholder='Assignment name'  onChangeText={this.handleUpdatename} value={this.state.name}></TextInput>
+                <TextInput style={styles.textInput} mode="outlined" label="Assignement Name" placeholder='Assignment name'  onChangeText={this.handleUpdatename} value={this.state.name}></TextInput>
                 </View>
                 <View style={{flex:2, flexDirection:"column"}}>
                     <TouchableOpacity onPress={this.HandleSearch}><Image style={{width:40, height:40,marginTop:5,borderRadius:20}} source={require("../assets/search.png")}></Image>
@@ -380,8 +380,8 @@ import RNCalendarEvents from 'react-native-calendar-events';
                         },
                     }}
                     onDateChange={this.handleUpdatedeadline}/> 
-                    {/* <Title style={styles.text}>If calender is inaccessible, Please enter date below</Title><TextInput style={styles.textInput} mode="outlined" label="Deadline" placeholder="DD-MM-YYYY" onChangeText={this.handleUpdatedeadline} value={this.state.deadline}></TextInput>
-                    <Title style={styles.text}>Notes</Title><TextInput style={styles.textInputa} mode="outlined" label = "Additional Notes" placeholder='Additional notes' onChangeText={this.handleUpdatenotes} value={this.state.notes} multiline></TextInput> */}
+                    {/* <Title style={styles.text}>If calender is inaccessible, Please enter date below</Title><TextInput style={styles.textInput} mode="outlined" label="Deadline" placeholder="DD-MM-YYYY" onChangeText={this.handleUpdatedeadline} value={this.state.deadline}></TextInput> */}
+                    <Title style={styles.text}>Notes</Title><TextInput style={styles.textInput} mode="outlined" label = "Additional Notes" placeholder='Additional notes' onChangeText={this.handleUpdatenotes} value={this.state.notes} multiline></TextInput>
 
                 <BlackButton style={styles.button} onPress= {this.UpdateUser}>Add/Update</BlackButton>
                 {/* <WhiteButton style={styles.button} onPress= {this.HandleUpdate}>Update</WhiteButton> */}

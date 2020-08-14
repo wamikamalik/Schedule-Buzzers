@@ -621,16 +621,17 @@ export default class SwitchExample extends Component {
       else
       {
         alert("This time is not possible"); 
-        this.setState({
-          Day: '',
-          Module: '',
-          Class: '',
-          selectedHoursf:0,
-          selectedHourst:0,
-          selectedMinutesf:0,
-          selectedMinutest:0,
-          Location:''
-          }) }
+        // this.setState({
+        //   Day: '',
+        //   Module: '',
+        //   Class: '',
+        //   selectedHoursf:0,
+        //   selectedHourst:0,
+        //   selectedMinutesf:0,
+        //   selectedMinutest:0,
+        //   Location:''
+        //   }) 
+        }
       }
       if ((this.state.selectedHoursf<10) && (this.state.selectedHourst>=10))
       {
@@ -650,16 +651,16 @@ export default class SwitchExample extends Component {
       if ((this.state.selectedHoursf>=10) && (this.state.selectedHourst<10))
       {
         alert("This time is not possible!");
-        this.setState({
-          Day: '',
-          Module: '',
-          Class: '',
-          selectedHoursf:0,
-          selectedHourst:0,
-          selectedMinutesf:0,
-          selectedMinutest:0,
-          Location:''
-          })
+        // this.setState({
+        //   Day: '',
+        //   Module: '',
+        //   Class: '',
+        //   selectedHoursf:0,
+        //   selectedHourst:0,
+        //   selectedMinutesf:0,
+        //   selectedMinutest:0,
+        //   Location:''
+        //   })
       }
       if ((this.state.selectedHoursf>=10) && (this.state.selectedHourst>=10)){
         if (this.state.selectedHoursf < this.state.selectedHourst) {
@@ -693,16 +694,17 @@ export default class SwitchExample extends Component {
           else
           {
             alert("This time is not possible");
-            this.setState({
-              Day: '',
-              Module: '',
-              Class: '',
-              selectedHoursf:0,
-              selectedHourst:0,
-              selectedMinutesf:0,
-              selectedMinutest:0,
-              Location:''
-              }) }
+            // this.setState({
+            //   Day: '',
+            //   Module: '',
+            //   Class: '',
+            //   selectedHoursf:0,
+            //   selectedHourst:0,
+            //   selectedMinutesf:0,
+            //   selectedMinutest:0,
+            //   Location:''
+            //   }) 
+            }
           }
   }
 
@@ -911,9 +913,9 @@ export default class SwitchExample extends Component {
                 flex: 3, flexDirection:"row"
             }}>
               <View>
-              <TextInput style={styles.textInput} mode='outlined' label="hr" value={this.state.selectedHoursf.toString()} disabled={true}></TextInput></View>
+              <TextInput style={styles.textInput} mode='outlined' label="hr" value={this.state.selectedHourst.toString()} disabled={true}></TextInput></View>
               <View><Title style={styles.text1}> : </Title></View>
-          <View><TextInput style={styles.textInput} mode='outlined' label="m" value={this.state.selectedMinutesf.toString()} disabled={true}></TextInput></View>
+          <View><TextInput style={styles.textInput} mode='outlined' label="m" value={this.state.selectedMinutest.toString()} disabled={true}></TextInput></View>
           {/* <View><Title style={styles.text1}> min</Title></View> */}
         </View>
       

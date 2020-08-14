@@ -202,9 +202,10 @@ if (snapshot.size!=0){
           .then(() => {
            // alert(1)
            RNCalendarEvents.removeEvent(id2)
-            alert("All assignments removed! ");
+            
             })     
            } )
+           alert("All assignments removed! ");
           }
           else {
       alert("No assignments exist! ");}
@@ -213,7 +214,7 @@ if (snapshot.size!=0){
 
  showAlert() {  
   Alert.alert(  
-      'Delete Schedule',  
+      'Delete Assignments',  
       'Are you sure you want to remove all your assignments?',  
       [  
           {  

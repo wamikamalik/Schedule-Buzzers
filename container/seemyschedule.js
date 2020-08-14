@@ -960,10 +960,10 @@ snapshot.forEach(doc =>{
 
     const element = (data,day) => (
       <TouchableOpacity onPress={() => {
-        let message = "Are you sure you want to delete this class?"+'\n'+data
+        let message = data
         Alert.alert(  
-          'Remove class on '+day+". Do you want to remove all the classes related to this module?",  
-          message,  
+          'Remove class on '+day+".",  
+          message+'\n'+"Do you want to remove all the classes related to this module?",  
           [  
               {  
                   text: 'Yes, remove all classes',  
