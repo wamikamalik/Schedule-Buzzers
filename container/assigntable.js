@@ -135,6 +135,97 @@ else {
 }   
 }
 
+
+removeMod=(data)=>{
+  let name = []
+  name = data.split('\n')
+  const user = firebaseDb.auth().currentUser.uid;
+  if ((user)&&(name!=null)&&name[0]!="") {
+      firebaseDb.firestore()
+      .collection('users')
+      .doc(user)
+      .collection('assignments')
+      .where("Module","==",name[1])
+      .get()
+      .then(snapshot =>{
+       snapshot.forEach((doc)=>{
+         
+          
+const id= doc.id;
+              const id2 = doc.data().Id
+              firebaseDb.firestore()
+              .collection('users')
+              .doc(user)
+              .collection('assignments')
+              .doc(id)
+              .delete()
+              .then(() => {
+               // alert("1")
+                  RNCalendarEvents.removeEvent(id2)
+                
+              })
+              .catch(function(error) {
+                  console.error("Error removing document: ", error);
+              });
+          
+      })
+  
+})
+  alert("All assignments removed!!")
+  }
+else {
+  alert('Please key in the assignment name!')
+}   
+
+
+}
+removeAll=()=>{
+
+  const user =firebaseDb.auth().currentUser.uid;
+  firebaseDb.firestore()
+  .collection('users')
+  .doc(user)
+  .collection('assignments')
+  .get()
+  .then((snapshot)=>{
+if (snapshot.size!=0){
+  
+  snapshot.forEach(doc =>{
+    const id= doc.id;
+    const id2= doc.data().Id;
+    firebaseDb.firestore()
+          .collection('users')
+          .doc(user)
+          .collection('assignments')
+          .doc(id)
+          .delete()
+          .then(() => {
+           // alert(1)
+           RNCalendarEvents.removeEvent(id2)
+            alert("All assignments removed! ");
+            })     
+           } )
+          }
+          else {
+      alert("No assignments exist! ");}
+})
+}
+
+ showAlert() {  
+  Alert.alert(  
+      'Delete Schedule',  
+      'Are you sure you want to remove all your assignments?',  
+      [  
+          {  
+              text: 'Yes',  
+              onPress: () => this.removeAll(),  
+             
+          },  
+          {text: 'No', onPress: () => console.log('No Pressed')},  
+      ]  
+  );  
+}  
+
   render() {
 
      const state = this.state;
@@ -197,9 +288,13 @@ else {
           message,  
           [  
               {  
-                  text: 'Yes',  
+                  text: 'Yes, just remove this assignment',  
                   onPress: () => this.HandleRemove(data),    
-              },  
+              },
+              {  
+                text: 'Remove all assignments related to this module',  
+                onPress: () => this.removeMod(data),    
+            },  
               {text: 'No', onPress: () => console.log('No Pressed')},  
           ]  
         );  
@@ -216,6 +311,10 @@ else {
      onPress={() => this.props.navigation.openDrawer()}
     />
      <Appbar.Content title="My Current Assignments" />
+     <Appbar.Action
+     icon={require('../assets/deleteall3.png')}
+     onPress={() => this.showAlert()}
+    />
      <Appbar.Action
      icon={require('../assets/addassignmentlogo.png')}
      onPress={() => this.props.navigation.navigate('assignment')}

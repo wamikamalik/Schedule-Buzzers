@@ -508,6 +508,379 @@ class seemyschedule extends Component {
     alert("Please enter the Day.")
   }    
  }
+removeMod = (data,day)=>{
+  let Module = []
+  Module = data.split('\n')
+  const user = firebaseDb.auth().currentUser.uid;
+  if ((user)&&(day!=null)&&day!="") {
+    if(data!=null&&data!="") {
+  firebaseDb.firestore()
+  .collection('users')
+  .doc(user)
+  .collection('classes')
+  .doc('Days')
+  .collection("Monday")
+  .where("Module" , "==" , Module[0])
+  .get()
+  .then((snapshot)=>{
+
+
+  snapshot.forEach(doc =>{
+    const id= doc.id;
+    const id2= doc.data().Id;
+    firebaseDb.firestore()
+          .collection('users')
+          .doc(user)
+          .collection('classes')
+          .doc('Days')
+          .collection("Monday")
+          .doc(id)
+        .delete()
+          .then(() => {
+           // alert("0");
+            RNCalendarEvents.removeEvent(id2)
+           // alert("Removed from your schedule! ");
+            })     
+           } )
+          }
+  
+)
+
+firebaseDb.firestore()
+  .collection('users')
+  .doc(user)
+  .collection('classes')
+  .doc('Days')
+  .collection("Tuesday")
+  .where("Module" , "==" , Module[0])
+  .get()
+  .then((snapshot)=>{
+
+
+  snapshot.forEach(doc =>{
+    const id= doc.id;
+    const id2= doc.data().Id;
+    firebaseDb.firestore()
+          .collection('users')
+          .doc(user)
+          .collection('classes')
+          .doc('Days')
+          .collection("Tuesday")
+          .doc(id)
+        .delete()
+          .then(() => {
+           // alert("1");
+            RNCalendarEvents.removeEvent(id2)
+           // alert("Removed from your schedule! ");
+            })     
+           } )
+          }
+  
+)
+
+firebaseDb.firestore()
+  .collection('users')
+  .doc(user)
+  .collection('classes')
+  .doc('Days')
+  .collection("Wednesday")
+  .where("Module" , "==" , Module[0])
+  .get()
+  .then((snapshot)=>{
+
+
+  snapshot.forEach(doc =>{
+    const id= doc.id;
+    const id2= doc.data().Id;
+    firebaseDb.firestore()
+          .collection('users')
+          .doc(user)
+          .collection('classes')
+          .doc('Days')
+          .collection("Wednesday")
+          .doc(id)
+        .delete()
+          .then(() => {
+           // alert("2");
+            RNCalendarEvents.removeEvent(id2)
+           // alert("Removed from your schedule! ");
+            })     
+           } )
+          }
+  
+)
+
+firebaseDb.firestore()
+  .collection('users')
+  .doc(user)
+  .collection('classes')
+  .doc('Days')
+  .collection("Thursday")
+  .where("Module" , "==" , Module[0])
+  .get()
+  .then((snapshot)=>{
+
+
+  snapshot.forEach(doc =>{
+    const id= doc.id;
+    const id2= doc.data().Id;
+    firebaseDb.firestore()
+          .collection('users')
+          .doc(user)
+          .collection('classes')
+          .doc('Days')
+          .collection("Thursday")
+          .doc(id)
+        .delete()
+          .then(() => {
+          //  alert("3");
+            RNCalendarEvents.removeEvent(id2)
+           // alert("Removed from your schedule! ");
+            })     
+           } )
+          }
+  
+)
+
+firebaseDb.firestore()
+  .collection('users')
+  .doc(user)
+  .collection('classes')
+  .doc('Days')
+  .collection("Friday")
+  .where("Module" , "==" , Module[0])
+  .get()
+  .then((snapshot)=>{
+
+
+  snapshot.forEach(doc =>{
+    const id= doc.id;
+    const id2= doc.data().Id;
+    firebaseDb.firestore()
+          .collection('users')
+          .doc(user)
+          .collection('classes')
+          .doc('Days')
+          .collection("Friday")
+          .doc(id)
+        .delete()
+          .then(() => {
+           // alert('4');
+            RNCalendarEvents.removeEvent(id2)
+           // alert("Removed from your schedule! ");
+            })     
+           } )
+          }
+  
+)
+
+        }else {
+         
+            alert("No class selected")
+          }   
+        }
+
+      
+      else{
+        alert("Please enter the Day.")
+      }    
+}
+
+
+ removeAll= () =>{
+  const user = firebaseDb.auth().currentUser.uid;
+  var a=0;
+  var b=0;
+  var c=0
+  var d=0;
+  var e=0;
+
+  
+
+  firebaseDb.firestore()
+      .collection('users')
+      .doc(user)
+      .collection('classes')
+      .doc('Days')
+      .collection("Monday")
+      .get()
+      .then((snapshot)=>{
+    if (snapshot.size!=0){
+      a=1;
+      snapshot.forEach(doc =>{
+        const id= doc.id;
+        const id2= doc.data().Id;
+        firebaseDb.firestore()
+              .collection('users')
+              .doc(user)
+              .collection('classes')
+              .doc('Days')
+              .collection("Monday")
+              .doc(id)
+              .delete()
+              .then(() => {
+                RNCalendarEvents.removeEvent(id2)
+               // alert("Removed from your schedule! ");
+                })     
+               } )
+              }
+        //  alert("Removed from your schedule! ");}
+  })
+
+      firebaseDb.firestore()
+      .collection('users')
+      .doc(user)
+      .collection('classes')
+      .doc('Days')
+      .collection("Tuesday")
+      .get()
+      .then((snapshot)=>{
+    if (snapshot.size!=0){
+      b=1;
+      snapshot.forEach(doc =>{
+        const id= doc.id;
+        const id2= doc.data().Id;
+        firebaseDb.firestore()
+              .collection('users')
+              .doc(user)
+              .collection('classes')
+              .doc('Days')
+              .collection("Tuesday")
+              .doc(id)
+              .delete()
+              .then(() => {
+                RNCalendarEvents.removeEvent(id2)
+               // alert("Removed from your schedule! ");
+                })     
+               } )
+              }
+        //  alert("Removed from your schedule! ");}
+  })
+
+
+  firebaseDb.firestore()
+  .collection('users')
+  .doc(user)
+  .collection('classes')
+  .doc('Days')
+  .collection("Wednesday")
+  .get()
+  .then((snapshot)=>{
+if (snapshot.size!=0){
+  c=1;
+  snapshot.forEach(doc =>{
+    const id= doc.id;
+    const id2= doc.data().Id;
+    firebaseDb.firestore()
+          .collection('users')
+          .doc(user)
+          .collection('classes')
+          .doc('Days')
+          .collection("Wednesday")
+          .doc(id)
+          .delete()
+          .then(() => {
+            RNCalendarEvents.removeEvent(id2)
+           // alert("Removed from your schedule! ");
+            })     
+           } )
+          }
+    //  alert("Removed from your schedule! ");}
+})
+
+firebaseDb.firestore()
+.collection('users')
+.doc(user)
+.collection('classes')
+.doc('Days')
+.collection("Thursday")
+.get()
+.then((snapshot)=>{
+if (snapshot.size!=0){
+d=1;
+snapshot.forEach(doc =>{
+  const id= doc.id;
+  const id2= doc.data().Id;
+  firebaseDb.firestore()
+        .collection('users')
+        .doc(user)
+        .collection('classes')
+        .doc('Days')
+        .collection("Thursday")
+        .doc(id)
+        .delete()
+        .then(() => {
+          RNCalendarEvents.removeEvent(id2)
+         // alert("Removed from your schedule! ");
+          })     
+         } )
+        }
+  //  alert("Removed from your schedule! ");}
+})
+
+
+firebaseDb.firestore()
+.collection('users')
+.doc(user)
+.collection('classes')
+.doc('Days')
+.collection("Friday")
+.get()
+.then((snapshot)=>{
+if (snapshot.size!=0){
+e=1;
+snapshot.forEach(doc =>{
+  const id= doc.id;
+  const id2= doc.data().Id;
+  firebaseDb.firestore()
+        .collection('users')
+        .doc(user)
+        .collection('classes')
+        .doc('Days')
+        .collection("Friday")
+        .doc(id)
+        .delete()
+        .then(() => {
+          RNCalendarEvents.removeEvent(id2)
+         // alert("Removed from your schedule! ");
+          })     
+         } )
+        }
+  //  alert("Removed from your schedule! ");}
+})
+
+
+
+
+
+
+
+
+    }
+          
+             
+          
+      
+    
+  
+
+  
+    showAlert() {  
+      Alert.alert(  
+          'Delete Schedule',  
+          'Are you sure you want to delete the schedule?',  
+          [  
+              {  
+                  text: 'Yes',  
+                  onPress: () => this.removeAll(),  
+                 
+              },  
+              {text: 'No', onPress: () => console.log('No Pressed')},  
+          ]  
+      );  
+  }  
+
+
 
  componentDidMount() {
    this.getDetails();
@@ -589,14 +962,15 @@ class seemyschedule extends Component {
       <TouchableOpacity onPress={() => {
         let message = "Are you sure you want to delete this class?"+'\n'+data
         Alert.alert(  
-          'Remove class on '+day,  
+          'Remove class on '+day+". Do you want to remove all the classes related to this module?",  
           message,  
           [  
               {  
-                  text: 'Yes',  
-                  onPress: () => this.onremoving(data,day),    
+                  text: 'Yes, remove all classes',  
+                  onPress: () => this.removeMod(data,day),    
               },  
-              {text: 'No', onPress: () => console.log('No Pressed')},  
+              {text: 'No, just this class', onPress: () => this.onremoving(data,day)},
+              {text: 'No, do not remove anything', onPress: () => console.log("No pressed!")},  
           ]  
         );  
       }}>
@@ -614,6 +988,14 @@ class seemyschedule extends Component {
      onPress={() => this.props.navigation.openDrawer()}
     />
      <Appbar.Content title="My Current Schedule" />
+     {/* <Appbar.Action
+     icon={require('../assets/removeMod.png')}
+     onPress={() => this.removeMod()}
+    /> */}
+     <Appbar.Action
+     icon={require('../assets/deleteall3.png')}
+     onPress={() => this.showAlert()}
+    />
      <Appbar.Action
      icon={require('../assets/addassignmentlogo.png')}
      onPress={() => this.props.navigation.navigate('schedule')}

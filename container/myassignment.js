@@ -138,6 +138,54 @@ class myassignment extends Component {
   alert('Please key in the assignment name!')
   }   
  }
+
+removeAll=()=>{
+
+  const user =firebaseDb.auth().currentUser.uid;
+  firebaseDb.firestore()
+  .collection('users')
+  .doc(user)
+  .collection('assignments')
+  .get()
+  .then((snapshot)=>{
+if (snapshot.size!=0){
+  
+  snapshot.forEach(doc =>{
+    const id= doc.id;
+    const id2= doc.data().Id;
+    firebaseDb.firestore()
+          .collection('users')
+          .doc(user)
+          .collection('assignments')
+          .doc(id)
+          .get()
+          .then(() => {
+            alert(1)
+           // RNCalendarEvents.removeEvent(id2)
+           // alert("Removed from your schedule! ");
+            })     
+           } )
+          }
+          else {
+      alert("No assignments exist! ");}
+})
+}
+
+ showAlert() {  
+  Alert.alert(  
+      'Delete Schedule',  
+      'Are you sure you want to remove all your assignments?',  
+      [  
+          {  
+              text: 'Yes',  
+              onPress: () => this.removeAll(),  
+             
+          },  
+          {text: 'No', onPress: () => console.log('No Pressed')},  
+      ]  
+  );  
+}  
+
  componentDidMount() {
   this.getDetails();
   this._getCalendarStatus();
@@ -233,6 +281,10 @@ componentDidUpdate(prevProps,prevState) {
      onPress={() => this.props.navigation.openDrawer()}
     />
      <Appbar.Content title="My Current Assignments" />
+     <Appbar.Action
+     icon={require('../assets/deleteall3.png')}
+     onPress={() => this.showAlert()}
+    />
      <Appbar.Action
      icon={require('../assets/addassignmentlogo.png')}
      onPress={() => this.props.navigation.navigate('assignment')}
