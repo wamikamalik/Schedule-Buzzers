@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert, KeyboardAvoidingView, ScrollView, ImageBackground, Image,Text, Button, ActivityIndicator, StyleSheet, Dimensions } from 'react-native'
+import { View, Alert, KeyboardAvoidingView, ScrollView, ImageBackground, Image,Text, Button, ActivityIndicator, StyleSheet, Dimensions } from 'react-native'
 import { TouchableOpacity} from 'react-native-gesture-handler';
 import DatePicker from 'react-native-datepicker'
 import moment from 'moment'
@@ -331,21 +331,31 @@ import RNCalendarEvents from 'react-native-calendar-events';
     
     </Appbar.Header>
 
-                 <ScrollView>
-                
-                 <Subheading style={styles.text}>Input only Name to remove an Assignment. To update input name and press on search.</Subheading>
+    <ScrollView>
+                <View style={{marginLeft:15, marginRight:15}}>
+                <Subheading style={styles.text}>Input only Name to remove an Assignment. To update input name and press on search.</Subheading>
                 <Subheading style={styles.text}>Assignments already passed will automatically be removed.</Subheading>
                 <Subheading style={styles.text1}>* - Required</Subheading>
                 <Title style={styles.text}>Module</Title><TextInput style={styles.textInput} mode="outlined" label="Module Name" placeholder='Module Name'  onChangeText={this.handleUpdateMod} value={this.state.mod}></TextInput>
-                <Title style={styles.text}>Name*</Title><TextInput style={styles.textInput} mode="outlined" label="Assignement Name" placeholder='Assignment name'  onChangeText={this.handleUpdatename} value={this.state.name}></TextInput>
-                <BlackButton style={styles.button} onPress= {this.HandleSearch}>Search</BlackButton>
+                <Title style={styles.text}>Name*</Title>
+                <View style={{flex:2,flexDirection:"row"}}>
+                    <View style={{width:(Dimensions.get('window').width>400)?330:Dimensions.get('window').width-80, marginRight:2}}>
+                <TextInput style={styles.textInputa} mode="outlined" label="Assignement Name" placeholder='Assignment name'  onChangeText={this.handleUpdatename} value={this.state.name}></TextInput>
+                </View>
+                <View style={{flex:2, flexDirection:"column"}}>
+                    <TouchableOpacity onPress={this.HandleSearch}><Image style={{width:40, height:40,marginTop:5,borderRadius:20}} source={require("../assets/search.png")}></Image>
+                    <Text>Search</Text>
+                    </TouchableOpacity>
+                </View>
+                {/* <BlackButton style={styles.button} onPress= {this.HandleSearch}>Search</BlackButton> */}
+                </View>
                 <Title style={styles.text}>Deadline*</Title>
                     <DatePicker
-                    style={{width: 200, marginTop: 10, alignSelf:'center', color:'black'}}
+                    style={{width: (Dimensions.get('window').width>400)?375:Dimensions.get('window').width-35, marginTop: 10, color:'black'}}
                     date={this.state.deadline} //initial date from state
                     mode="date" //The enum of date, datetime and time
                     placeholder="Enter Deadline"
-
+                    
                     format="DD-MM-YYYY"
                     minDate="01-01-2000"
                     maxDate="01-01-2030"
@@ -353,26 +363,31 @@ import RNCalendarEvents from 'react-native-calendar-events';
                     cancelBtnText="Cancel"
                     customStyles={{
                         dateIcon: {
-                        position: 'absolute',
-                        left: 0,
-                        top: 4,
-                        marginTop: 10
+                        //position: 'absolute',
+                        right: 0,
+                        top: 0,
+                        marginTop: 5
                         },
                         dateInput: {
-                        marginLeft: 36,
-                        color: "black"
+                        
+                        color: "black",
+                        backgroundColor:"white",
+                        height: 55,
+                        fontSize: 17,
+                        borderRadius: 5,
+                        borderColor: "black",
+                        
                         },
                     }}
                     onDateChange={this.handleUpdatedeadline}/> 
-                    <Title style={styles.text}>If calender is inaccessible, Please enter date below</Title><TextInput style={styles.textInput} mode="outlined" label="Deadline" placeholder="DD-MM-YYYY" onChangeText={this.handleUpdatedeadline} value={this.state.deadline}></TextInput>
-                    <Title style={styles.text}>Notes</Title><TextInput style={styles.textInputa} mode="outlined" label = "Additional Notes" placeholder='Additional notes' onChangeText={this.handleUpdatenotes} value={this.state.notes} multiline></TextInput>
+                    {/* <Title style={styles.text}>If calender is inaccessible, Please enter date below</Title><TextInput style={styles.textInput} mode="outlined" label="Deadline" placeholder="DD-MM-YYYY" onChangeText={this.handleUpdatedeadline} value={this.state.deadline}></TextInput>
+                    <Title style={styles.text}>Notes</Title><TextInput style={styles.textInputa} mode="outlined" label = "Additional Notes" placeholder='Additional notes' onChangeText={this.handleUpdatenotes} value={this.state.notes} multiline></TextInput> */}
 
                 <BlackButton style={styles.button} onPress= {this.UpdateUser}>Add/Update</BlackButton>
                 {/* <WhiteButton style={styles.button} onPress= {this.HandleUpdate}>Update</WhiteButton> */}
                 <BlackButton style={styles.button} onPress= {this.HandleRemove}>Remove</BlackButton>
-              
+                </View>
                 </ScrollView>
-             
              </KeyboardAvoidingView>
          )
      }
@@ -395,15 +410,15 @@ import RNCalendarEvents from 'react-native-calendar-events';
         marginLeft:15
     },
     text: {
-        //fontWeight:'bold',
+        fontWeight:'bold',
        // fontSize: 28,
         alignSelf:'center',
         marginTop: 10,
        // textDecorationLine: "underline",
-        //color: "white"
+        color: "black"
     },
     text1: {
-        //fontWeight:'bold',
+        fontWeight:'bold',
        // fontSize: 28,
         alignSelf:'center',
         marginTop: 10,
@@ -411,33 +426,31 @@ import RNCalendarEvents from 'react-native-calendar-events';
         color: "red"
     },
     textInput: {
-        //borderRadius:5,
+       // borderRadius:1,
         backgroundColor:'white',
-        fontSize: 20,
+        fontSize: 17,
         // marginTop: 10,
-        // mar5,ginLeft: 
-        width: (Dimensions.get('window').width>400)?400:Dimensions.get('window').width-40,
-        height: 50,
-       // fontWeight: "bold",
-        alignSelf:'center',
-       // alignItems: 'center',
-     //   borderWidth: 2, 
-        //color: 'white'
+        // marginLeft: 5,
+        //width: (Dimensions.get('window').width>400)?385:Dimensions.get('window').width-40,
+        // fontWeight: "bold",
+      //  alignItems: 'center',
+      //  borderWidth: 2, 
+        //color: 'white',
+        borderColor:"black"
       },
-      textInputa: {
-        //borderRadius:5,
+      textInput1: {
+      //  borderRadius:5,
         backgroundColor:'white',
-        fontSize: 20,
-    //    borderWidth: 2, 
-       // marginTop: 10,
-        //marginLeft: 5,
-        width: (Dimensions.get('window').width>400)?400:Dimensions.get('window').width-40,
-        height: 100,
+        fontSize: 17,
+        // borderWidth: 2, 
+        // marginTop: 10,
+        // marginLeft: 5,
+        width: (Dimensions.get('window').width>400)?340:Dimensions.get('window').width-40,
+        //height: 100,
        // fontWeight: "bold",
-        alignSelf:'center',
-        //alignItems: 'center',
+        // alignItems: 'center',
         paddingTop:5,
-       // color: 'white'
+      // color: 'white'
       },
       texta: {
         fontSize: 20,
