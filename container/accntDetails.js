@@ -114,15 +114,35 @@ reauthenticate = (currentPassword) => {
             <Subheading>(*Not for Google users of the app.)</Subheading>
             <Subheading>Enter Current Password:</Subheading>
             <TextInput secureTextEntry style={styles.textInput} mode ="outlined" label="Current Password" placeholder='Password' onChangeText={this.handleUpdatePassword} value={this.state.password}/> 
-            <TouchableOpacity onPress = {()=>{this.setState({opene:!this.state.opene})}}><Title style={{marginTop:10,alignSelf:"center"}}>Change Email v</Title></TouchableOpacity>
+            <View style={{marginTop: 10,flex:2,flexDirection:"row", marginRight: 15}}>
+              <View style={{width:(Dimensions.get('window').width/2), height:50}}>
+                <TouchableOpacity onPress = {()=>{this.setState({opene:!this.state.opene})}}><Title>Change Email </Title></TouchableOpacity>
+                </View>
+                <View style={{width:(Dimensions.get('window').width/2-40), height:50, alignItems:"flex-end"}}>
+                  {!this.state.opene&&<TouchableOpacity onPress = {()=>{this.setState({opene:!this.state.opene})}}><Title style={{ fontSize:30}}>+</Title></TouchableOpacity>}
+                  {this.state.opene&&<TouchableOpacity onPress = {()=>{this.setState({opene:!this.state.opene})}}><Title style={{ fontSize:30}}>-</Title></TouchableOpacity>}
+                </View>
+              </View>
+            <View style={{marginTop:40}}>
             {this.state.opene&&<Subheading>Enter new email:</Subheading>}
             {this.state.opene&&<TextInput style={styles.textInput} mode ="outlined" label="New Email" placeholder='New Email' onChangeText={this.handleUpdateEmail} value={this.state.newEmail}/>}
             {this.state.opene&&<BlackButton style={styles.button} onPress={this.changeEmail}>Update Email</BlackButton>}
-            
-            <TouchableOpacity onPress = {()=>{this.setState({openp:!this.state.openp})}}><Title style={{marginTop:10,alignSelf:"center"}}>Change Password v</Title></TouchableOpacity>
+            </View>
+            <View style={{marginTop: 10,flex:2,flexDirection:"row", marginRight: 15}}>
+              <View style={{width:(Dimensions.get('window').width/2), height:50}}>
+                <TouchableOpacity onPress = {()=>{this.setState({openp:!this.state.openp})}}><Title>Change Password </Title></TouchableOpacity>
+                </View>
+                <View style={{width:(Dimensions.get('window').width/2-40), height:50, alignItems:"flex-end"}}>
+                  {!this.state.openp&&<TouchableOpacity onPress = {()=>{this.setState({openp:!this.state.openp})}}><Title style={{ fontSize:30}}>+</Title></TouchableOpacity>}
+                  {this.state.openp&&<TouchableOpacity onPress = {()=>{this.setState({openp:!this.state.openp})}}><Title style={{ fontSize:30}}>-</Title></TouchableOpacity>}
+                </View>
+              </View>
+            <View style={{marginTop:40}}>
+            {/* <TouchableOpacity onPress = {()=>{this.setState({openp:!this.state.openp})}}><Title style={{marginTop:10,alignSelf:"center"}}>Change Password v</Title></TouchableOpacity> */}
             {this.state.openp&&<Subheading>Enter new password:</Subheading>}
             {this.state.openp&&<TextInput secureTextEntry style={styles.textInput} mode ="outlined" label="New Password" placeholder='New Password' onChangeText={this.handleUpdatenewPassword} value={this.state.newPassword}/>}
              {this.state.openp&&<BlackButton style={styles.button} onPress={this.changePassword}>Update Password</BlackButton>}
+             </View>
             </View>
         </SafeAreaView>
             
