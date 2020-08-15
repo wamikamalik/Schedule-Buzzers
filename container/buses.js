@@ -303,12 +303,12 @@ export default class buses extends Component {
                   /> */}
               </MapView>
               </View>
-              {/* <Overlay image={require('../assets/homeback.png')} bounds={[[35.68184060244454, 139.76531982421875],[35.679609609368576, 139.76806640625]]} opacity={2.0}/> */}
+              {/* <Overlay image={require('../assets/homeback.jpg')} bounds={[[35.68184060244454, 139.76531982421875],[35.679609609368576, 139.76806640625]]} opacity={2.0}/> */}
 
               <Card elevation={30} style={{ backgroundColor:"transparent", height:225}}>
 
                 <ScrollView showsVerticalScrollIndicator={true}>
-                <ImageBackground source = {require('../assets/homeback.png')} style={{resizeMode:"cover"}}>
+                <ImageBackground source = {require('../assets/homeback.jpg')} style={{resizeMode:"cover"}}>
                 <Card.Content>
                 {this.state.loading&&<View style={{position: 'absolute',
                 left: 0,

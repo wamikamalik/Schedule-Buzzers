@@ -135,7 +135,7 @@ class home extends React.Component {
                 </Appbar>
                 
                 <Card elevation={30} style={{ backgroundColor:"transparent" }}>
-                <ImageBackground source = {require('../assets/homeback.png')} style={{resizeMode:"cover"}}>
+                <ImageBackground source = {require('../assets/homeback.jpg')} style={{resizeMode:"cover"}}>
                 <Card.Content>
                   <Title style= {styles.text}>Hello, {this.state.name}! ;)D</Title>
                   <Image style={styles.profile} source={{uri: this.state.photo}}></Image>
