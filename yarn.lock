@@ -7937,9 +7937,9 @@ nan@^2.12.1:
   integrity sha512-isWHgVjnFjh2x2yuJ/tj3JbwoHu3UC2dX5G/88Cm24yB6YopVgxvBObDY7n5xW6ExmFhJpSEQqFPvq9zaXc8Jw==
 
 nanoid@^3.1.5:
-  version "3.1.9"
-  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.9.tgz#1f148669c70bb2072dc5af0666e46edb6cd31fb2"
-  integrity sha512-fFiXlFo4Wkuei3i6w9SQI6yuzGRTGi8Z2zZKZpUxv/bQlBi4jtbVPBSNFZHQA9PNjofWqtIa8p+pnsc0kgZrhQ==
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.2.0.tgz#62667522da6673971cca916a6d3eff3f415ff80c"
+  integrity sha512-fmsZYa9lpn69Ad5eDn7FMcnnSR+8R34W9qJEijxYhTbfOWzr22n1QxCMzXLK+ODyW2973V3Fux959iQoUxzUIA==
 
 nanomatch@^1.2.9:
   version "1.2.13"
@@ -9219,6 +9219,11 @@ react-native-datepicker@^1.7.2:
   integrity sha1-WNCCJZGgrJsyq6CCZQIioO4pZp0=
   dependencies:
     moment "^2.22.0"
+
+react-native-dialog-input@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/react-native-dialog-input/-/react-native-dialog-input-1.0.8.tgz#6813d3b158bbb85d83a94310f38695d9f2b02682"
+  integrity sha512-W9YNMt6r+rUUMDEkOR1WMuGfSJw97ujB8H1xp8TjJTOnYVSlsf4aEP6t+J8tVk3XZaDcTawXgDjxH6E1WVWRog==
 
 react-native-elements@^2.0.2:
   version "2.0.2"
